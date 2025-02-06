@@ -17,7 +17,7 @@
     "sml"
   ],
   "files": [
-    "grammar.js",
+    "grammar/grammar.js",
     "tree-sitter.json",
     "binding.gyp",
     "prebuilds/**",
