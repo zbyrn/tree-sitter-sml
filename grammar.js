@@ -83,7 +83,7 @@ module.exports = grammar({
       $._declaration
     ),
 
-    // lexical analysis
+    /************************ IDENTIFIERS ********************************/
     _alphanum_identifier: $ => token(IDA),
     _symbolic_identifier: $ => token(IDS),
 
@@ -104,6 +104,7 @@ module.exports = grammar({
       )
     )),
 
+    /************************ LITERAL VALUES ****************************/
     integer_literal: $ => token(choice(
       NUM,
       seq("~", NUM),
@@ -137,6 +138,9 @@ module.exports = grammar({
       $.char_literal
     ),
 
+    /************************ ATOMIC EXPRESSIONS ****************************/
+
+    /*  Records */
     identifier_expression: $ => seq(optional("op"), $._qualified_identifier),
     int_label: $ => $._int,
     identifier_label: $ => $._identifier,
@@ -150,6 +154,7 @@ module.exports = grammar({
 
     record_expression: $ => seq("{", sep(",", $.record_row), "}"),
 
+    /************************ EXPRESSIONS ****************************/
     let_expression: $ => seq(
       "let",
       $._local_declaration,
@@ -167,8 +172,7 @@ module.exports = grammar({
       $._atomic_expression,
     ),
 
-    value_declaration: $ => seq("val", $._valbind),
-
+    /************************ PATTERNS ****************************/
     wildcard: _ => token("_"),
     literal_pattern: $ => $._literal,
     identifier_pattern: $ => seq(optional("op"), $._qualified_identifier),
@@ -205,6 +209,38 @@ module.exports = grammar({
       repeat1($._atomic_pattern),
     ),
 
+    /************************ TYPES ****************************/
+
+    _tycon: $ => $._alphanum_identifier,
+    _qualified_tycon: $ => seq(
+      field("path", repeat(seq($._alphanum_identifier, "."))),
+      $._tycon
+    ),
+    type_var: _ => token(seq("'", IDA)),
+    type_row: $ => seq($._label, ":", $._type),
+    record_type: $ => seq("{", sep(",", $.type_row), "}"),
+    tuple_type: $ => sep2("*", $._type0),
+    type_construction: $ => seq(
+      field("tyarg", choice($._type0, parenthesize(sep2(",", $._type)))),
+      field("tycon", $._qualified_tycon)
+    ),
+    arrow_type: $ => prec.right(1, seq($._type, "->", $._type)),
+    _type0: $ => choice(
+      $.type_var,
+      $.record_type,
+      $.type_construction,
+      alias($._qualified_tycon, $.tycon),
+      parenthesize($._type)
+    ),
+    _type: $ => choice(
+      $.tuple_type,
+      $.arrow_type,
+      $._type0
+    ),
+
+    /************************ DECL ****************************/
+    value_declaration: $ => seq("val", $._valbind),
+
     _valbind1: $ => seq(optional("lazy"),
       alias($._pattern, $.lhs),
       "=",
@@ -228,7 +264,6 @@ module.exports = grammar({
       $.expression_declaration
     ),
 
-    _type: $ => token("int"),
   },
 
   /* See PR: https://github.com/tree-sitter/tree-sitter/pull/3896 */
@@ -288,7 +323,10 @@ module.exports = grammar({
 });
 
 function sequential(rule) {
-  return seq(rule, repeat(seq(optional(";"), rule)))
+  return choice(
+    rule,
+    parenthesize(sep1(",", rule))
+  )
 }
 
 function sep(delimiter, rule) {
@@ -298,6 +336,11 @@ function sep(delimiter, rule) {
 function sep1(delimiter, rule) {
   return seq(rule, repeat(seq(delimiter, rule)))
 }
+
+function sep2(delimiter, rule) {
+  return seq(rule, repeat1(seq(delimiter, rule)))
+}
+
 
 function repeat2(rule) {
   return seq(rule, repeat1(rule))

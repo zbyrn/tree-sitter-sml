@@ -273,7 +273,8 @@ val x as y : int = 3
       (lhs (layered_pattern
         (identifier_pattern)
         (constraint_pattern
-          (identifier_pattern))))
+          (identifier_pattern)
+          (tycon))))
       (rhs (integer_literal)))))
 
 ===================
@@ -288,8 +289,8 @@ val x : int as y : int = 3
   (structure_level_declaration
     (value_declaration
       (lhs (layered_pattern
-        (constraint_pattern (identifier_pattern))
-        (constraint_pattern (identifier_pattern))))
+        (constraint_pattern (identifier_pattern) (tycon))
+        (constraint_pattern (identifier_pattern) (tycon))))
       (rhs (integer_literal)))))
 
 ===================

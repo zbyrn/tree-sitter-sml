@@ -1,2 +1,2 @@
-val val = 3
+val x: int = 3
 

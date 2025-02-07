@@ -88,6 +88,41 @@
     ]
   },
   {
+    "type": "arrow_type",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "arrow_type",
+          "named": true
+        },
+        {
+          "type": "record_type",
+          "named": true
+        },
+        {
+          "type": "tuple_type",
+          "named": true
+        },
+        {
+          "type": "tycon",
+          "named": true
+        },
+        {
+          "type": "type_construction",
+          "named": true
+        },
+        {
+          "type": "type_var",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "constraint_pattern",
     "named": true,
     "fields": {},
@@ -95,6 +130,10 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "arrow_type",
+          "named": true
+        },
         {
           "type": "constraint_pattern",
           "named": true
@@ -121,6 +160,26 @@
         },
         {
           "type": "record_pattern",
+          "named": true
+        },
+        {
+          "type": "record_type",
+          "named": true
+        },
+        {
+          "type": "tuple_type",
+          "named": true
+        },
+        {
+          "type": "tycon",
+          "named": true
+        },
+        {
+          "type": "type_construction",
+          "named": true
+        },
+        {
+          "type": "type_var",
           "named": true
         },
         {
@@ -391,6 +450,10 @@
           "named": true
         },
         {
+          "type": "arrow_type",
+          "named": true
+        },
+        {
           "type": "constraint_pattern",
           "named": true
         },
@@ -416,6 +479,26 @@
         },
         {
           "type": "record_pattern",
+          "named": true
+        },
+        {
+          "type": "record_type",
+          "named": true
+        },
+        {
+          "type": "tuple_type",
+          "named": true
+        },
+        {
+          "type": "tycon",
+          "named": true
+        },
+        {
+          "type": "type_construction",
+          "named": true
+        },
+        {
+          "type": "type_var",
           "named": true
         },
         {
@@ -479,6 +562,21 @@
     }
   },
   {
+    "type": "record_type",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "type_row",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "source_file",
     "named": true,
     "root": true,
@@ -504,6 +602,164 @@
       "types": [
         {
           "type": "_local_declaration",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "tuple_type",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "arrow_type",
+          "named": true
+        },
+        {
+          "type": "record_type",
+          "named": true
+        },
+        {
+          "type": "tuple_type",
+          "named": true
+        },
+        {
+          "type": "tycon",
+          "named": true
+        },
+        {
+          "type": "type_construction",
+          "named": true
+        },
+        {
+          "type": "type_var",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "tycon",
+    "named": true,
+    "fields": {
+      "path": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ".",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "type_construction",
+    "named": true,
+    "fields": {
+      "path": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ".",
+            "named": false
+          }
+        ]
+      },
+      "tyarg": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "arrow_type",
+            "named": true
+          },
+          {
+            "type": "record_type",
+            "named": true
+          },
+          {
+            "type": "tuple_type",
+            "named": true
+          },
+          {
+            "type": "tycon",
+            "named": true
+          },
+          {
+            "type": "type_construction",
+            "named": true
+          },
+          {
+            "type": "type_var",
+            "named": true
+          }
+        ]
+      },
+      "tycon": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ".",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "type_row",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_label",
+          "named": true
+        },
+        {
+          "type": "arrow_type",
+          "named": true
+        },
+        {
+          "type": "record_type",
+          "named": true
+        },
+        {
+          "type": "tuple_type",
+          "named": true
+        },
+        {
+          "type": "tycon",
+          "named": true
+        },
+        {
+          "type": "type_construction",
+          "named": true
+        },
+        {
+          "type": "type_var",
           "named": true
         }
       ]
@@ -588,7 +844,15 @@
     "named": false
   },
   {
+    "type": "*",
+    "named": false
+  },
+  {
     "type": ",",
+    "named": false
+  },
+  {
+    "type": "->",
     "named": false
   },
   {
@@ -628,10 +892,6 @@
     "named": true
   },
   {
-    "type": "int",
-    "named": false
-  },
-  {
     "type": "integer_literal",
     "named": true
   },
@@ -649,6 +909,10 @@
   },
   {
     "type": "string_literal",
+    "named": true
+  },
+  {
+    "type": "type_var",
     "named": true
   },
   {
