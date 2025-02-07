@@ -1,0 +1,190 @@
+================
+Empty string
+================
+""
+----------------
+(source_file
+  (expression_declaration
+    (string_literal)))
+
+================
+Single char
+================
+"A"
+----------------
+(source_file
+  (expression_declaration
+    (string_literal)))
+
+================
+Space only
+================
+" "
+----------------
+(source_file
+  (expression_declaration
+    (string_literal)))
+
+================
+Printable min max
+================
+"!~"
+----------------
+(source_file
+  (expression_declaration
+    (string_literal)))
+
+================
+Escape newline
+================
+"\n"
+----------------
+(source_file
+  (expression_declaration
+    (string_literal)))
+
+================
+Escape tab
+================
+"\t"
+----------------
+(source_file
+  (expression_declaration
+    (string_literal)))
+
+================
+Escape carriage return
+================
+"\r"
+----------------
+(source_file
+  (expression_declaration
+    (string_literal)))
+
+================
+Multiple escapes
+================
+"Line1\nLine2\tTabbed"
+----------------
+(source_file
+  (expression_declaration
+    (string_literal)))
+
+================
+Octal escape
+================
+"\007"
+----------------
+(source_file
+  (expression_declaration
+    (string_literal)))
+
+================
+Hex escape
+================
+"\u0061"
+----------------
+(source_file
+  (expression_declaration
+    (string_literal)))
+
+================
+Control character
+================
+"\^@"
+----------------
+(source_file
+  (expression_declaration
+    (string_literal)))
+
+================
+Escaped quote
+================
+"\""
+----------------
+(source_file
+  (expression_declaration
+    (string_literal)))
+
+================
+Double backslash
+================
+"\\"
+----------------
+(source_file
+  (expression_declaration
+    (string_literal)))
+
+================
+Repeated backslashes
+================
+"\\\\"
+----------------
+(source_file
+  (expression_declaration
+    (string_literal)))
+
+================
+Unknown escape
+:error
+================
+"\q"
+
+================
+Incomplete numeric escape
+:error
+================
+"\0"
+
+================
+Backslash line continuation
+================
+"Hello \
+    \World"
+----------------
+(source_file
+  (expression_declaration
+    (string_literal)))
+
+================
+Multiline with blank
+================
+"Here is a line \
+ 
+ \ with blank lines"
+----------------
+(source_file
+  (expression_declaration
+    (string_literal)))
+
+================
+Multiline ending with quote
+================
+"Here is a line \
+ \"
+----------------
+(source_file
+  (expression_declaration
+    (string_literal)))
+
+================
+Unclosed string
+:error
+================
+"This string never ends
+
+================
+Ends in backslash
+:error
+================
+"Backslash at end \
+
+================
+Multiple numeric escapes
+================
+"\097\098\099"
+----------------
+(source_file
+  (expression_declaration
+    (string_literal)))
+

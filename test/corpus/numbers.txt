@@ -1,0 +1,169 @@
+================
+Int simple
+================
+42
+----------------
+(source_file
+  (expression_declaration
+    (integer_literal)))
+
+================
+Int zero
+================
+0
+----------------
+(source_file
+  (expression_declaration
+    (integer_literal)))
+
+================
+Int negative
+================
+~123
+----------------
+(source_file
+  (expression_declaration
+    (integer_literal)))
+
+================
+Int hex
+================
+0x42aaFFAAff
+----------------
+(source_file
+  (expression_declaration
+    (integer_literal)))
+
+================
+Int negative hex
+================
+~0x42aaFFAAff
+----------------
+(source_file
+  (expression_declaration
+    (integer_literal)))
+
+
+================
+Int leading zero
+================
+0123
+----------------
+(source_file
+  (expression_declaration
+    (integer_literal)))
+
+================
+Int leading zero hex
+================
+0x0123
+----------------
+(source_file
+  (expression_declaration
+    (integer_literal)))
+
+================
+Int large
+================
+9999999999999999999
+----------------
+(source_file
+  (expression_declaration
+    (integer_literal)))
+
+================
+Int invalid alpha
+:error
+================
+4a2
+
+================
+Word simple
+================
+0w10
+----------------
+(source_file
+  (expression_declaration
+    (word_literal)))
+
+================
+Word hex
+================
+0wx01AF
+----------------
+(source_file
+  (expression_declaration
+    (word_literal)))
+
+================
+Word zero
+================
+0w0
+----------------
+(source_file
+  (expression_declaration
+    (word_literal)))
+
+================
+Word invalid
+:error
+================
+0w
+
+================
+real_simple
+================
+3.14
+----------------
+(source_file
+  (expression_declaration
+    (real_literal)))
+
+================
+Real exponent
+================
+2.5e3
+----------------
+(source_file
+  (expression_declaration
+    (real_literal)))
+
+================
+Real negative exponent
+================
+2.5e~3
+----------------
+(source_file
+  (expression_declaration
+    (real_literal)))
+
+================
+Real negative
+================
+~6.022e23
+----------------
+(source_file
+  (expression_declaration
+    (real_literal)))
+
+================
+Real decimal only
+================
+123.0
+----------------
+(source_file
+  (expression_declaration
+    (real_literal)))
+
+================
+Real invalid double dot
+:error
+================
+3.0.0
+
+================
+Real invalid exp
+:error
+================
+4.2e
+

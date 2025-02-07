@@ -4,26 +4,109 @@
     "named": true,
     "subtypes": [
       {
-        "type": "char_constant",
+        "type": "_literal",
         "named": true
       },
       {
-        "type": "integer_constant",
-        "named": true
-      },
-      {
-        "type": "real_constant",
-        "named": true
-      },
-      {
-        "type": "string_constant",
-        "named": true
-      },
-      {
-        "type": "word_constant",
+        "type": "record_expression",
         "named": true
       }
     ]
+  },
+  {
+    "type": "_declaration",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "expression_declaration",
+        "named": true
+      }
+    ]
+  },
+  {
+    "type": "_expression",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "_atomic_expression",
+        "named": true
+      }
+    ]
+  },
+  {
+    "type": "_literal",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "char_literal",
+        "named": true
+      },
+      {
+        "type": "integer_literal",
+        "named": true
+      },
+      {
+        "type": "real_literal",
+        "named": true
+      },
+      {
+        "type": "string_literal",
+        "named": true
+      },
+      {
+        "type": "word_literal",
+        "named": true
+      }
+    ]
+  },
+  {
+    "type": "expression_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "expression_row",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_expression",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "record_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "expression_row",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "source_file",
@@ -35,14 +118,22 @@
       "required": true,
       "types": [
         {
-          "type": "_atomic_expression",
+          "type": "_declaration",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "char_constant",
+    "type": ",",
+    "named": false
+  },
+  {
+    "type": "=",
+    "named": false
+  },
+  {
+    "type": "char_literal",
     "named": true
   },
   {
@@ -50,19 +141,31 @@
     "named": true
   },
   {
-    "type": "integer_constant",
+    "type": "identifier",
     "named": true
   },
   {
-    "type": "real_constant",
+    "type": "integer_literal",
     "named": true
   },
   {
-    "type": "string_constant",
+    "type": "real_literal",
     "named": true
   },
   {
-    "type": "word_constant",
+    "type": "string_literal",
     "named": true
+  },
+  {
+    "type": "word_literal",
+    "named": true
+  },
+  {
+    "type": "{",
+    "named": false
+  },
+  {
+    "type": "}",
+    "named": false
   }
 ]

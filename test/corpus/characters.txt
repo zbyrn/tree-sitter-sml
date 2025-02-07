@@ -1,0 +1,98 @@
+================
+Char simple
+================
+#"a"
+----------------
+(source_file
+  (expression_declaration
+    (char_literal)))
+
+================
+Char escaped newline
+================
+#"\n"
+----------------
+(source_file
+  (expression_declaration
+    (char_literal)))
+
+================
+Char control at
+================
+#"\^@"
+----------------
+(source_file
+  (expression_declaration
+    (char_literal)))
+
+================
+Char oct
+================
+#"\007"
+----------------
+(source_file
+  (expression_declaration
+    (char_literal)))
+
+================
+Char hex
+================
+#"\u0061"
+----------------
+(source_file
+  (expression_declaration
+    (char_literal)))
+
+================
+Char escaped quote
+================
+#"\""
+----------------
+(source_file
+  (expression_declaration
+    (char_literal)))
+
+================
+Char escaped backslash
+================
+#"\\"
+----------------
+(source_file
+  (expression_declaration
+    (char_literal)))
+
+================
+Char multiline
+================
+#"c\
+
+\"
+----------------
+(source_file
+  (expression_declaration
+    (char_literal)))
+
+================
+Char empty
+:error
+================
+#""
+
+================
+Char multichar
+:error
+================
+#"ab"
+
+================
+Char unknown escape
+:error
+================
+#"\q"
+
+================
+Char incomplete oct
+:error
+================
+#"\0"
+

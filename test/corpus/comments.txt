@@ -1,0 +1,96 @@
+==============================
+Comments
+==============================
+
+(**)
+(* *)
+(**
+  doc
+*)
+3
+
+---
+
+(source_file
+  (comment)
+  (comment)
+  (comment)
+  (expression_declaration
+    (integer_literal)))
+
+
+==============================
+Comment in string
+==============================
+
+"(* *)"
+
+---
+
+(source_file
+  (expression_declaration
+    (string_literal)))
+
+
+==============================
+String in comment
+==============================
+
+(* "hello" *)
+3
+
+---
+
+(source_file
+  (comment)
+  (expression_declaration
+    (integer_literal)))
+
+
+==============================
+Weird stuff in comment
+==============================
+
+(* '"' *)
+(* f' '"' *)
+(*  *)
+(* '\o170' '"' *)
+(* '\'"' *)
+(* '\" " *)
+(* '" " *)
+(* '*)
+(* é' '"' *)
+(* '✅✅''"'" *)
+3
+
+---
+
+(source_file
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (expression_declaration
+    (integer_literal)))
+
+
+==============================
+Comment in comment
+==============================
+
+(* (* (* *) *) *)
+(* (* (*) *) *) *)
+3
+
+---
+(source_file
+  (comment)
+  (comment)
+  (expression_declaration
+    (integer_literal)))

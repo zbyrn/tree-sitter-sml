@@ -4,6 +4,7 @@
 
 #include <stdlib.h>
 #include <stdbool.h>
+#include <wctype.h>
 
 enum TokenType {
     COMMENT
@@ -17,6 +18,11 @@ typedef struct State *StateT;
 static inline void advance(TSLexer *lexer)
 {
     lexer->advance(lexer, false);
+}
+
+static inline void skip(TSLexer *lexer)
+{
+    lexer->advance(lexer, true);
 }
 
 static inline bool eof(TSLexer *lexer)
@@ -48,6 +54,10 @@ static inline void deserialize(StateT s, char *buffer, unsigned length)
 
 static inline bool scan_comment(StateT s, TSLexer *lexer)
 {
+    while (iswspace(lexer->lookahead)) {
+        skip(lexer);
+    }
+
     if (lexer->lookahead != '(') {
         return false;
     }
