@@ -99,18 +99,18 @@ module.exports = grammar({
     _identifier: $ => choice($._alphanum_identifier, $._symbolic_identifier),
     // _identifier: $ => token(choice(IDA, IDS)),
     identifier: $ => $._identifier,
-    _int: $ => token(INT),
+    index: $ => token(INT),
 
-    _qualified_identifier: $ => seq(
-      field("path", repeat(seq($._alphanum_identifier, "."))),
-      $._identifier
+    qualified_identifier: $ => seq(
+      repeat(seq(alias($._alphanum_identifier, $.structure_name), ".")),
+      $.identifier
     ),
 
-    _id: $ => $._identifier,
-    _qualified_id: $ => seq(
-      field("path", repeat(seq($._alphanum_identifier, "."))),
-      $._id
-    ),
+    // _id: $ => $.identifier,
+    // _qualified_id: $ => seq(
+    //   field("path", repeat(seq($._alphanum_identifier, "."))),
+    //   $._id
+    // ),
 
     real_literal: $ => token(seq(
       optional("~"),
@@ -157,9 +157,9 @@ module.exports = grammar({
     /************************ ATOMIC EXPRESSIONS ****************************/
 
     /*  Records */
-    identifier_expression: $ => seq(optional("op"), $._qualified_identifier),
-    int_label: $ => $._int,
-    identifier_label: $ => $._id,
+    identifier_expression: $ => seq(optional("op"), $.qualified_identifier),
+    int_label: $ => $.index,
+    identifier_label: $ => $.identifier,
     _label: $ => choice($.int_label, $.identifier_label),
 
     record_row: $ => seq(
@@ -193,22 +193,13 @@ module.exports = grammar({
     wildcard: _ => token("_"),
     literal_pattern: $ => $._literal,
     identifier_pattern: $ => choice(
-      seq("op", $._qualified_identifier),
-      seq($._alphanum_identifier, ".", $._qualified_identifier),
-      seq($._id),
+      seq("op", $.qualified_identifier),
+      // seq($._alphanum_identifier, ".", $.qualified_identifier),
+      seq($.qualified_identifier),
     ),
     list_pattern: $ => seq("[", sep(",", $._pattern), "]"),
     record_pattern: $ => seq("{", sep(",", $.pattern_row), "}"),
     vector_pattern: $ => seq("#[", sep(",", $._pattern), "]"),
-
-    _atomic_pattern1: $ => choice(
-      $.wildcard,
-      $.literal_pattern,
-      $.identifier_pattern,
-      $.list_pattern,
-      $.record_pattern,
-      $.vector_pattern,
-    ),
 
     pattern_row: $ => choice(
       seq($._label, "=", $._pattern),
@@ -218,7 +209,12 @@ module.exports = grammar({
     parenthesized_pattern: $ => parenthesize(sep(choice("|",","), $._pattern)),
 
     _atomic_pattern: $ => choice(
-      $._atomic_pattern1,
+      $.wildcard,
+      $.literal_pattern,
+      $.identifier_pattern,
+      $.list_pattern,
+      $.record_pattern,
+      $.vector_pattern,
       $.parenthesized_pattern,
     ),
 
@@ -232,10 +228,10 @@ module.exports = grammar({
 
     /************************ TYPES ****************************/
 
-    _tycon: $ => $._alphanum_identifier,
-    _qualified_tycon: $ => seq(
-      field("path", repeat(seq($._alphanum_identifier, "."))),
-      $._tycon
+    tycon: $ => $._alphanum_identifier,
+    qualified_tycon: $ => seq(
+      repeat(seq(alias($._alphanum_identifier, $.structure_name), ".")),
+      $.tycon
     ),
     tyvar: _ => token(seq("'", IDA)),
     type_row: $ => seq($._label, ":", $._type),
@@ -243,14 +239,14 @@ module.exports = grammar({
     tuple_type: $ => sep2("*", $._type0),
     tyapp: $ => seq(
       choice($._type0, parenthesize(sep2(",", $._type))),
-      alias($._qualified_tycon, $.tycon)
+      $.qualified_tycon
     ),
     arrow_type: $ => prec.right(1, seq($._type, "->", $._type)),
     _type0: $ => choice(
       $.tyvar,
       $.record_type,
       $.tyapp,
-      alias($._qualified_tycon, $.tycon),
+      $.qualified_tycon,
       parenthesize($._type)
     ),
     _type: $ => choice(

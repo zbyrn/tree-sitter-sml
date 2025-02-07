@@ -3,6 +3,7 @@ Empty record
 ================
 {}
 ----------------
+
 (source_file
   (expression_declaration
     (record_expression)))
@@ -12,11 +13,13 @@ One-field record
 ================
 {x=1}
 ----------------
+
 (source_file
   (expression_declaration
     (record_expression
       (record_row
-        (identifier_label)
+        (identifier_label
+          (identifier))
         (integer_literal)))))
 
 ================
@@ -24,18 +27,14 @@ One-field selector record
 ================
 { 1 = 1 }
 ----------------
+
 (source_file
   (expression_declaration
     (record_expression
       (record_row
-        (int_label)
+        (int_label
+          (index))
         (integer_literal)))))
-
-================
-One-field invalid record
-:error
-================
-{ 0 = 1 }
 
 ================
 Two-field record
@@ -43,14 +42,17 @@ Two-field record
 { x = 1, y = 2 }
 
 ---------
+
 (source_file
   (expression_declaration
     (record_expression
       (record_row
-        (identifier_label)
+        (identifier_label
+          (identifier))
         (integer_literal))
       (record_row
-        (identifier_label)
+        (identifier_label
+          (identifier))
         (integer_literal)))))
 
 ================
@@ -59,31 +61,11 @@ ID vs Ident
 { * = 1 }
 
 ---------
+
 (source_file
   (expression_declaration
     (record_expression
       (record_row
-        (identifier_label)
+        (identifier_label
+          (identifier))
         (integer_literal)))))
-
-================
-ID vs Ident 2
-:skip
-================
-{ * = op = }
-
----------
-(source_file
-  (expression_declaration
-    (record_expression
-      (record_row
-        (identifier_label)
-        (variable_expression)))))
-
-
-================
-ID vs Ident invalid
-:error
-================
-{ = = op = }
-

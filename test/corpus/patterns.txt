@@ -9,8 +9,10 @@ val _ = 3
 (source_file
   (structure_level_declaration
     (value_declaration
-      (lhs (wildcard))
-      (rhs (integer_literal)))))
+      (lhs
+        (wildcard))
+      (rhs
+        (integer_literal)))))
 
 ===================
 Unit
@@ -23,8 +25,10 @@ val () = 3
 (source_file
   (structure_level_declaration
     (value_declaration
-      (lhs (parenthesized_pattern))
-      (rhs (integer_literal)))))
+      (lhs
+        (parenthesized_pattern))
+      (rhs
+        (integer_literal)))))
 
 ===================
 Literal pattern (int)
@@ -37,8 +41,11 @@ val 3 = 3
 (source_file
   (structure_level_declaration
     (value_declaration
-      (lhs (literal_pattern (integer_literal)))
-      (rhs (integer_literal)))))
+      (lhs
+        (literal_pattern
+          (integer_literal)))
+      (rhs
+        (integer_literal)))))
 
 ===================
 Literal pattern (string)
@@ -51,8 +58,11 @@ val "string" = 3
 (source_file
   (structure_level_declaration
     (value_declaration
-      (lhs (literal_pattern (string_literal)))
-      (rhs (integer_literal)))))
+      (lhs
+        (literal_pattern
+          (string_literal)))
+      (rhs
+        (integer_literal)))))
 
 ===================
 Literal pattern (char)
@@ -65,9 +75,11 @@ val #"s" = 3
 (source_file
   (structure_level_declaration
     (value_declaration
-      (lhs (literal_pattern (char_literal)))
-      (rhs (integer_literal)))))
-
+      (lhs
+        (literal_pattern
+          (char_literal)))
+      (rhs
+        (integer_literal)))))
 
 ===================
 Literal pattern (char)
@@ -80,8 +92,11 @@ val #"s" = 3
 (source_file
   (structure_level_declaration
     (value_declaration
-      (lhs (literal_pattern (char_literal)))
-      (rhs (integer_literal)))))
+      (lhs
+        (literal_pattern
+          (char_literal)))
+      (rhs
+        (integer_literal)))))
 
 ===================
 Identifier pattern 1
@@ -94,8 +109,12 @@ val x = 3
 (source_file
   (structure_level_declaration
     (value_declaration
-      (lhs (identifier_pattern))
-      (rhs (integer_literal)))))
+      (lhs
+        (identifier_pattern
+          (qualified_identifier
+            (identifier))))
+      (rhs
+        (integer_literal)))))
 
 ===================
 Identifier pattern 2
@@ -108,8 +127,12 @@ val op x = 3
 (source_file
   (structure_level_declaration
     (value_declaration
-      (lhs (identifier_pattern))
-      (rhs (integer_literal)))))
+      (lhs
+        (identifier_pattern
+          (qualified_identifier
+            (identifier))))
+      (rhs
+        (integer_literal)))))
 
 ===================
 Identifier pattern 3
@@ -122,8 +145,15 @@ val A.B.C.x = 3
 (source_file
   (structure_level_declaration
     (value_declaration
-      (lhs (identifier_pattern))
-      (rhs (integer_literal)))))
+      (lhs
+        (identifier_pattern
+          (qualified_identifier
+            (structure_name)
+            (structure_name)
+            (structure_name)
+            (identifier))))
+      (rhs
+        (integer_literal)))))
 
 ===================
 Identifier pattern 4
@@ -136,8 +166,15 @@ val A.B.C.>> = 3
 (source_file
   (structure_level_declaration
     (value_declaration
-      (lhs (identifier_pattern))
-      (rhs (integer_literal)))))
+      (lhs
+        (identifier_pattern
+          (qualified_identifier
+            (structure_name)
+            (structure_name)
+            (structure_name)
+            (identifier))))
+      (rhs
+        (integer_literal)))))
 
 ===================
 Identifier pattern 5
@@ -150,8 +187,12 @@ val op = = 3
 (source_file
   (structure_level_declaration
     (value_declaration
-      (lhs (identifier_pattern))
-      (rhs (integer_literal)))))
+      (lhs
+        (identifier_pattern
+          (qualified_identifier
+            (identifier))))
+      (rhs
+        (integer_literal)))))
 
 ===================
 Identifier pattern 5
@@ -164,8 +205,12 @@ val * = 3
 (source_file
   (structure_level_declaration
     (value_declaration
-      (lhs (identifier_pattern))
-      (rhs (integer_literal)))))
+      (lhs
+        (identifier_pattern
+          (qualified_identifier
+            (identifier))))
+      (rhs
+        (integer_literal)))))
 
 ===================
 Identifier pattern 6
@@ -178,8 +223,13 @@ val A.= = 3
 (source_file
   (structure_level_declaration
     (value_declaration
-      (lhs (identifier_pattern))
-      (rhs (integer_literal)))))
+      (lhs
+        (identifier_pattern
+          (qualified_identifier
+            (structure_name)
+            (identifier))))
+      (rhs
+        (integer_literal)))))
 
 ===================
 Identifier pattern 7
@@ -192,9 +242,13 @@ val op A.= = 3
 (source_file
   (structure_level_declaration
     (value_declaration
-      (lhs (identifier_pattern))
-      (rhs (integer_literal)))))
-
+      (lhs
+        (identifier_pattern
+          (qualified_identifier
+            (structure_name)
+            (identifier))))
+      (rhs
+        (integer_literal)))))
 
 ===================
 List pattern nil
@@ -207,8 +261,10 @@ val [] = 3
 (source_file
   (structure_level_declaration
     (value_declaration
-      (lhs (list_pattern))
-      (rhs (integer_literal)))))
+      (lhs
+        (list_pattern))
+      (rhs
+        (integer_literal)))))
 
 ===================
 List pattern one
@@ -221,8 +277,13 @@ val [x] = 3
 (source_file
   (structure_level_declaration
     (value_declaration
-      (lhs (list_pattern (identifier_pattern)))
-      (rhs (integer_literal)))))
+      (lhs
+        (list_pattern
+          (identifier_pattern
+            (qualified_identifier
+              (identifier)))))
+      (rhs
+        (integer_literal)))))
 
 ===================
 List pattern two
@@ -235,8 +296,16 @@ val [x, y] = 3
 (source_file
   (structure_level_declaration
     (value_declaration
-      (lhs (list_pattern (identifier_pattern) (identifier_pattern)))
-      (rhs (integer_literal)))))
+      (lhs
+        (list_pattern
+          (identifier_pattern
+            (qualified_identifier
+              (identifier)))
+          (identifier_pattern
+            (qualified_identifier
+              (identifier)))))
+      (rhs
+        (integer_literal)))))
 
 ===================
 Record pattern empty
@@ -249,8 +318,10 @@ val {} = 3
 (source_file
   (structure_level_declaration
     (value_declaration
-      (lhs (record_pattern))
-      (rhs (integer_literal)))))
+      (lhs
+        (record_pattern))
+      (rhs
+        (integer_literal)))))
 
 ===================
 Record pattern ident
@@ -263,10 +334,16 @@ val {x, y} = 3
 (source_file
   (structure_level_declaration
     (value_declaration
-      (lhs (record_pattern
-             (pattern_row (identifier_label))
-             (pattern_row (identifier_label))))
-      (rhs (integer_literal)))))
+      (lhs
+        (record_pattern
+          (pattern_row
+            (identifier_label
+              (identifier)))
+          (pattern_row
+            (identifier_label
+              (identifier)))))
+      (rhs
+        (integer_literal)))))
 
 ===================
 Record pattern ident bind
@@ -279,10 +356,22 @@ val {x=z, y=x} = 3
 (source_file
   (structure_level_declaration
     (value_declaration
-      (lhs (record_pattern
-             (pattern_row (identifier_label) (identifier_pattern))
-             (pattern_row (identifier_label) (identifier_pattern))))
-      (rhs (integer_literal)))))
+      (lhs
+        (record_pattern
+          (pattern_row
+            (identifier_label
+              (identifier))
+            (identifier_pattern
+              (qualified_identifier
+                (identifier))))
+          (pattern_row
+            (identifier_label
+              (identifier))
+            (identifier_pattern
+              (qualified_identifier
+                (identifier))))))
+      (rhs
+        (integer_literal)))))
 
 ===================
 Vector pattern ident bind
@@ -295,11 +384,19 @@ val #[x, A.x, 6] = 3
 (source_file
   (structure_level_declaration
     (value_declaration
-      (lhs (vector_pattern
-             (identifier_pattern)
-             (identifier_pattern)
-             (literal_pattern (integer_literal))))
-      (rhs (integer_literal)))))
+      (lhs
+        (vector_pattern
+          (identifier_pattern
+            (qualified_identifier
+              (identifier)))
+          (identifier_pattern
+            (qualified_identifier
+              (structure_name)
+              (identifier)))
+          (literal_pattern
+            (integer_literal))))
+      (rhs
+        (integer_literal)))))
 
 ===================
 Compound pattern 1
@@ -312,8 +409,15 @@ val SOME x = 3
 (source_file
   (structure_level_declaration
     (value_declaration
-      (lhs (identifier_pattern) (identifier_pattern))
-      (rhs (integer_literal)))))
+      (lhs
+        (identifier_pattern
+          (qualified_identifier
+            (identifier)))
+        (identifier_pattern
+          (qualified_identifier
+            (identifier))))
+      (rhs
+        (integer_literal)))))
 
 ===================
 Compound pattern 2
@@ -326,12 +430,19 @@ val x as y : int = 3
 (source_file
   (structure_level_declaration
     (value_declaration
-      (lhs (layered_pattern
-        (identifier_pattern)
-        (constraint_pattern
-          (identifier_pattern)
-          (tycon))))
-      (rhs (integer_literal)))))
+      (lhs
+        (layered_pattern
+          (identifier_pattern
+            (qualified_identifier
+              (identifier)))
+          (constraint_pattern
+            (identifier_pattern
+              (qualified_identifier
+                (identifier)))
+            (qualified_tycon
+              (tycon)))))
+      (rhs
+        (integer_literal)))))
 
 ===================
 Compound pattern 3
@@ -344,10 +455,22 @@ val x : int as y : int = 3
 (source_file
   (structure_level_declaration
     (value_declaration
-      (lhs (layered_pattern
-        (constraint_pattern (identifier_pattern) (tycon))
-        (constraint_pattern (identifier_pattern) (tycon))))
-      (rhs (integer_literal)))))
+      (lhs
+        (layered_pattern
+          (constraint_pattern
+            (identifier_pattern
+              (qualified_identifier
+                (identifier)))
+            (qualified_tycon
+              (tycon)))
+          (constraint_pattern
+            (identifier_pattern
+              (qualified_identifier
+                (identifier)))
+            (qualified_tycon
+              (tycon)))))
+      (rhs
+        (integer_literal)))))
 
 ===================
 Tuple pattern 1
@@ -360,8 +483,13 @@ val (x) = 3
 (source_file
   (structure_level_declaration
     (value_declaration
-      (lhs (parenthesized_pattern (identifier_pattern)))
-      (rhs (integer_literal)))))
+      (lhs
+        (parenthesized_pattern
+          (identifier_pattern
+            (qualified_identifier
+              (identifier)))))
+      (rhs
+        (integer_literal)))))
 
 ===================
 Tuple pattern 2
@@ -374,12 +502,20 @@ val (x, x as y) = 3
 (source_file
   (structure_level_declaration
     (value_declaration
-      (lhs (parenthesized_pattern
-             (identifier_pattern)
-             (layered_pattern
-               (identifier_pattern)
-               (identifier_pattern))))
-      (rhs (integer_literal)))))
+      (lhs
+        (parenthesized_pattern
+          (identifier_pattern
+            (qualified_identifier
+              (identifier)))
+          (layered_pattern
+            (identifier_pattern
+              (qualified_identifier
+                (identifier)))
+            (identifier_pattern
+              (qualified_identifier
+                (identifier))))))
+      (rhs
+        (integer_literal)))))
 
 ===================
 Or pattern 1
@@ -392,8 +528,13 @@ val (x | y) = 3
 (source_file
   (structure_level_declaration
     (value_declaration
-      (lhs (parenthesized_pattern
-             (identifier_pattern)
-             (identifier_pattern)))
-      (rhs (integer_literal)))))
-
+      (lhs
+        (parenthesized_pattern
+          (identifier_pattern
+            (qualified_identifier
+              (identifier)))
+          (identifier_pattern
+            (qualified_identifier
+              (identifier)))))
+      (rhs
+        (integer_literal)))))

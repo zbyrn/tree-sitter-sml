@@ -43,72 +43,40 @@
       "type": "SYMBOL",
       "name": "_identifier"
     },
-    "_int": {
+    "index": {
       "type": "TOKEN",
       "content": {
         "type": "PATTERN",
         "value": "[1-9][0-9]*"
       }
     },
-    "_qualified_identifier": {
+    "qualified_identifier": {
       "type": "SEQ",
       "members": [
         {
-          "type": "FIELD",
-          "name": "path",
+          "type": "REPEAT",
           "content": {
-            "type": "REPEAT",
-            "content": {
-              "type": "SEQ",
-              "members": [
-                {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "ALIAS",
+                "content": {
                   "type": "SYMBOL",
                   "name": "_alphanum_identifier"
                 },
-                {
-                  "type": "STRING",
-                  "value": "."
-                }
-              ]
-            }
+                "named": true,
+                "value": "structure_name"
+              },
+              {
+                "type": "STRING",
+                "value": "."
+              }
+            ]
           }
         },
         {
           "type": "SYMBOL",
-          "name": "_identifier"
-        }
-      ]
-    },
-    "_id": {
-      "type": "SYMBOL",
-      "name": "_identifier"
-    },
-    "_qualified_id": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "FIELD",
-          "name": "path",
-          "content": {
-            "type": "REPEAT",
-            "content": {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "_alphanum_identifier"
-                },
-                {
-                  "type": "STRING",
-                  "value": "."
-                }
-              ]
-            }
-          }
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_id"
+          "name": "identifier"
         }
       ]
     },
@@ -397,17 +365,17 @@
         },
         {
           "type": "SYMBOL",
-          "name": "_qualified_identifier"
+          "name": "qualified_identifier"
         }
       ]
     },
     "int_label": {
       "type": "SYMBOL",
-      "name": "_int"
+      "name": "index"
     },
     "identifier_label": {
       "type": "SYMBOL",
-      "name": "_id"
+      "name": "identifier"
     },
     "_label": {
       "type": "CHOICE",
@@ -559,7 +527,7 @@
             },
             {
               "type": "SYMBOL",
-              "name": "_qualified_identifier"
+              "name": "qualified_identifier"
             }
           ]
         },
@@ -568,24 +536,7 @@
           "members": [
             {
               "type": "SYMBOL",
-              "name": "_alphanum_identifier"
-            },
-            {
-              "type": "STRING",
-              "value": "."
-            },
-            {
-              "type": "SYMBOL",
-              "name": "_qualified_identifier"
-            }
-          ]
-        },
-        {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "_id"
+              "name": "qualified_identifier"
             }
           ]
         }
@@ -729,35 +680,6 @@
         }
       ]
     },
-    "_atomic_pattern1": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "wildcard"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "literal_pattern"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "identifier_pattern"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "list_pattern"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "record_pattern"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "vector_pattern"
-        }
-      ]
-    },
     "pattern_row": {
       "type": "CHOICE",
       "members": [
@@ -891,7 +813,27 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "_atomic_pattern1"
+          "name": "wildcard"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "literal_pattern"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "identifier_pattern"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "list_pattern"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "record_pattern"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "vector_pattern"
         },
         {
           "type": "SYMBOL",
@@ -961,36 +903,37 @@
         }
       ]
     },
-    "_tycon": {
+    "tycon": {
       "type": "SYMBOL",
       "name": "_alphanum_identifier"
     },
-    "_qualified_tycon": {
+    "qualified_tycon": {
       "type": "SEQ",
       "members": [
         {
-          "type": "FIELD",
-          "name": "path",
+          "type": "REPEAT",
           "content": {
-            "type": "REPEAT",
-            "content": {
-              "type": "SEQ",
-              "members": [
-                {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "ALIAS",
+                "content": {
                   "type": "SYMBOL",
                   "name": "_alphanum_identifier"
                 },
-                {
-                  "type": "STRING",
-                  "value": "."
-                }
-              ]
-            }
+                "named": true,
+                "value": "structure_name"
+              },
+              {
+                "type": "STRING",
+                "value": "."
+              }
+            ]
           }
         },
         {
           "type": "SYMBOL",
-          "name": "_tycon"
+          "name": "tycon"
         }
       ]
     },
@@ -1149,13 +1092,8 @@
           ]
         },
         {
-          "type": "ALIAS",
-          "content": {
-            "type": "SYMBOL",
-            "name": "_qualified_tycon"
-          },
-          "named": true,
-          "value": "tycon"
+          "type": "SYMBOL",
+          "name": "qualified_tycon"
         }
       ]
     },
@@ -1196,13 +1134,8 @@
           "name": "tyapp"
         },
         {
-          "type": "ALIAS",
-          "content": {
-            "type": "SYMBOL",
-            "name": "_qualified_tycon"
-          },
-          "named": true,
-          "value": "tycon"
+          "type": "SYMBOL",
+          "name": "qualified_tycon"
         },
         {
           "type": "SEQ",
