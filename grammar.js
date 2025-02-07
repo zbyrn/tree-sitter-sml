@@ -34,7 +34,7 @@ const HEXNUM = /[0-9a-fA-F]+/;
 const FRAC   = /\.[0-9]+/;
 const EXPO   = /[eE]~?[0-9]+/;
 const IDA    = /[A-Za-z][A-Za-z'_0-9]*/;
-const IDS    = /[!%&$#+\-/:<=>?@\\~'^|*]+/;
+const IDS    = /[!%&$#+\-/:<>?@\\~'^|]+/;
 
 // 1) Multiline/ignored sequences:  \ [format-chars]+ \
 //    (Allows line continuation by escaping newlines, etc.)
@@ -85,15 +85,21 @@ module.exports = grammar({
 
     /************************ IDENTIFIERS ********************************/
     _alphanum_identifier: $ => token(IDA),
-    _symbolic_identifier: $ => token(IDS),
+    _symbolic_identifier: $ => token(choice(IDS, "*")),
 
-    _identifier: $ => choice($._alphanum_identifier, $._symbolic_identifier),
+    _identifier: $ => choice($._alphanum_identifier, $._symbolic_identifier, "="),
     identifier: $ => $._identifier,
     _int: $ => token(INT),
 
     _qualified_identifier: $ => seq(
       field("path", repeat(seq($._alphanum_identifier, "."))),
       $._identifier
+    ),
+
+    _id: $ => choice($._alphanum_identifier, $._symbolic_identifier),
+    _qualified_id: $ => seq(
+      field("path", repeat(seq($._alphanum_identifier, "."))),
+      $._id
     ),
 
     real_literal: $ => token(seq(
@@ -143,7 +149,7 @@ module.exports = grammar({
     /*  Records */
     identifier_expression: $ => seq(optional("op"), $._qualified_identifier),
     int_label: $ => $._int,
-    identifier_label: $ => $._identifier,
+    identifier_label: $ => $._id,
     _label: $ => choice($.int_label, $.identifier_label),
 
     record_row: $ => seq(
@@ -166,6 +172,7 @@ module.exports = grammar({
     _atomic_expression: $ => choice(
       $._literal,
       $.record_expression,
+      $.let_expression,
     ),
 
     _expression: $ => choice(
@@ -175,7 +182,11 @@ module.exports = grammar({
     /************************ PATTERNS ****************************/
     wildcard: _ => token("_"),
     literal_pattern: $ => $._literal,
-    identifier_pattern: $ => seq(optional("op"), $._qualified_identifier),
+    identifier_pattern: $ => choice(
+      seq("op", $._qualified_identifier),
+      seq($._alphanum_identifier, ".", $._qualified_identifier),
+      seq($._id),
+    ),
     list_pattern: $ => seq("[", sep(",", $._pattern), "]"),
     record_pattern: $ => seq("{", sep(",", $.pattern_row), "}"),
     vector_pattern: $ => seq("#[", sep(",", $._pattern), "]"),

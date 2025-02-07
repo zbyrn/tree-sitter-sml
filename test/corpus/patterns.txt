@@ -139,6 +139,62 @@ val A.B.C.>> = 3
       (lhs (identifier_pattern))
       (rhs (integer_literal)))))
 
+===================
+Identifier pattern 5
+===================
+
+val op = = 3
+
+-----
+
+(source_file
+  (structure_level_declaration
+    (value_declaration
+      (lhs (identifier_pattern))
+      (rhs (integer_literal)))))
+
+===================
+Identifier pattern 5
+===================
+
+val * = 3
+
+-----
+
+(source_file
+  (structure_level_declaration
+    (value_declaration
+      (lhs (identifier_pattern))
+      (rhs (integer_literal)))))
+
+===================
+Identifier pattern 6
+===================
+
+val A.= = 3
+
+-----
+
+(source_file
+  (structure_level_declaration
+    (value_declaration
+      (lhs (identifier_pattern))
+      (rhs (integer_literal)))))
+
+===================
+Identifier pattern 7
+===================
+
+val op A.= = 3
+
+-----
+
+(source_file
+  (structure_level_declaration
+    (value_declaration
+      (lhs (identifier_pattern))
+      (rhs (integer_literal)))))
+
 
 ===================
 List pattern nil

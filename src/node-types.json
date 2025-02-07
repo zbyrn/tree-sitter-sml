@@ -8,6 +8,10 @@
         "named": true
       },
       {
+        "type": "let_expression",
+        "named": true
+      },
+      {
         "type": "record_expression",
         "named": true
       }
@@ -276,6 +280,25 @@
         },
         {
           "type": "wildcard",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "let_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_expression",
+          "named": true
+        },
+        {
+          "type": "_local_declaration",
           "named": true
         }
       ]
@@ -859,11 +882,23 @@
     "named": true
   },
   {
+    "type": "end",
+    "named": false
+  },
+  {
+    "type": "in",
+    "named": false
+  },
+  {
     "type": "integer_literal",
     "named": true
   },
   {
     "type": "lazy",
+    "named": false
+  },
+  {
+    "type": "let",
     "named": false
   },
   {

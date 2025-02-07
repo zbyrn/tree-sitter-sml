@@ -53,4 +53,37 @@ Two-field record
         (identifier_label)
         (integer_literal)))))
 
+================
+ID vs Ident
+================
+{ * = 1 }
+
+---------
+(source_file
+  (expression_declaration
+    (record_expression
+      (record_row
+        (identifier_label)
+        (integer_literal)))))
+
+================
+ID vs Ident 2
+:skip
+================
+{ * = op = }
+
+---------
+(source_file
+  (expression_declaration
+    (record_expression
+      (record_row
+        (identifier_label)
+        (variable_expression)))))
+
+
+================
+ID vs Ident invalid
+:error
+================
+{ = = op = }
 
