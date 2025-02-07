@@ -1,0 +1,56 @@
+================
+Empty record
+================
+{}
+----------------
+(source_file
+  (expression_declaration
+    (record_expression)))
+
+================
+One-field record
+================
+{x=1}
+----------------
+(source_file
+  (expression_declaration
+    (record_expression
+      (record_row
+        (identifier_label)
+        (integer_literal)))))
+
+================
+One-field selector record
+================
+{ 1 = 1 }
+----------------
+(source_file
+  (expression_declaration
+    (record_expression
+      (record_row
+        (int_label)
+        (integer_literal)))))
+
+================
+One-field invalid record
+:error
+================
+{ 0 = 1 }
+
+================
+Two-field record
+================
+{ x = 1, y = 2 }
+
+---------
+(source_file
+  (expression_declaration
+    (record_expression
+      (record_row
+        (identifier_label)
+        (integer_literal))
+      (record_row
+        (identifier_label)
+        (integer_literal)))))
+
+

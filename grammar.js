@@ -69,10 +69,14 @@ module.exports = grammar({
 
   supertypes: $ => [
     $._expression,
+    $._local_declaration,
     $._declaration,
     $._literal,
     $._atomic_expression,
+    $._label,
   ],
+
+  word: $ => $._alphanum_identifier,
 
   rules: {
     source_file: $ => choice(
@@ -83,11 +87,13 @@ module.exports = grammar({
     _alphanum_identifier: $ => token(IDA),
     _symbolic_identifier: $ => token(IDS),
 
-    identifier: $ => token(choice(IDA, IDS)),
+    _identifier: $ => choice($._alphanum_identifier, $._symbolic_identifier),
+    identifier: $ => $._identifier,
+    _int: $ => token(INT),
 
-    qualified_identifier: $ => seq(
-      repeat(seq($._alphanum_identifier, ".")),
-      $.identifier
+    _qualified_identifier: $ => seq(
+      field("path", repeat(seq($._alphanum_identifier, "."))),
+      $._identifier
     ),
 
     real_literal: $ => token(seq(
@@ -131,13 +137,26 @@ module.exports = grammar({
       $.char_literal
     ),
 
-    identifier_expression: $ => seq(optional("op"), $.qualified_identifier),
+    identifier_expression: $ => seq(optional("op"), $._qualified_identifier),
+    int_label: $ => $._int,
+    identifier_label: $ => $._identifier,
+    _label: $ => choice($.int_label, $.identifier_label),
 
-    _selector: $ => choice(INT, $.identifier),
+    record_row: $ => seq(
+      $._label,
+      "=",
+      $._expression
+    ),
 
-    expression_row: $ => seq($._selector, "=", $._expression),
+    record_expression: $ => seq("{", sep(",", $.record_row), "}"),
 
-    record_expression: $ => seq("{", sep(",", $.expression_row), "}"),
+    let_expression: $ => seq(
+      "let",
+      $._local_declaration,
+      "in",
+      $._expression,
+      "end"
+    ),
 
     _atomic_expression: $ => choice(
       $._literal,
@@ -148,13 +167,74 @@ module.exports = grammar({
       $._atomic_expression,
     ),
 
+    value_declaration: $ => seq("val", $._valbind),
+
+    wildcard: $ => token("_"),
+    literal_pattern: $ => $._literal,
+    identifier_pattern: $ => seq(optional("op"), $._qualified_identifier),
+    list_pattern: $ => seq("[", sep(",", $._pattern), "]"),
+    record_pattern: $ => seq("{", sep(",", $.pattern_row), "}"),
+    vector_pattern: $ => seq("#[", sep(",", $._pattern), "]"),
+
+    _atomic_pattern1: $ => choice(
+      $.wildcard,
+      $.literal_pattern,
+      $.identifier_pattern,
+      $.list_pattern,
+      $.record_pattern,
+      $.vector_pattern,
+    ),
+
+    pattern_row: $ => choice(
+      seq($._label, "=", $._pattern),
+      seq($.identifier_label, optional(seq(":", $._type)), optional(seq("as", $._pattern)))
+    ),
+
+    parenthesized_pattern: $ => parenthesize(sep(choice("|",","), $._pattern)),
+
+    _atomic_pattern: $ => choice(
+      $._atomic_pattern1,
+      $.parenthesized_pattern,
+    ),
+
+    constraint_pattern: $ => prec(2, seq($._pattern, ":", $._type)),
+    layered_pattern: $ => prec.right(1, seq($._pattern, "as", $._pattern)),
+    _pattern: $ => choice(
+      $.constraint_pattern,
+      $.layered_pattern,
+      repeat1($._atomic_pattern),
+    ),
+
+    _valbind1: $ => seq(optional("lazy"),
+      alias($._pattern, $.lhs),
+      "=",
+      alias($._expression, $.rhs)
+    ),
+
+    _valbind: $ => sep1("and", $._valbind1),
+
+    _local_declaration: $ => choice(
+      $.value_declaration,
+    ),
+
     expression_declaration: $ => $._expression,
 
+    structure_level_declaration: $ => choice(
+      $._local_declaration,
+    ),
+
     _declaration: $ => choice(
+      $.structure_level_declaration,
       $.expression_declaration
     ),
+
+    _type: $ => token("int"),
   }
 });
+
+function sequential(rule) {
+  return seq(rule, repeat(seq(optional(";"), rule)))
+}
 
 function sep(delimiter, rule) {
   return optional(sep1(delimiter, rule))
