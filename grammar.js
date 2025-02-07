@@ -34,7 +34,16 @@ const HEXNUM = /[0-9a-fA-F]+/;
 const FRAC   = /\.[0-9]+/;
 const EXPO   = /[eE]~?[0-9]+/;
 const IDA    = /[A-Za-z][A-Za-z'_0-9]*/;
-const IDS    = /[!%&$#+\-/:<>?@\\~'^|]+/;
+const IDS    = /[!%&$#+\-/:<>?@\\~'^|=*]+/;
+/* NOTE: There are restrictions on where ASTERISKs and EQUALOPs can be used as
+ * identifiers. Specifically, a single * and = cannot be used as tycons and a
+ * single = cannot be used as unqualified vid. I think this restriction is there
+ * to simplify lexing. But since tree-sitter uses context-sensitive lexing, I
+ * don't think there is any benefit in handling these cases specifically.
+ *
+ * As an example, `val = = 3;` is accepted in this grammar while both smlnj and
+ * mlton complained.
+ */
 
 // 1) Multiline/ignored sequences:  \ [format-chars]+ \
 //    (Allows line continuation by escaping newlines, etc.)
@@ -85,9 +94,10 @@ module.exports = grammar({
 
     /************************ IDENTIFIERS ********************************/
     _alphanum_identifier: $ => token(IDA),
-    _symbolic_identifier: $ => token(choice(IDS, "*")),
+    _symbolic_identifier: $ => token(IDS),
 
-    _identifier: $ => choice($._alphanum_identifier, $._symbolic_identifier, "="),
+    _identifier: $ => choice($._alphanum_identifier, $._symbolic_identifier),
+    // _identifier: $ => token(choice(IDA, IDS)),
     identifier: $ => $._identifier,
     _int: $ => token(INT),
 
@@ -96,7 +106,7 @@ module.exports = grammar({
       $._identifier
     ),
 
-    _id: $ => choice($._alphanum_identifier, $._symbolic_identifier),
+    _id: $ => $._identifier,
     _qualified_id: $ => seq(
       field("path", repeat(seq($._alphanum_identifier, "."))),
       $._id

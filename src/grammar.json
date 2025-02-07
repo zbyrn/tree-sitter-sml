@@ -22,17 +22,8 @@
     "_symbolic_identifier": {
       "type": "TOKEN",
       "content": {
-        "type": "CHOICE",
-        "members": [
-          {
-            "type": "PATTERN",
-            "value": "[!%&$#+\\-/:<>?@\\\\~'^|]+"
-          },
-          {
-            "type": "STRING",
-            "value": "*"
-          }
-        ]
+        "type": "PATTERN",
+        "value": "[!%&$#+\\-/:<>?@\\\\~'^|=*]+"
       }
     },
     "_identifier": {
@@ -45,10 +36,6 @@
         {
           "type": "SYMBOL",
           "name": "_symbolic_identifier"
-        },
-        {
-          "type": "STRING",
-          "value": "="
         }
       ]
     },
@@ -93,17 +80,8 @@
       ]
     },
     "_id": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "_alphanum_identifier"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_symbolic_identifier"
-        }
-      ]
+      "type": "SYMBOL",
+      "name": "_identifier"
     },
     "_qualified_id": {
       "type": "SEQ",
