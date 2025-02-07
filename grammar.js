@@ -216,19 +216,19 @@ module.exports = grammar({
       field("path", repeat(seq($._alphanum_identifier, "."))),
       $._tycon
     ),
-    type_var: _ => token(seq("'", IDA)),
+    tyvar: _ => token(seq("'", IDA)),
     type_row: $ => seq($._label, ":", $._type),
     record_type: $ => seq("{", sep(",", $.type_row), "}"),
     tuple_type: $ => sep2("*", $._type0),
-    type_construction: $ => seq(
-      field("tyarg", choice($._type0, parenthesize(sep2(",", $._type)))),
-      field("tycon", $._qualified_tycon)
+    tyapp: $ => seq(
+      choice($._type0, parenthesize(sep2(",", $._type))),
+      alias($._qualified_tycon, $.tycon)
     ),
     arrow_type: $ => prec.right(1, seq($._type, "->", $._type)),
     _type0: $ => choice(
-      $.type_var,
+      $.tyvar,
       $.record_type,
-      $.type_construction,
+      $.tyapp,
       alias($._qualified_tycon, $.tycon),
       parenthesize($._type)
     ),

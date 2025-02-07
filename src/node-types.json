@@ -108,15 +108,15 @@
           "named": true
         },
         {
+          "type": "tyapp",
+          "named": true
+        },
+        {
           "type": "tycon",
           "named": true
         },
         {
-          "type": "type_construction",
-          "named": true
-        },
-        {
-          "type": "type_var",
+          "type": "tyvar",
           "named": true
         }
       ]
@@ -171,15 +171,15 @@
           "named": true
         },
         {
+          "type": "tyapp",
+          "named": true
+        },
+        {
           "type": "tycon",
           "named": true
         },
         {
-          "type": "type_construction",
-          "named": true
-        },
-        {
-          "type": "type_var",
+          "type": "tyvar",
           "named": true
         },
         {
@@ -490,15 +490,15 @@
           "named": true
         },
         {
+          "type": "tyapp",
+          "named": true
+        },
+        {
           "type": "tycon",
           "named": true
         },
         {
-          "type": "type_construction",
-          "named": true
-        },
-        {
-          "type": "type_var",
+          "type": "tyvar",
           "named": true
         },
         {
@@ -628,15 +628,50 @@
           "named": true
         },
         {
+          "type": "tyapp",
+          "named": true
+        },
+        {
           "type": "tycon",
           "named": true
         },
         {
-          "type": "type_construction",
+          "type": "tyvar",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "tyapp",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "arrow_type",
           "named": true
         },
         {
-          "type": "type_var",
+          "type": "record_type",
+          "named": true
+        },
+        {
+          "type": "tuple_type",
+          "named": true
+        },
+        {
+          "type": "tyapp",
+          "named": true
+        },
+        {
+          "type": "tycon",
+          "named": true
+        },
+        {
+          "type": "tyvar",
           "named": true
         }
       ]
@@ -647,74 +682,6 @@
     "named": true,
     "fields": {
       "path": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": ".",
-            "named": false
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "type_construction",
-    "named": true,
-    "fields": {
-      "path": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": ".",
-            "named": false
-          }
-        ]
-      },
-      "tyarg": {
-        "multiple": true,
-        "required": true,
-        "types": [
-          {
-            "type": "(",
-            "named": false
-          },
-          {
-            "type": ")",
-            "named": false
-          },
-          {
-            "type": ",",
-            "named": false
-          },
-          {
-            "type": "arrow_type",
-            "named": true
-          },
-          {
-            "type": "record_type",
-            "named": true
-          },
-          {
-            "type": "tuple_type",
-            "named": true
-          },
-          {
-            "type": "tycon",
-            "named": true
-          },
-          {
-            "type": "type_construction",
-            "named": true
-          },
-          {
-            "type": "type_var",
-            "named": true
-          }
-        ]
-      },
-      "tycon": {
         "multiple": true,
         "required": false,
         "types": [
@@ -751,15 +718,15 @@
           "named": true
         },
         {
+          "type": "tyapp",
+          "named": true
+        },
+        {
           "type": "tycon",
           "named": true
         },
         {
-          "type": "type_construction",
-          "named": true
-        },
-        {
-          "type": "type_var",
+          "type": "tyvar",
           "named": true
         }
       ]
@@ -912,7 +879,7 @@
     "named": true
   },
   {
-    "type": "type_var",
+    "type": "tyvar",
     "named": true
   },
   {
