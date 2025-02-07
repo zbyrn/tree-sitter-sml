@@ -207,7 +207,7 @@ val {x, y} = 3
 (source_file
   (structure_level_declaration
     (value_declaration
-      (lhs (record_pattern 
+      (lhs (record_pattern
              (pattern_row (identifier_label))
              (pattern_row (identifier_label))))
       (rhs (integer_literal)))))
@@ -223,7 +223,7 @@ val {x=z, y=x} = 3
 (source_file
   (structure_level_declaration
     (value_declaration
-      (lhs (record_pattern 
+      (lhs (record_pattern
              (pattern_row (identifier_label) (identifier_pattern))
              (pattern_row (identifier_label) (identifier_pattern))))
       (rhs (integer_literal)))))
@@ -241,7 +241,7 @@ val #[x, A.x, 6] = 3
     (value_declaration
       (lhs (vector_pattern
              (identifier_pattern)
-             (identifier_pattern) 
+             (identifier_pattern)
              (literal_pattern (integer_literal))))
       (rhs (integer_literal)))))
 

@@ -169,7 +169,7 @@ module.exports = grammar({
 
     value_declaration: $ => seq("val", $._valbind),
 
-    wildcard: $ => token("_"),
+    wildcard: _ => token("_"),
     literal_pattern: $ => $._literal,
     identifier_pattern: $ => seq(optional("op"), $._qualified_identifier),
     list_pattern: $ => seq("[", sep(",", $._pattern), "]"),
@@ -229,7 +229,62 @@ module.exports = grammar({
     ),
 
     _type: $ => token("int"),
-  }
+  },
+
+  /* See PR: https://github.com/tree-sitter/tree-sitter/pull/3896 */
+  reserved: {
+    global: _ => [
+      "abstype",
+      "and",
+      "andalso",
+      "as",
+      "case",
+      "datatype",
+      "do",
+      "else",
+      "end",
+      "exception",
+      "fn",
+      "fun",
+      "handle",
+      "if",
+      "in",
+      "infix",
+      "infixr",
+      "let",
+      "local",
+      "nonfix",
+      "of",
+      "op",
+      "open",
+      "orelse",
+      "raise",
+      "rec",
+      "then",
+      "type",
+      "val",
+      "with",
+      "withtype",
+      "while",
+      "(", ")",
+      "[", "]",
+      "{", "}",
+      ",", ":", ";", "...", "_",
+      "|", "=", "=>", "->", "#",
+
+      "eqtype",
+      "functor",
+      "include",
+      "sharing",
+      "sig",
+      "signature",
+      "struct",
+      "structure",
+      "where",
+      ":>",
+    ],
+  },
+
 });
 
 function sequential(rule) {

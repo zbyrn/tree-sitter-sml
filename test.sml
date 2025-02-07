@@ -1,2 +1,2 @@
-val op A.B.C = 3
+val val = 3
 
