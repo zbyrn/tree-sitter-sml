@@ -268,12 +268,10 @@ module.exports = grammar({
 
     function_declaration: $ => seq("fun", optional($.tyvarseq), $._fvalbinds),
     _fvalbind_clause: $ => seq(
-      optional("op"),
-      field("name", $.identifier),
-      repeat(field("argument", $._atomic_pattern)),
+      alias(repeat1($._atomic_pattern), $.lhs),
       optional(seq(":", field("return_type", $._type))),
       "=",
-      field("body", $._expression)
+      alias($._expression, $.rhs)
     ),
     fvalbind: $ => sep1("|", alias($._fvalbind_clause, $.clause)),
     _fvalbinds: $ => sep1("and", $.fvalbind),

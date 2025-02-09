@@ -153,11 +153,15 @@ fun f x = 3
     (function_declaration
       (fvalbind
         (clause
-          (identifier)
-          (identifier_pattern
-            (qualified_identifier
-              (identifier)))
-          (integer_literal))))))
+          (lhs
+            (identifier_pattern
+              (qualified_identifier
+                (identifier)))
+            (identifier_pattern
+              (qualified_identifier
+                (identifier))))
+          (rhs
+            (integer_literal)))))))
 
 =================
 fun dec 2
@@ -172,14 +176,18 @@ fun f x y = 3
     (function_declaration
       (fvalbind
         (clause
-          (identifier)
-          (identifier_pattern
-            (qualified_identifier
-              (identifier)))
-          (identifier_pattern
-            (qualified_identifier
-              (identifier)))
-          (integer_literal))))))
+          (lhs
+            (identifier_pattern
+              (qualified_identifier
+                (identifier)))
+            (identifier_pattern
+              (qualified_identifier
+                (identifier)))
+            (identifier_pattern
+              (qualified_identifier
+                (identifier))))
+          (rhs
+            (integer_literal)))))))
 
 =================
 fun dec 3
@@ -194,20 +202,28 @@ fun f x y = 3 | f z = 3
     (function_declaration
       (fvalbind
         (clause
-          (identifier)
-          (identifier_pattern
-            (qualified_identifier
-              (identifier)))
-          (identifier_pattern
-            (qualified_identifier
-              (identifier)))
-          (integer_literal))
+          (lhs
+            (identifier_pattern
+              (qualified_identifier
+                (identifier)))
+            (identifier_pattern
+              (qualified_identifier
+                (identifier)))
+            (identifier_pattern
+              (qualified_identifier
+                (identifier))))
+          (rhs
+            (integer_literal)))
         (clause
-          (identifier)
-          (identifier_pattern
-            (qualified_identifier
-              (identifier)))
-          (integer_literal))))))
+          (lhs
+            (identifier_pattern
+              (qualified_identifier
+                (identifier)))
+            (identifier_pattern
+              (qualified_identifier
+                (identifier))))
+          (rhs
+            (integer_literal)))))))
 
 =================
 fun dec 4
@@ -222,27 +238,117 @@ fun f x y = 3 | f z = 3 and g x = 5
     (function_declaration
       (fvalbind
         (clause
-          (identifier)
-          (identifier_pattern
-            (qualified_identifier
-              (identifier)))
-          (identifier_pattern
-            (qualified_identifier
-              (identifier)))
-          (integer_literal))
+          (lhs
+            (identifier_pattern
+              (qualified_identifier
+                (identifier)))
+            (identifier_pattern
+              (qualified_identifier
+                (identifier)))
+            (identifier_pattern
+              (qualified_identifier
+                (identifier))))
+          (rhs
+            (integer_literal)))
         (clause
-          (identifier)
-          (identifier_pattern
-            (qualified_identifier
-              (identifier)))
-          (integer_literal)))
+          (lhs
+            (identifier_pattern
+              (qualified_identifier
+                (identifier)))
+            (identifier_pattern
+              (qualified_identifier
+                (identifier))))
+          (rhs
+            (integer_literal))))
       (fvalbind
         (clause
-          (identifier)
-          (identifier_pattern
-            (qualified_identifier
-              (identifier)))
-          (integer_literal))))))
+          (lhs
+            (identifier_pattern
+              (qualified_identifier
+                (identifier)))
+            (identifier_pattern
+              (qualified_identifier
+                (identifier))))
+          (rhs
+            (integer_literal)))))))
+
+=================
+fun dec infix
+=================
+
+fun _ f y = 3
+
+-------
+
+(source_file
+  (structure_level_declaration
+    (function_declaration
+      (fvalbind
+        (clause
+          (lhs
+            (wildcard)
+            (identifier_pattern
+              (qualified_identifier
+                (identifier)))
+            (identifier_pattern
+              (qualified_identifier
+                (identifier))))
+          (rhs
+            (integer_literal)))))))
+
+=================
+fun dec infix curried
+=================
+
+fun (_ f y) 10 = 3
+
+-------
+
+(source_file
+  (structure_level_declaration
+    (function_declaration
+      (fvalbind
+        (clause
+          (lhs
+            (parenthesized_pattern
+              (wildcard)
+              (identifier_pattern
+                (qualified_identifier
+                  (identifier)))
+              (identifier_pattern
+                (qualified_identifier
+                  (identifier))))
+            (literal_pattern
+              (integer_literal)))
+          (rhs
+            (integer_literal)))))))
+
+=================
+fun dec infix curried op
+=================
+
+fun op f (_, y) 10 = 3
+
+-------
+
+(source_file
+  (structure_level_declaration
+    (function_declaration
+      (fvalbind
+        (clause
+          (lhs
+            (identifier_pattern
+              (qualified_identifier
+                (identifier)))
+            (parenthesized_pattern
+              (wildcard)
+              (identifier_pattern
+                (qualified_identifier
+                  (identifier))))
+            (literal_pattern
+              (integer_literal)))
+          (rhs
+            (integer_literal)))))))
 
 =================
 Type dec

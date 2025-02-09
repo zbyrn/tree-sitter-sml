@@ -1383,35 +1383,16 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "STRING",
-              "value": "op"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
-          "type": "FIELD",
-          "name": "name",
+          "type": "ALIAS",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
-          }
-        },
-        {
-          "type": "REPEAT",
-          "content": {
-            "type": "FIELD",
-            "name": "argument",
+            "type": "REPEAT1",
             "content": {
               "type": "SYMBOL",
               "name": "_atomic_pattern"
             }
-          }
+          },
+          "named": true,
+          "value": "lhs"
         },
         {
           "type": "CHOICE",
@@ -1443,12 +1424,13 @@
           "value": "="
         },
         {
-          "type": "FIELD",
-          "name": "body",
+          "type": "ALIAS",
           "content": {
             "type": "SYMBOL",
             "name": "_expression"
-          }
+          },
+          "named": true,
+          "value": "rhs"
         }
       ]
     },
