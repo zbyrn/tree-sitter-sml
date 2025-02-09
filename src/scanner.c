@@ -42,9 +42,10 @@ static inline void destroy(StateT s)
     (void) s;
 }
 
-static inline void serialize(StateT s, char *buffer)
+static inline unsigned serialize(StateT s, char *buffer)
 {
     (void) s, (void) buffer;
+    return 0;
 }
 
 static inline void deserialize(StateT s, char *buffer, unsigned length)
@@ -126,9 +127,9 @@ void tree_sitter_sml_external_scanner_destroy(void *payload)
     destroy(payload);
 }
 
-void tree_sitter_sml_external_scanner_serialize(void *payload, char *buffer)
+unsigned tree_sitter_sml_external_scanner_serialize(void *payload, char *buffer)
 {
-    serialize(payload, buffer);
+    return serialize(payload, buffer);
 }
 
 void tree_sitter_sml_external_scanner_deserialize(

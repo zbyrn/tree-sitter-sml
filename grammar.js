@@ -78,7 +78,7 @@ module.exports = grammar({
 
   supertypes: $ => [
     $._expression,
-    $._local_declaration,
+    $._local_level_declaration,
     $._declaration,
     $._literal,
     $._atomic_expression,
@@ -173,7 +173,7 @@ module.exports = grammar({
     /************************ EXPRESSIONS ****************************/
     let_expression: $ => seq(
       "let",
-      $._local_declaration,
+      optional($._local_level_declarations),
       "in",
       $._expression,
       "end"
@@ -228,12 +228,14 @@ module.exports = grammar({
 
     /************************ TYPES ****************************/
 
-    tycon: $ => $._alphanum_identifier,
+    type_identifier: $ => $._identifier,
+    _tycon: $ => $.type_identifier,
     qualified_tycon: $ => seq(
       repeat(seq(alias($._alphanum_identifier, $.structure_name), ".")),
-      $.tycon
+      $._tycon
     ),
     tyvar: _ => token(seq("'", IDA)),
+    tyvarseq: $ => choice($.tyvar, parenthesize(sep2(",", $.tyvar))),
     type_row: $ => seq($._label, ":", $._type),
     record_type: $ => seq("{", sep(",", $.type_row), "}"),
     tuple_type: $ => sep2("*", $._type0),
@@ -256,24 +258,131 @@ module.exports = grammar({
     ),
 
     /************************ DECL ****************************/
-    value_declaration: $ => seq("val", $._valbind),
+    value_declaration: $ => seq("val", optional($.tyvarseq), $._valbinds),
+    _valbind: $ => choice(
+      seq(optional("lazy"), alias($._pattern, $.lhs), "=", alias($._expression, $.rhs)),
+      seq(alias("rec", $.rec), $._valbind)
+    ),
+    _valbinds: $ => sep1("and", alias($._valbind, $.valbind)),
 
-    _valbind1: $ => seq(optional("lazy"),
-      alias($._pattern, $.lhs),
+
+    function_declaration: $ => seq("fun", optional($.tyvarseq), $._fvalbinds),
+    _fvalbind_clause: $ => seq(
+      optional("op"),
+      field("name", $.identifier),
+      repeat(field("argument", $._atomic_pattern)),
+      optional(seq(":", field("return_type", $._type))),
       "=",
-      alias($._expression, $.rhs)
+      field("body", $._expression)
+    ),
+    fvalbind: $ => sep1("|", alias($._fvalbind_clause, $.clause)),
+    _fvalbinds: $ => sep1("and", $.fvalbind),
+    
+
+    type_declaration: $ => seq("type", $._tybinds),
+    tybind: $ => seq(
+      optional($.tyvarseq),
+      alias($._tycon, $.lhs),
+      "=",
+      alias($._type, $.rhs)
+    ),
+    _tybinds: $ => sep1("and", $.tybind),
+
+
+    datatype_declaration: $ => seq("datatype", $._datbinds),
+    datbind: $ => seq(
+      optional($.tyvarseq),
+      $._tycon,
+      "=",
+      sep1("|", $._con_or_replication_bind)
+    ),
+    _datbinds: $ => sep1("and", $.datbind),
+    _conbind: $ => seq(
+      optional("op"),
+      $.identifier,
+      optional(seq("of", $._type))
+    ),
+    _replication_bind: $ => seq(
+      "datatype",
+      $.qualified_tycon
+    ),
+    _con_or_replication_bind: $ => choice(
+      alias($._conbind, $.constructor),
+      alias($._replication_bind, $.replication)
     ),
 
-    _valbind: $ => sep1("and", $._valbind1),
+    abstype_declaration: $ => seq(
+      "abstype",
+      $._datbinds,
+      "with",
+      optional($._local_level_declarations),
+      "end"
+    ),
 
-    _local_declaration: $ => choice(
+    exception_declaration: $ => seq(
+      "exception",
+      $._exbinds
+    ),
+    exbind: $ => choice(
+      seq(optional("op"), $.identifier, optional(seq("of", $._type))),
+      seq(optional("op"), $.identifier, "=", optional("op"), $.qualified_identifier)
+    ),
+    _exbinds: $ => sep1("and", $.exbind),
+
+
+    local_declaration: $ => seq(
+      "local",
+      alias(optional($._local_level_declarations), $.local),
+      "in",
+      alias(optional($._local_level_declarations), $.exposed),
+      "end"
+    ),
+
+
+    open_declaration: $ => seq(
+      "open",
+      repeat1($.qualified_identifier)
+    ),
+
+
+    infixl_declaration: $ => seq(
+      "infix",
+      optional(/[0-9]/),
+      repeat1($.identifier)
+    ),
+
+    infixr_declaration: $ => seq(
+      "infixr",
+      optional(/[0-9]/),
+      repeat1($.identifier)
+    ),
+
+    nonfix_declaration: $ => seq(
+      "nonfix",
+      repeat1($.identifier)
+    ),
+
+    _local_level_declaration: $ => choice(
       $.value_declaration,
+      $.function_declaration,
+      $.type_declaration,
+      $.datatype_declaration,
+      $.abstype_declaration,
+      $.exception_declaration,
+      $.local_declaration,
+      $.open_declaration,
+      $.infixl_declaration,
+      $.infixr_declaration,
+      $.nonfix_declaration,
+    ),
+    _local_level_declarations: $ => repeat1(
+      choice($._local_level_declaration, ";")
     ),
 
     expression_declaration: $ => $._expression,
 
     structure_level_declaration: $ => choice(
-      $._local_declaration,
+      $._local_level_declaration,
     ),
 
     _declaration: $ => choice(
@@ -357,7 +466,6 @@ function sep1(delimiter, rule) {
 function sep2(delimiter, rule) {
   return seq(rule, repeat1(seq(delimiter, rule)))
 }
-
 
 function repeat2(rule) {
   return seq(rule, repeat1(rule))

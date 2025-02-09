@@ -82,14 +82,73 @@
     ]
   },
   {
-    "type": "_local_declaration",
+    "type": "_local_level_declaration",
     "named": true,
     "subtypes": [
+      {
+        "type": "abstype_declaration",
+        "named": true
+      },
+      {
+        "type": "datatype_declaration",
+        "named": true
+      },
+      {
+        "type": "exception_declaration",
+        "named": true
+      },
+      {
+        "type": "function_declaration",
+        "named": true
+      },
+      {
+        "type": "infixl_declaration",
+        "named": true
+      },
+      {
+        "type": "infixr_declaration",
+        "named": true
+      },
+      {
+        "type": "local_declaration",
+        "named": true
+      },
+      {
+        "type": "nonfix_declaration",
+        "named": true
+      },
+      {
+        "type": "open_declaration",
+        "named": true
+      },
+      {
+        "type": "type_declaration",
+        "named": true
+      },
       {
         "type": "value_declaration",
         "named": true
       }
     ]
+  },
+  {
+    "type": "abstype_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_local_level_declaration",
+          "named": true
+        },
+        {
+          "type": "datbind",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "arrow_type",
@@ -124,6 +183,104 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "clause",
+    "named": true,
+    "fields": {
+      "argument": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier_pattern",
+            "named": true
+          },
+          {
+            "type": "list_pattern",
+            "named": true
+          },
+          {
+            "type": "literal_pattern",
+            "named": true
+          },
+          {
+            "type": "parenthesized_pattern",
+            "named": true
+          },
+          {
+            "type": "record_pattern",
+            "named": true
+          },
+          {
+            "type": "vector_pattern",
+            "named": true
+          },
+          {
+            "type": "wildcard",
+            "named": true
+          }
+        ]
+      },
+      "body": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_expression",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "return_type": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
+          {
+            "type": "arrow_type",
+            "named": true
+          },
+          {
+            "type": "qualified_tycon",
+            "named": true
+          },
+          {
+            "type": "record_type",
+            "named": true
+          },
+          {
+            "type": "tuple_type",
+            "named": true
+          },
+          {
+            "type": "tyapp",
+            "named": true
+          },
+          {
+            "type": "tyvar",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -198,6 +355,160 @@
     }
   },
   {
+    "type": "constructor",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "arrow_type",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "qualified_tycon",
+          "named": true
+        },
+        {
+          "type": "record_type",
+          "named": true
+        },
+        {
+          "type": "tuple_type",
+          "named": true
+        },
+        {
+          "type": "tyapp",
+          "named": true
+        },
+        {
+          "type": "tyvar",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "datatype_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "datbind",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "datbind",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "constructor",
+          "named": true
+        },
+        {
+          "type": "replication",
+          "named": true
+        },
+        {
+          "type": "type_identifier",
+          "named": true
+        },
+        {
+          "type": "tyvarseq",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "exbind",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "arrow_type",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "qualified_identifier",
+          "named": true
+        },
+        {
+          "type": "qualified_tycon",
+          "named": true
+        },
+        {
+          "type": "record_type",
+          "named": true
+        },
+        {
+          "type": "tuple_type",
+          "named": true
+        },
+        {
+          "type": "tyapp",
+          "named": true
+        },
+        {
+          "type": "tyvar",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "exception_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "exbind",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "exposed",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "_local_level_declaration",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "expression_declaration",
     "named": true,
     "fields": {},
@@ -207,6 +518,40 @@
       "types": [
         {
           "type": "_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "function_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "fvalbind",
+          "named": true
+        },
+        {
+          "type": "tyvarseq",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "fvalbind",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "clause",
           "named": true
         }
       ]
@@ -242,6 +587,36 @@
       "types": [
         {
           "type": "qualified_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "infixl_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "infixr_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
           "named": true
         }
       ]
@@ -322,7 +697,7 @@
           "named": true
         },
         {
-          "type": "_local_declaration",
+          "type": "_local_level_declaration",
           "named": true
         }
       ]
@@ -362,6 +737,10 @@
         },
         {
           "type": "record_pattern",
+          "named": true
+        },
+        {
+          "type": "type_identifier",
           "named": true
         },
         {
@@ -432,6 +811,70 @@
       "types": [
         {
           "type": "_literal",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "local",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "_local_level_declaration",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "local_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "exposed",
+          "named": true
+        },
+        {
+          "type": "local",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "nonfix_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "open_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "qualified_identifier",
           "named": true
         }
       ]
@@ -591,7 +1034,7 @@
           "named": true
         },
         {
-          "type": "tycon",
+          "type": "type_identifier",
           "named": true
         }
       ]
@@ -662,6 +1105,56 @@
     }
   },
   {
+    "type": "replication",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "qualified_tycon",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "rhs",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "arrow_type",
+          "named": true
+        },
+        {
+          "type": "qualified_tycon",
+          "named": true
+        },
+        {
+          "type": "record_type",
+          "named": true
+        },
+        {
+          "type": "tuple_type",
+          "named": true
+        },
+        {
+          "type": "tyapp",
+          "named": true
+        },
+        {
+          "type": "tyvar",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "source_file",
     "named": true,
     "root": true,
@@ -686,7 +1179,7 @@
       "required": true,
       "types": [
         {
-          "type": "_local_declaration",
+          "type": "_local_level_declaration",
           "named": true
         }
       ]
@@ -763,7 +1256,45 @@
     }
   },
   {
-    "type": "tycon",
+    "type": "tybind",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "lhs",
+          "named": true
+        },
+        {
+          "type": "rhs",
+          "named": true
+        },
+        {
+          "type": "tyvarseq",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "type_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "tybind",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "type_identifier",
     "named": true,
     "fields": {}
   },
@@ -807,7 +1338,22 @@
     }
   },
   {
-    "type": "value_declaration",
+    "type": "tyvarseq",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "tyvar",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "valbind",
     "named": true,
     "fields": {},
     "children": {
@@ -819,7 +1365,30 @@
           "named": true
         },
         {
+          "type": "rec",
+          "named": true
+        },
+        {
           "type": "rhs",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "value_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "tyvarseq",
+          "named": true
+        },
+        {
+          "type": "valbind",
           "named": true
         }
       ]
@@ -905,6 +1474,10 @@
     "named": false
   },
   {
+    "type": ";",
+    "named": false
+  },
+  {
     "type": "=",
     "named": false
   },
@@ -914,6 +1487,10 @@
   },
   {
     "type": "]",
+    "named": false
+  },
+  {
+    "type": "abstype",
     "named": false
   },
   {
@@ -933,7 +1510,19 @@
     "named": true
   },
   {
+    "type": "datatype",
+    "named": false
+  },
+  {
     "type": "end",
+    "named": false
+  },
+  {
+    "type": "exception",
+    "named": false
+  },
+  {
+    "type": "fun",
     "named": false
   },
   {
@@ -943,6 +1532,14 @@
   {
     "type": "index",
     "named": true
+  },
+  {
+    "type": "infix",
+    "named": false
+  },
+  {
+    "type": "infixr",
+    "named": false
   },
   {
     "type": "integer_literal",
@@ -957,11 +1554,31 @@
     "named": false
   },
   {
+    "type": "local",
+    "named": false
+  },
+  {
+    "type": "nonfix",
+    "named": false
+  },
+  {
+    "type": "of",
+    "named": false
+  },
+  {
     "type": "op",
     "named": false
   },
   {
+    "type": "open",
+    "named": false
+  },
+  {
     "type": "real_literal",
+    "named": true
+  },
+  {
+    "type": "rec",
     "named": true
   },
   {
@@ -971,6 +1588,10 @@
   {
     "type": "structure_name",
     "named": true
+  },
+  {
+    "type": "type",
+    "named": false
   },
   {
     "type": "tyvar",
@@ -983,6 +1604,10 @@
   {
     "type": "wildcard",
     "named": true
+  },
+  {
+    "type": "with",
+    "named": false
   },
   {
     "type": "word_literal",

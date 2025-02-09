@@ -1,0 +1,633 @@
+=================
+Val Decl (simple)
+=================
+
+val x = 3
+
+-------
+
+(source_file
+  (structure_level_declaration
+    (value_declaration
+      (valbind
+        (lhs
+          (identifier_pattern
+            (qualified_identifier
+              (identifier))))
+        (rhs
+          (integer_literal))))))
+
+=================
+Val Decl (tyconseq)
+=================
+
+val ('a, 'b) x = 3
+
+-------
+
+(source_file
+  (structure_level_declaration
+    (value_declaration
+      (tyvarseq
+        (tyvar)
+        (tyvar))
+      (valbind
+        (lhs
+          (identifier_pattern
+            (qualified_identifier
+              (identifier))))
+        (rhs
+          (integer_literal))))))
+
+=================
+Val Rec
+=================
+
+val rec x = 3
+
+-------
+
+(source_file
+  (structure_level_declaration
+    (value_declaration
+      (valbind
+        (rec)
+        (lhs
+          (identifier_pattern
+            (qualified_identifier
+              (identifier))))
+        (rhs
+          (integer_literal))))))
+
+=================
+Val Rec (tyconseq)
+=================
+
+val 'a rec x = 3
+
+-------
+
+(source_file
+  (structure_level_declaration
+    (value_declaration
+      (tyvarseq
+        (tyvar))
+      (valbind
+        (rec)
+        (lhs
+          (identifier_pattern
+            (qualified_identifier
+              (identifier))))
+        (rhs
+          (integer_literal))))))
+
+=================
+Val Rec And (tyconseq)
+=================
+
+val 'a rec x = 3 and y = 3
+
+-------
+
+(source_file
+  (structure_level_declaration
+    (value_declaration
+      (tyvarseq
+        (tyvar))
+      (valbind
+        (rec)
+        (lhs
+          (identifier_pattern
+            (qualified_identifier
+              (identifier))))
+        (rhs
+          (integer_literal)))
+      (valbind
+        (lhs
+          (identifier_pattern
+            (qualified_identifier
+              (identifier))))
+        (rhs
+          (integer_literal))))))
+
+=================
+Val Rec And Rec (tyconseq)
+=================
+
+val 'a rec x = 3 and rec y = 3
+
+-------
+
+(source_file
+  (structure_level_declaration
+    (value_declaration
+      (tyvarseq
+        (tyvar))
+      (valbind
+        (rec)
+        (lhs
+          (identifier_pattern
+            (qualified_identifier
+              (identifier))))
+        (rhs
+          (integer_literal)))
+      (valbind
+        (rec)
+        (lhs
+          (identifier_pattern
+            (qualified_identifier
+              (identifier))))
+        (rhs
+          (integer_literal))))))
+
+=================
+fun dec
+=================
+
+fun f x = 3
+
+-------
+
+(source_file
+  (structure_level_declaration
+    (function_declaration
+      (fvalbind
+        (clause
+          (identifier)
+          (identifier_pattern
+            (qualified_identifier
+              (identifier)))
+          (integer_literal))))))
+
+=================
+fun dec 2
+=================
+
+fun f x y = 3
+
+-------
+
+(source_file
+  (structure_level_declaration
+    (function_declaration
+      (fvalbind
+        (clause
+          (identifier)
+          (identifier_pattern
+            (qualified_identifier
+              (identifier)))
+          (identifier_pattern
+            (qualified_identifier
+              (identifier)))
+          (integer_literal))))))
+
+=================
+fun dec 3
+=================
+
+fun f x y = 3 | f z = 3
+
+-------
+
+(source_file
+  (structure_level_declaration
+    (function_declaration
+      (fvalbind
+        (clause
+          (identifier)
+          (identifier_pattern
+            (qualified_identifier
+              (identifier)))
+          (identifier_pattern
+            (qualified_identifier
+              (identifier)))
+          (integer_literal))
+        (clause
+          (identifier)
+          (identifier_pattern
+            (qualified_identifier
+              (identifier)))
+          (integer_literal))))))
+
+=================
+fun dec 4
+=================
+
+fun f x y = 3 | f z = 3 and g x = 5
+
+-------
+
+(source_file
+  (structure_level_declaration
+    (function_declaration
+      (fvalbind
+        (clause
+          (identifier)
+          (identifier_pattern
+            (qualified_identifier
+              (identifier)))
+          (identifier_pattern
+            (qualified_identifier
+              (identifier)))
+          (integer_literal))
+        (clause
+          (identifier)
+          (identifier_pattern
+            (qualified_identifier
+              (identifier)))
+          (integer_literal)))
+      (fvalbind
+        (clause
+          (identifier)
+          (identifier_pattern
+            (qualified_identifier
+              (identifier)))
+          (integer_literal))))))
+
+=================
+Type dec
+=================
+
+type t = int
+
+-----
+
+(source_file
+  (structure_level_declaration
+    (type_declaration
+      (tybind
+        (lhs
+          (type_identifier))
+        (rhs
+          (qualified_tycon
+            (type_identifier)))))))
+
+=================
+Type dec (tyvarseq)
+=================
+
+type 'a t = int
+
+-----
+
+(source_file
+  (structure_level_declaration
+    (type_declaration
+      (tybind
+        (tyvarseq
+          (tyvar))
+        (lhs
+          (type_identifier))
+        (rhs
+          (qualified_tycon
+            (type_identifier)))))))
+
+=================
+Type dec and
+=================
+
+type t = A.x and t2 = B.x
+
+-----
+
+(source_file
+  (structure_level_declaration
+    (type_declaration
+      (tybind
+        (lhs
+          (type_identifier))
+        (rhs
+          (qualified_tycon
+            (structure_name)
+            (type_identifier))))
+      (tybind
+        (lhs
+          (type_identifier))
+        (rhs
+          (qualified_tycon
+            (structure_name)
+            (type_identifier)))))))
+
+=================
+Type dec and (tyvarseq)
+=================
+
+type 'a t = x and 'b t2 = x
+
+-----
+
+(source_file
+  (structure_level_declaration
+    (type_declaration
+      (tybind
+        (tyvarseq
+          (tyvar))
+        (lhs
+          (type_identifier))
+        (rhs
+          (qualified_tycon
+            (type_identifier))))
+      (tybind
+        (tyvarseq
+          (tyvar))
+        (lhs
+          (type_identifier))
+        (rhs
+          (qualified_tycon
+            (type_identifier)))))))
+
+=================
+Type dec symbolic
+=================
+
+type -- = x
+
+-----
+
+(source_file
+  (structure_level_declaration
+    (type_declaration
+      (tybind
+        (lhs
+          (type_identifier))
+        (rhs
+          (qualified_tycon
+            (type_identifier)))))))
+
+=================
+Datatype dec (bool)
+=================
+
+datatype bool = true | false
+
+-----
+
+(source_file
+  (structure_level_declaration
+    (datatype_declaration
+      (datbind
+        (type_identifier)
+        (constructor
+          (identifier))
+        (constructor
+          (identifier))))))
+
+=================
+Datatype dec (list)
+=================
+
+datatype 'a list = nil | op:: of 'a * 'a list
+
+-----
+
+(source_file
+  (structure_level_declaration
+    (datatype_declaration
+      (datbind
+        (tyvarseq
+          (tyvar))
+        (type_identifier)
+        (constructor
+          (identifier))
+        (constructor
+          (identifier)
+          (tuple_type
+            (tyvar)
+            (tyapp
+              (tyvar)
+              (qualified_tycon
+                (type_identifier)))))))))
+
+=================
+Datatype dec rec
+=================
+
+datatype t1 = A | B and t2 = C | D
+
+-----
+
+(source_file
+  (structure_level_declaration
+    (datatype_declaration
+      (datbind
+        (type_identifier)
+        (constructor
+          (identifier))
+        (constructor
+          (identifier)))
+      (datbind
+        (type_identifier)
+        (constructor
+          (identifier))
+        (constructor
+          (identifier))))))
+
+=================
+Abstype dec
+=================
+
+abstype t1 = A with val x = 3 end
+
+-----
+
+(source_file
+  (structure_level_declaration
+    (abstype_declaration
+      (datbind
+        (type_identifier)
+        (constructor
+          (identifier)))
+      (value_declaration
+        (valbind
+          (lhs
+            (identifier_pattern
+              (qualified_identifier
+                (identifier))))
+          (rhs
+            (integer_literal)))))))
+
+=================
+Exception dec
+=================
+
+exception A
+
+-----
+
+(source_file
+  (structure_level_declaration
+    (exception_declaration
+      (exbind
+        (identifier)))))
+
+=================
+Exception dec 2
+=================
+
+exception op == of int
+
+-----
+
+(source_file
+  (structure_level_declaration
+    (exception_declaration
+      (exbind
+        (identifier)
+        (qualified_tycon
+          (type_identifier))))))
+
+=================
+Exception dec 3
+=================
+
+exception ** and //
+
+-----
+
+(source_file
+  (structure_level_declaration
+    (exception_declaration
+      (exbind
+        (identifier))
+      (exbind
+        (identifier)))))
+
+=================
+Exception dec 4
+=================
+
+exception ** = //
+
+-----
+
+(source_file
+  (structure_level_declaration
+    (exception_declaration
+      (exbind
+        (identifier)
+        (qualified_identifier
+          (identifier))))))
+
+=================
+Local dec
+=================
+
+local val x = 3 in val z = 4 end
+
+-----
+
+(source_file
+  (structure_level_declaration
+    (local_declaration
+      (local
+        (value_declaration
+          (valbind
+            (lhs
+              (identifier_pattern
+                (qualified_identifier
+                  (identifier))))
+            (rhs
+              (integer_literal)))))
+      (exposed
+        (value_declaration
+          (valbind
+            (lhs
+              (identifier_pattern
+                (qualified_identifier
+                  (identifier))))
+            (rhs
+              (integer_literal))))))))
+
+=================
+Local dec multi
+=================
+
+local ;;;; val x = 3 ; val y = 4 ;;;;; in val z = 4 val a = 5 end
+
+-----
+
+(source_file
+  (structure_level_declaration
+    (local_declaration
+      (local
+        (value_declaration
+          (valbind
+            (lhs
+              (identifier_pattern
+                (qualified_identifier
+                  (identifier))))
+            (rhs
+              (integer_literal))))
+        (value_declaration
+          (valbind
+            (lhs
+              (identifier_pattern
+                (qualified_identifier
+                  (identifier))))
+            (rhs
+              (integer_literal)))))
+      (exposed
+        (value_declaration
+          (valbind
+            (lhs
+              (identifier_pattern
+                (qualified_identifier
+                  (identifier))))
+            (rhs
+              (integer_literal))))
+        (value_declaration
+          (valbind
+            (lhs
+              (identifier_pattern
+                (qualified_identifier
+                  (identifier))))
+            (rhs
+              (integer_literal))))))))
+
+=================
+Open dec
+=================
+
+open x y SMLofNJ.Control
+
+
+-----
+
+(source_file
+  (structure_level_declaration
+    (open_declaration
+      (qualified_identifier
+        (identifier))
+      (qualified_identifier
+        (identifier))
+      (qualified_identifier
+        (structure_name)
+        (identifier)))))
+
+=================
+infixl
+=================
+
+infix ++ --
+
+-----
+
+(source_file
+  (structure_level_declaration
+    (infixl_declaration
+      (identifier)
+      (identifier))))
+
+=================
+infixr
+=================
+
+infixr 9 ++ --
+
+-----
+
+(source_file
+  (structure_level_declaration
+    (infixr_declaration
+      (identifier)
+      (identifier))))
