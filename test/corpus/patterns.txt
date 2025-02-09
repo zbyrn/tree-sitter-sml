@@ -454,16 +454,16 @@ val x as y : int = 3
     (value_declaration
       (valbind
         (lhs
-          (layered_pattern
-            (identifier_pattern
-              (qualified_identifier
-                (identifier)))
-            (constraint_pattern
+          (constraint_pattern
+            (layered_pattern
               (identifier_pattern
                 (qualified_identifier
                   (identifier)))
-              (qualified_tycon
-                (type_identifier)))))
+              (identifier_pattern
+                (qualified_identifier
+                  (identifier))))
+            (qualified_tycon
+              (type_identifier))))
         (rhs
           (integer_literal))))))
 
@@ -480,19 +480,19 @@ val x : int as y : int = 3
     (value_declaration
       (valbind
         (lhs
-          (layered_pattern
-            (constraint_pattern
+          (constraint_pattern
+            (layered_pattern
+              (constraint_pattern
+                (identifier_pattern
+                  (qualified_identifier
+                    (identifier)))
+                (qualified_tycon
+                  (type_identifier)))
               (identifier_pattern
                 (qualified_identifier
-                  (identifier)))
-              (qualified_tycon
-                (type_identifier)))
-            (constraint_pattern
-              (identifier_pattern
-                (qualified_identifier
-                  (identifier)))
-              (qualified_tycon
-                (type_identifier)))))
+                  (identifier))))
+            (qualified_tycon
+              (type_identifier))))
         (rhs
           (integer_literal))))))
 

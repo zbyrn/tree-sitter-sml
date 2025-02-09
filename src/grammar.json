@@ -851,7 +851,7 @@
     },
     "constraint_pattern": {
       "type": "PREC",
-      "value": 2,
+      "value": 1,
       "content": {
         "type": "SEQ",
         "members": [
@@ -872,7 +872,7 @@
     },
     "layered_pattern": {
       "type": "PREC_RIGHT",
-      "value": 1,
+      "value": 2,
       "content": {
         "type": "SEQ",
         "members": [

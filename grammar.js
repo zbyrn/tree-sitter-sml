@@ -194,7 +194,6 @@ module.exports = grammar({
     literal_pattern: $ => $._literal,
     identifier_pattern: $ => choice(
       seq("op", $.qualified_identifier),
-      // seq($._alphanum_identifier, ".", $.qualified_identifier),
       seq($.qualified_identifier),
     ),
     list_pattern: $ => seq("[", sep(",", $._pattern), "]"),
@@ -218,8 +217,8 @@ module.exports = grammar({
       $.parenthesized_pattern,
     ),
 
-    constraint_pattern: $ => prec(2, seq($._pattern, ":", $._type)),
-    layered_pattern: $ => prec.right(1, seq($._pattern, "as", $._pattern)),
+    constraint_pattern: $ => prec(1, seq($._pattern, ":", $._type)),
+    layered_pattern: $ => prec.right(2, seq($._pattern, "as", $._pattern)),
     _pattern: $ => choice(
       $.constraint_pattern,
       $.layered_pattern,
