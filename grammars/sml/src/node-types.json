@@ -42,6 +42,10 @@
       {
         "type": "unit_expression",
         "named": true
+      },
+      {
+        "type": "vector_expression",
+        "named": true
       }
     ]
   },
@@ -1142,11 +1146,19 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
-          "type": "_signature_expression",
+          "type": "sig_expression",
+          "named": true
+        },
+        {
+          "type": "signature_identifier_expression",
+          "named": true
+        },
+        {
+          "type": "type_realization_expression",
           "named": true
         }
       ]
@@ -1774,6 +1786,10 @@
           "named": true
         },
         {
+          "type": "qualified_structure_identifier",
+          "named": true
+        },
+        {
           "type": "qualified_tycon",
           "named": true
         }
@@ -2200,31 +2216,7 @@
           "named": true
         },
         {
-          "type": "arrow_type",
-          "named": true
-        },
-        {
-          "type": "qualified_tycon",
-          "named": true
-        },
-        {
-          "type": "record_type",
-          "named": true
-        },
-        {
-          "type": "tuple_type",
-          "named": true
-        },
-        {
-          "type": "tyapp",
-          "named": true
-        },
-        {
-          "type": "tyvar",
-          "named": true
-        },
-        {
-          "type": "tyvarseq",
+          "type": "where_equation",
           "named": true
         }
       ]
@@ -2445,6 +2437,21 @@
     }
   },
   {
+    "type": "vector_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "vector_pattern",
     "named": true,
     "fields": {},
@@ -2454,6 +2461,49 @@
       "types": [
         {
           "type": "_pattern",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "where_equation",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "arrow_type",
+          "named": true
+        },
+        {
+          "type": "qualified_structure_identifier",
+          "named": true
+        },
+        {
+          "type": "qualified_tycon",
+          "named": true
+        },
+        {
+          "type": "record_type",
+          "named": true
+        },
+        {
+          "type": "tuple_type",
+          "named": true
+        },
+        {
+          "type": "tyapp",
+          "named": true
+        },
+        {
+          "type": "tyvar",
+          "named": true
+        },
+        {
+          "type": "tyvarseq",
           "named": true
         }
       ]

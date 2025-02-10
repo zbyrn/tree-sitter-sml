@@ -111,3 +111,22 @@ val _ = 3
         (wildcard))
       (rhs
         (integer_literal)))))
+
+==============================
+Not a comment
+==============================
+
+val _ = (op *)
+
+---
+
+(source_file
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (parenthesized_expression
+          (identifier_expression
+            (qualified_identifier
+              (identifier))))))))

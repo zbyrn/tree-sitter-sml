@@ -211,6 +211,12 @@ module.exports = grammar({
       "]"
     ),
 
+    vector_expression: $ => seq(
+      "#[",
+      sep(",", $._expression),
+      "]"
+    ),
+
     sequence_expression: $ => parenthesize(
       sep2(";", $._expression)
     ),
@@ -228,6 +234,7 @@ module.exports = grammar({
       $.unit_expression,
       $.tuple_expression,
       $.list_expression,
+      $.vector_expression,
       $.sequence_expression,
       $.parenthesized_expression,
     ),
@@ -604,12 +611,13 @@ module.exports = grammar({
     type_realization_expression: $ => seq(
       $._signature_expression,
       "where",
-      "type",
-      optional($.tyvarseq),
-      $.qualified_tycon,
-      "=",
-      $._type
+      $._where_equations,
     ),
+    where_equation: $ => choice(
+      seq("type", optional($.tyvarseq), $.qualified_tycon, "=", $._type),
+      seq($.qualified_structure_identifier, "=", $.qualified_structure_identifier)
+    ),
+    _where_equations: $ => prec.left(sep1("and", $.where_equation)),
 
     _signature_expression: $ => choice(
       $.sig_expression,
@@ -696,14 +704,20 @@ module.exports = grammar({
 
     include_spec: $ => seq(
       "include",
-      $._signature_expression,
+      choice(
+        repeat1($.signature_identifier_expression),
+        $.sig_expression,
+        $.type_realization_expression,
+      ),
     ),
 
     sharing_spec: $ => prec.left(0, seq(
       optional($._specs),
       "sharing",
-      "type",
-      sep2("=", $.qualified_tycon),
+      choice(
+        seq("type", sep2("=", $.qualified_tycon)),
+        sep2("=", $.qualified_structure_identifier)
+      ),
     )),
 
     _spec: $ => choice(
