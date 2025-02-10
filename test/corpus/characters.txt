@@ -1,105 +1,153 @@
 ================
 Char simple
 ================
-#"a"
+val _ = #"a"
 ----------------
+
 (source_file
-  (expression_declaration
-    (char_literal)))
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (char_literal)))))
 
 ================
 Char escaped newline
 ================
-#"\n"
+val _ = #"\n"
 ----------------
+
 (source_file
-  (expression_declaration
-    (char_literal)))
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (char_literal)))))
 
 ================
 Char control at
 ================
-#"\^@"
+val _ = #"\^@"
 ----------------
+
 (source_file
-  (expression_declaration
-    (char_literal)))
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (char_literal)))))
 
 ================
 Char oct
 ================
-#"\007"
+val _ = #"\007"
 ----------------
+
 (source_file
-  (expression_declaration
-    (char_literal)))
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (char_literal)))))
 
 ================
 Char hex
 ================
-#"\u0061"
+val _ = #"\u0061"
 ----------------
+
 (source_file
-  (expression_declaration
-    (char_literal)))
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (char_literal)))))
 
 ================
 Char escaped quote
 ================
-#"\""
+val _ = #"\""
 ----------------
+
 (source_file
-  (expression_declaration
-    (char_literal)))
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (char_literal)))))
 
 ================
 Char escaped backslash
 ================
-#"\\"
+val _ = #"\\"
 ----------------
+
 (source_file
-  (expression_declaration
-    (char_literal)))
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (char_literal)))))
 
 ================
 Char multiline
 ================
-#"c\
+val _ = #"c\
 
 \"
 ----------------
+
 (source_file
-  (expression_declaration
-    (char_literal)))
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (char_literal)))))
 
 ================
 Char empty
 :error
 ================
-#""
+val _ = #""
 
 ------
+
+
 
 ================
 Char multichar
 :error
 ================
-#"ab"
+val _ = #"ab"
 
 ------
+
+
 
 ================
 Char unknown escape
 :error
 ================
-#"\q"
+val _ = #"\q"
 
 ------
+
+
 
 ================
 Char incomplete oct
 :error
 ================
-#"\0"
+val _ = #"\0"
 
 ------
+
+

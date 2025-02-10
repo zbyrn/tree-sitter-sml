@@ -1,198 +1,295 @@
 ================
 Empty string
 ================
-""
+val _ = ""
 ----------------
+
 (source_file
-  (expression_declaration
-    (string_literal)))
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (string_literal)))))
 
 ================
 Single char
 ================
-"A"
+val _ = "A"
 ----------------
+
 (source_file
-  (expression_declaration
-    (string_literal)))
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (string_literal)))))
 
 ================
 Space only
 ================
-" "
+val _ = " "
 ----------------
+
 (source_file
-  (expression_declaration
-    (string_literal)))
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (string_literal)))))
 
 ================
 Printable min max
 ================
-"!~"
+val _ = "!~"
 ----------------
+
 (source_file
-  (expression_declaration
-    (string_literal)))
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (string_literal)))))
 
 ================
 Escape newline
 ================
-"\n"
+val _ = "\n"
 ----------------
+
 (source_file
-  (expression_declaration
-    (string_literal)))
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (string_literal)))))
 
 ================
 Escape tab
 ================
-"\t"
+val _ = "\t"
 ----------------
+
 (source_file
-  (expression_declaration
-    (string_literal)))
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (string_literal)))))
 
 ================
 Escape carriage return
 ================
-"\r"
+val _ = "\r"
 ----------------
+
 (source_file
-  (expression_declaration
-    (string_literal)))
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (string_literal)))))
 
 ================
 Multiple escapes
 ================
-"Line1\nLine2\tTabbed"
+val _ = "Line1\nLine2\tTabbed"
 ----------------
+
 (source_file
-  (expression_declaration
-    (string_literal)))
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (string_literal)))))
 
 ================
 Octal escape
 ================
-"\007"
+val _ = "\007"
 ----------------
+
 (source_file
-  (expression_declaration
-    (string_literal)))
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (string_literal)))))
 
 ================
 Hex escape
 ================
-"\u0061"
+val _ = "\u0061"
 ----------------
+
 (source_file
-  (expression_declaration
-    (string_literal)))
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (string_literal)))))
 
 ================
 Control character
 ================
-"\^@"
+val _ = "\^@"
 ----------------
+
 (source_file
-  (expression_declaration
-    (string_literal)))
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (string_literal)))))
 
 ================
 Escaped quote
 ================
-"\""
+val _ = "\""
 ----------------
+
 (source_file
-  (expression_declaration
-    (string_literal)))
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (string_literal)))))
 
 ================
 Double backslash
 ================
-"\\"
+val _ = "\\"
 ----------------
+
 (source_file
-  (expression_declaration
-    (string_literal)))
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (string_literal)))))
 
 ================
 Repeated backslashes
 ================
-"\\\\"
+val _ = "\\\\"
 ----------------
+
 (source_file
-  (expression_declaration
-    (string_literal)))
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (string_literal)))))
 
 ================
 Unknown escape
 :error
 ================
-"\q"
+val _ = "\q"
 
 ------
+
+
 
 ================
 Incomplete numeric escape
 :error
 ================
-"\0"
+val _ = "\0"
 
 ------
+
+
 
 ================
 Backslash line continuation
 ================
-"Hello \
+val _ = "Hello \
     \World"
 ----------------
+
 (source_file
-  (expression_declaration
-    (string_literal)))
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (string_literal)))))
 
 ================
 Multiline with blank
 ================
-"Here is a line \
+val _ = "Here is a line \
  
  \ with blank lines"
 ----------------
+
 (source_file
-  (expression_declaration
-    (string_literal)))
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (string_literal)))))
 
 ================
 Multiline ending with quote
 ================
-"Here is a line \
+val _ = "Here is a line \
  \"
 ----------------
+
 (source_file
-  (expression_declaration
-    (string_literal)))
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (string_literal)))))
 
 ================
 Unclosed string
 :error
 ================
-"This string never ends
+val _ = "This string never ends
 
 ------
+
+
 
 ================
 Ends in backslash
 :error
 ================
-"Backslash at end \
+val _ = "Backslash at end \
 
 ------
+
+
 
 ================
 Multiple numeric escapes
 ================
-"\097\098\099"
+val _ = "\097\098\099"
 ----------------
-(source_file
-  (expression_declaration
-    (string_literal)))
 
+(source_file
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (string_literal)))))

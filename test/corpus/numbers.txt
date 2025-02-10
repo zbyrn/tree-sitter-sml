@@ -1,198 +1,270 @@
 ================
 Int simple
 ================
-42
+val _ = 42
 ----------------
 
 (source_file
-  (expression_declaration
-    (integer_literal)))
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (integer_literal)))))
 
 ================
 Int zero
 ================
-0
+val _ = 0
 ----------------
 
 (source_file
-  (expression_declaration
-    (integer_literal)))
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (integer_literal)))))
 
 ================
 Int negative
 ================
-~123
+val _ = ~123
 ----------------
 
 (source_file
-  (expression_declaration
-    (integer_literal)))
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (integer_literal)))))
 
 ================
 Int hex
 ================
-0x42aaFFAAff
+val _ = 0x42aaFFAAff
 ----------------
 
 (source_file
-  (expression_declaration
-    (integer_literal)))
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (integer_literal)))))
 
 ================
 Int negative hex
 ================
-~0x42aaFFAAff
+val _ = ~0x42aaFFAAff
 ----------------
 
 (source_file
-  (expression_declaration
-    (integer_literal)))
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (integer_literal)))))
 
 ================
 Int leading zero
 ================
-0123
+val _ = 0123
 ----------------
 
 (source_file
-  (expression_declaration
-    (integer_literal)))
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (integer_literal)))))
 
 ================
 Int leading zero hex
 ================
-0x0123
+val _ = 0x0123
 ----------------
 
 (source_file
-  (expression_declaration
-    (integer_literal)))
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (integer_literal)))))
 
 ================
 Int large
 ================
-9999999999999999999
+val _ = 9999999999999999999
 ----------------
 
 (source_file
-  (expression_declaration
-    (integer_literal)))
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (integer_literal)))))
 
 ================
 Int invalid alpha
 ================
-4a2
+val _ = 4a2
 
 ------
 
 (source_file
-  (expression_declaration
-    (application_expression
-      (integer_literal)
-      (identifier_expression
-        (qualified_identifier
-          (identifier))))))
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (application_expression
+          (integer_literal)
+          (identifier_expression
+            (qualified_identifier
+              (identifier))))))))
 
 ================
 Word simple
 ================
-0w10
+val _ = 0w10
 ----------------
 
 (source_file
-  (expression_declaration
-    (word_literal)))
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (word_literal)))))
 
 ================
 Word hex
 ================
-0wx01AF
+val _ = 0wx01AF
 ----------------
 
 (source_file
-  (expression_declaration
-    (word_literal)))
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (word_literal)))))
 
 ================
 Word zero
 ================
-0w0
+val _ = 0w0
 ----------------
 
 (source_file
-  (expression_declaration
-    (word_literal)))
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (word_literal)))))
 
 ================
 Word invalid
 ================
-0w
+val _ = 0w
 
 ------
 
 (source_file
-  (expression_declaration
-    (application_expression
-      (integer_literal)
-      (identifier_expression
-        (qualified_identifier
-          (identifier))))))
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (application_expression
+          (integer_literal)
+          (identifier_expression
+            (qualified_identifier
+              (identifier))))))))
 
 ================
 real_simple
 ================
-3.14
+val _ = 3.14
 ----------------
 
 (source_file
-  (expression_declaration
-    (real_literal)))
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (real_literal)))))
 
 ================
 Real exponent
 ================
-2.5e3
+val _ = 2.5e3
 ----------------
 
 (source_file
-  (expression_declaration
-    (real_literal)))
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (real_literal)))))
 
 ================
 Real negative exponent
 ================
-2.5e~3
+val _ = 2.5e~3
 ----------------
 
 (source_file
-  (expression_declaration
-    (real_literal)))
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (real_literal)))))
 
 ================
 Real negative
 ================
-~6.022e23
+val _ = ~6.022e23
 ----------------
 
 (source_file
-  (expression_declaration
-    (real_literal)))
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (real_literal)))))
 
 ================
 Real decimal only
 ================
-123.0
+val _ = 123.0
 ----------------
 
 (source_file
-  (expression_declaration
-    (real_literal)))
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (real_literal)))))
 
 ================
 Real invalid double dot
 :error
 ================
-3.0.0
+val _ = 3.0.0
 
 -----
 
@@ -201,14 +273,18 @@ Real invalid double dot
 ================
 Real invalid exp
 ================
-4.2e
+val _ = 4.2e
 
 -----
 
 (source_file
-  (expression_declaration
-    (application_expression
-      (real_literal)
-      (identifier_expression
-        (qualified_identifier
-          (identifier))))))
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (application_expression
+          (real_literal)
+          (identifier_expression
+            (qualified_identifier
+              (identifier))))))))

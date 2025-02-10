@@ -2,152 +2,192 @@
 Record selector expression 1
 =================
 
-#1
+val _ = #1
 
 -------
 
 (source_file
-  (expression_declaration
-    (record_selector_expression
-      (int_label
-        (index)))))
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (record_selector_expression
+          (int_label
+            (index)))))))
 
 =================
 Record selector expression 2
 =================
 
-#x
+val _ = #x
 
 -------
 
 (source_file
-  (expression_declaration
-    (record_selector_expression
-      (identifier_label
-        (identifier)))))
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (record_selector_expression
+          (identifier_label
+            (identifier)))))))
 
 =================
 Not record selector expression 1
 =================
 
-#**
+val _ = #**
 
 -------
 
 (source_file
-  (expression_declaration
-    (identifier_expression
-      (qualified_identifier
-        (identifier)))))
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (identifier_expression
+          (qualified_identifier
+            (identifier)))))))
 
 =================
 Not record selector expression 2
 =================
 
-###
+val _ = ###
 
 -------
 
 (source_file
-  (expression_declaration
-    (identifier_expression
-      (qualified_identifier
-        (identifier)))))
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (identifier_expression
+          (qualified_identifier
+            (identifier)))))))
 
 =================
 Unit 1
 =================
 
-()
+val _ = ()
 
 -------
 
 (source_file
-  (expression_declaration
-    (unit_expression)))
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (unit_expression)))))
 
 =================
 Unit 2
 =================
 
-( )
+val _ = ( )
 
 -------
 
 (source_file
-  (expression_declaration
-    (unit_expression)))
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (unit_expression)))))
 
 =================
 Unit 3
 =================
 
-((**))
+val _ = ((**))
 
 -------
 
 (source_file
-  (expression_declaration
-    (unit_expression
-      (comment))))
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (unit_expression
+          (comment))))))
 
 =================
 Tuple
 =================
 
-(x, y)
+val _ = (x, y)
 
 -------
 
 (source_file
-  (expression_declaration
-    (tuple_expression
-      (identifier_expression
-        (qualified_identifier
-          (identifier)))
-      (identifier_expression
-        (qualified_identifier
-          (identifier))))))
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (tuple_expression
+          (identifier_expression
+            (qualified_identifier
+              (identifier)))
+          (identifier_expression
+            (qualified_identifier
+              (identifier))))))))
 
 =================
 List
 =================
 
-[1, 2, 3]
+val _ = [1, 2, 3]
 
 -------
 
 (source_file
-  (expression_declaration
-    (list_expression
-      (integer_literal)
-      (integer_literal)
-      (integer_literal))))
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (list_expression
+          (integer_literal)
+          (integer_literal)
+          (integer_literal))))))
 
 =================
 Sequence
 =================
 
-(a;b)
+val _ = (a;b)
 
 -------
 
 (source_file
-  (expression_declaration
-    (sequence_expression
-      (identifier_expression
-        (qualified_identifier
-          (identifier)))
-      (identifier_expression
-        (qualified_identifier
-          (identifier))))))
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (sequence_expression
+          (identifier_expression
+            (qualified_identifier
+              (identifier)))
+          (identifier_expression
+            (qualified_identifier
+              (identifier))))))))
 
 =================
 Invalid sequence
 :error
 =================
 
-(a;)
+val _ = (a;)
 
 -------
 
@@ -162,22 +202,26 @@ Invalid sequence
 Parenthesized
 ==================
 
-(a (b andalso c))
+val _ = (a (b andalso c))
 
 -------
 
 (source_file
-  (expression_declaration
-    (parenthesized_expression
-      (application_expression
-        (identifier_expression
-          (qualified_identifier
-            (identifier)))
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
         (parenthesized_expression
-          (conjunction_expression
+          (application_expression
             (identifier_expression
               (qualified_identifier
                 (identifier)))
-            (identifier_expression
-              (qualified_identifier
-                (identifier)))))))))
+            (parenthesized_expression
+              (conjunction_expression
+                (identifier_expression
+                  (qualified_identifier
+                    (identifier)))
+                (identifier_expression
+                  (qualified_identifier
+                    (identifier)))))))))))

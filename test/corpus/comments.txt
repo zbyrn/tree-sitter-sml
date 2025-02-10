@@ -7,7 +7,7 @@ Comments
 (**
   doc
 *)
-3
+val _ = 3
 
 ---
 
@@ -15,37 +15,46 @@ Comments
   (comment)
   (comment)
   (comment)
-  (expression_declaration
-    (integer_literal)))
-
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (integer_literal)))))
 
 ==============================
 Comment in string
 ==============================
 
-"(* *)"
+val _ = "(* *)"
 
 ---
 
 (source_file
-  (expression_declaration
-    (string_literal)))
-
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (string_literal)))))
 
 ==============================
 String in comment
 ==============================
 
 (* "hello" *)
-3
+val _ = 3
 
 ---
 
 (source_file
   (comment)
-  (expression_declaration
-    (integer_literal)))
-
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (integer_literal)))))
 
 ==============================
 Weird stuff in comment
@@ -61,7 +70,7 @@ Weird stuff in comment
 (* '*)
 (* é' '"' *)
 (* '✅✅''"'" *)
-3
+val _ = 3
 
 ---
 
@@ -76,9 +85,12 @@ Weird stuff in comment
   (comment)
   (comment)
   (comment)
-  (expression_declaration
-    (integer_literal)))
-
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (integer_literal)))))
 
 ==============================
 Comment in comment
@@ -86,11 +98,16 @@ Comment in comment
 
 (* (* (* *) *) *)
 (* (* (*) *) *) *)
-3
+val _ = 3
 
 ---
+
 (source_file
   (comment)
   (comment)
-  (expression_declaration
-    (integer_literal)))
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (integer_literal)))))

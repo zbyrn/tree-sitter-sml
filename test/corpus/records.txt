@@ -1,71 +1,91 @@
 ================
 Empty record
 ================
-{}
+val _ = {}
 ----------------
 
 (source_file
-  (expression_declaration
-    (record_expression)))
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (record_expression)))))
 
 ================
 One-field record
 ================
-{x=1}
+val _ = {x=1}
 ----------------
 
 (source_file
-  (expression_declaration
-    (record_expression
-      (record_row
-        (identifier_label
-          (identifier))
-        (integer_literal)))))
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (record_expression
+          (record_row
+            (identifier_label
+              (identifier))
+            (integer_literal)))))))
 
 ================
 One-field selector record
 ================
-{ 1 = 1 }
+val _ = { 1 = 1 }
 ----------------
 
 (source_file
-  (expression_declaration
-    (record_expression
-      (record_row
-        (int_label
-          (index))
-        (integer_literal)))))
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (record_expression
+          (record_row
+            (int_label
+              (index))
+            (integer_literal)))))))
 
 ================
 Two-field record
 ================
-{ x = 1, y = 2 }
+val _ = { x = 1, y = 2 }
 
 ---------
 
 (source_file
-  (expression_declaration
-    (record_expression
-      (record_row
-        (identifier_label
-          (identifier))
-        (integer_literal))
-      (record_row
-        (identifier_label
-          (identifier))
-        (integer_literal)))))
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (record_expression
+          (record_row
+            (identifier_label
+              (identifier))
+            (integer_literal))
+          (record_row
+            (identifier_label
+              (identifier))
+            (integer_literal)))))))
 
 ================
 ID vs Ident
 ================
-{ * = 1 }
+val _ = { * = 1 }
 
 ---------
 
 (source_file
-  (expression_declaration
-    (record_expression
-      (record_row
-        (identifier_label
-          (identifier))
-        (integer_literal)))))
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (record_expression
+          (record_row
+            (identifier_label
+              (identifier))
+            (integer_literal)))))))

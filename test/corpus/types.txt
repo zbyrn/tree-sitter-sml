@@ -7,18 +7,17 @@ val x : int = 3
 -----
 
 (source_file
-  (structure_level_declaration
-    (value_declaration
-      (valbind
-        (lhs
-          (constraint_pattern
-            (identifier_pattern
-              (qualified_identifier
-                (identifier)))
-            (qualified_tycon
-              (type_identifier))))
-        (rhs
-          (integer_literal))))))
+  (value_declaration
+    (valbind
+      (lhs
+        (constraint_pattern
+          (identifier_pattern
+            (qualified_identifier
+              (identifier)))
+          (qualified_tycon
+            (type_identifier))))
+      (rhs
+        (integer_literal)))))
 
 ===================
 Type Var
@@ -29,17 +28,16 @@ val x : 'a = 3
 -----
 
 (source_file
-  (structure_level_declaration
-    (value_declaration
-      (valbind
-        (lhs
-          (constraint_pattern
-            (identifier_pattern
-              (qualified_identifier
-                (identifier)))
-            (tyvar)))
-        (rhs
-          (integer_literal))))))
+  (value_declaration
+    (valbind
+      (lhs
+        (constraint_pattern
+          (identifier_pattern
+            (qualified_identifier
+              (identifier)))
+          (tyvar)))
+      (rhs
+        (integer_literal)))))
 
 ===================
 Type Var 2
@@ -50,17 +48,16 @@ val x : 'abc = 3
 ------
 
 (source_file
-  (structure_level_declaration
-    (value_declaration
-      (valbind
-        (lhs
-          (constraint_pattern
-            (identifier_pattern
-              (qualified_identifier
-                (identifier)))
-            (tyvar)))
-        (rhs
-          (integer_literal))))))
+  (value_declaration
+    (valbind
+      (lhs
+        (constraint_pattern
+          (identifier_pattern
+            (qualified_identifier
+              (identifier)))
+          (tyvar)))
+      (rhs
+        (integer_literal)))))
 
 ===================
 Type app
@@ -71,22 +68,21 @@ val x : (a, 'b) t = 3
 ------
 
 (source_file
-  (structure_level_declaration
-    (value_declaration
-      (valbind
-        (lhs
-          (constraint_pattern
-            (identifier_pattern
-              (qualified_identifier
-                (identifier)))
-            (tyapp
-              (qualified_tycon
-                (type_identifier))
-              (tyvar)
-              (qualified_tycon
-                (type_identifier)))))
-        (rhs
-          (integer_literal))))))
+  (value_declaration
+    (valbind
+      (lhs
+        (constraint_pattern
+          (identifier_pattern
+            (qualified_identifier
+              (identifier)))
+          (tyapp
+            (qualified_tycon
+              (type_identifier))
+            (tyvar)
+            (qualified_tycon
+              (type_identifier)))))
+      (rhs
+        (integer_literal)))))
 
 ===================
 Type app 2
@@ -97,23 +93,22 @@ val x : ('a t2) t = 3
 ------
 
 (source_file
-  (structure_level_declaration
-    (value_declaration
-      (valbind
-        (lhs
-          (constraint_pattern
-            (identifier_pattern
-              (qualified_identifier
-                (identifier)))
+  (value_declaration
+    (valbind
+      (lhs
+        (constraint_pattern
+          (identifier_pattern
+            (qualified_identifier
+              (identifier)))
+          (tyapp
             (tyapp
-              (tyapp
-                (tyvar)
-                (qualified_tycon
-                  (type_identifier)))
+              (tyvar)
               (qualified_tycon
-                (type_identifier)))))
-        (rhs
-          (integer_literal))))))
+                (type_identifier)))
+            (qualified_tycon
+              (type_identifier)))))
+      (rhs
+        (integer_literal)))))
 
 ===================
 Type app 3
@@ -124,20 +119,19 @@ val x : 'a t = 3
 ------
 
 (source_file
-  (structure_level_declaration
-    (value_declaration
-      (valbind
-        (lhs
-          (constraint_pattern
-            (identifier_pattern
-              (qualified_identifier
-                (identifier)))
-            (tyapp
-              (tyvar)
-              (qualified_tycon
-                (type_identifier)))))
-        (rhs
-          (integer_literal))))))
+  (value_declaration
+    (valbind
+      (lhs
+        (constraint_pattern
+          (identifier_pattern
+            (qualified_identifier
+              (identifier)))
+          (tyapp
+            (tyvar)
+            (qualified_tycon
+              (type_identifier)))))
+      (rhs
+        (integer_literal)))))
 
 ===================
 Type arrow
@@ -148,21 +142,20 @@ val x : a -> b = 3
 ------
 
 (source_file
-  (structure_level_declaration
-    (value_declaration
-      (valbind
-        (lhs
-          (constraint_pattern
-            (identifier_pattern
-              (qualified_identifier
-                (identifier)))
-            (arrow_type
-              (qualified_tycon
-                (type_identifier))
-              (qualified_tycon
-                (type_identifier)))))
-        (rhs
-          (integer_literal))))))
+  (value_declaration
+    (valbind
+      (lhs
+        (constraint_pattern
+          (identifier_pattern
+            (qualified_identifier
+              (identifier)))
+          (arrow_type
+            (qualified_tycon
+              (type_identifier))
+            (qualified_tycon
+              (type_identifier)))))
+      (rhs
+        (integer_literal)))))
 
 ===================
 Type arrow 2
@@ -173,24 +166,23 @@ val x : a -> b -> c = 3
 ------
 
 (source_file
-  (structure_level_declaration
-    (value_declaration
-      (valbind
-        (lhs
-          (constraint_pattern
-            (identifier_pattern
-              (qualified_identifier
-                (identifier)))
+  (value_declaration
+    (valbind
+      (lhs
+        (constraint_pattern
+          (identifier_pattern
+            (qualified_identifier
+              (identifier)))
+          (arrow_type
+            (qualified_tycon
+              (type_identifier))
             (arrow_type
               (qualified_tycon
                 (type_identifier))
-              (arrow_type
-                (qualified_tycon
-                  (type_identifier))
-                (qualified_tycon
-                  (type_identifier))))))
-        (rhs
-          (integer_literal))))))
+              (qualified_tycon
+                (type_identifier))))))
+      (rhs
+        (integer_literal)))))
 
 ===================
 Type arrow 3
@@ -201,24 +193,23 @@ val x : (a -> b) -> c = 3
 ------
 
 (source_file
-  (structure_level_declaration
-    (value_declaration
-      (valbind
-        (lhs
-          (constraint_pattern
-            (identifier_pattern
-              (qualified_identifier
-                (identifier)))
+  (value_declaration
+    (valbind
+      (lhs
+        (constraint_pattern
+          (identifier_pattern
+            (qualified_identifier
+              (identifier)))
+          (arrow_type
             (arrow_type
-              (arrow_type
-                (qualified_tycon
-                  (type_identifier))
-                (qualified_tycon
-                  (type_identifier)))
               (qualified_tycon
-                (type_identifier)))))
-        (rhs
-          (integer_literal))))))
+                (type_identifier))
+              (qualified_tycon
+                (type_identifier)))
+            (qualified_tycon
+              (type_identifier)))))
+      (rhs
+        (integer_literal)))))
 
 ===================
 Tuple type
@@ -229,21 +220,20 @@ val x : (a * b) = 3
 ------
 
 (source_file
-  (structure_level_declaration
-    (value_declaration
-      (valbind
-        (lhs
-          (constraint_pattern
-            (identifier_pattern
-              (qualified_identifier
-                (identifier)))
-            (tuple_type
-              (qualified_tycon
-                (type_identifier))
-              (qualified_tycon
-                (type_identifier)))))
-        (rhs
-          (integer_literal))))))
+  (value_declaration
+    (valbind
+      (lhs
+        (constraint_pattern
+          (identifier_pattern
+            (qualified_identifier
+              (identifier)))
+          (tuple_type
+            (qualified_tycon
+              (type_identifier))
+            (qualified_tycon
+              (type_identifier)))))
+      (rhs
+        (integer_literal)))))
 
 ===================
 Tuple type 2
@@ -254,21 +244,20 @@ val x : a * b = 3
 ------
 
 (source_file
-  (structure_level_declaration
-    (value_declaration
-      (valbind
-        (lhs
-          (constraint_pattern
-            (identifier_pattern
-              (qualified_identifier
-                (identifier)))
-            (tuple_type
-              (qualified_tycon
-                (type_identifier))
-              (qualified_tycon
-                (type_identifier)))))
-        (rhs
-          (integer_literal))))))
+  (value_declaration
+    (valbind
+      (lhs
+        (constraint_pattern
+          (identifier_pattern
+            (qualified_identifier
+              (identifier)))
+          (tuple_type
+            (qualified_tycon
+              (type_identifier))
+            (qualified_tycon
+              (type_identifier)))))
+      (rhs
+        (integer_literal)))))
 
 ===================
 Record type
@@ -279,22 +268,21 @@ val x : {x: int} = 3
 ------
 
 (source_file
-  (structure_level_declaration
-    (value_declaration
-      (valbind
-        (lhs
-          (constraint_pattern
-            (identifier_pattern
-              (qualified_identifier
-                (identifier)))
-            (record_type
-              (type_row
-                (identifier_label
-                  (identifier))
-                (qualified_tycon
-                  (type_identifier))))))
-        (rhs
-          (integer_literal))))))
+  (value_declaration
+    (valbind
+      (lhs
+        (constraint_pattern
+          (identifier_pattern
+            (qualified_identifier
+              (identifier)))
+          (record_type
+            (type_row
+              (identifier_label
+                (identifier))
+              (qualified_tycon
+                (type_identifier))))))
+      (rhs
+        (integer_literal)))))
 
 ===================
 Record type num
@@ -305,19 +293,18 @@ val x : {1: int} = 3
 ------
 
 (source_file
-  (structure_level_declaration
-    (value_declaration
-      (valbind
-        (lhs
-          (constraint_pattern
-            (identifier_pattern
-              (qualified_identifier
-                (identifier)))
-            (record_type
-              (type_row
-                (int_label
-                  (index))
-                (qualified_tycon
-                  (type_identifier))))))
-        (rhs
-          (integer_literal))))))
+  (value_declaration
+    (valbind
+      (lhs
+        (constraint_pattern
+          (identifier_pattern
+            (qualified_identifier
+              (identifier)))
+          (record_type
+            (type_row
+              (int_label
+                (index))
+              (qualified_tycon
+                (type_identifier))))))
+      (rhs
+        (integer_literal)))))

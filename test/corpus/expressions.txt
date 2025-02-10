@@ -2,469 +2,111 @@
 Application 0
 =================
 
-a b c d
+val _ = a b c d
 
 ------
 
 (source_file
-  (expression_declaration
-    (application_expression
-      (identifier_expression
-        (qualified_identifier
-          (identifier)))
-      (identifier_expression
-        (qualified_identifier
-          (identifier)))
-      (identifier_expression
-        (qualified_identifier
-          (identifier)))
-      (identifier_expression
-        (qualified_identifier
-          (identifier))))))
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (application_expression
+          (identifier_expression
+            (qualified_identifier
+              (identifier)))
+          (identifier_expression
+            (qualified_identifier
+              (identifier)))
+          (identifier_expression
+            (qualified_identifier
+              (identifier)))
+          (identifier_expression
+            (qualified_identifier
+              (identifier))))))))
 
 =================
 Application 1
 =================
 
-(a, b) c d
+val _ = (a, b) c d
 
 ------
 
 (source_file
-  (expression_declaration
-    (application_expression
-      (tuple_expression
-        (identifier_expression
-          (qualified_identifier
-            (identifier)))
-        (identifier_expression
-          (qualified_identifier
-            (identifier))))
-      (identifier_expression
-        (qualified_identifier
-          (identifier)))
-      (identifier_expression
-        (qualified_identifier
-          (identifier))))))
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (application_expression
+          (tuple_expression
+            (identifier_expression
+              (qualified_identifier
+                (identifier)))
+            (identifier_expression
+              (qualified_identifier
+                (identifier))))
+          (identifier_expression
+            (qualified_identifier
+              (identifier)))
+          (identifier_expression
+            (qualified_identifier
+              (identifier))))))))
 
 =================
 Application 2
 =================
 
-a (b, c) d
+val _ = a (b, c) d
 
 ------
 
 (source_file
-  (expression_declaration
-    (application_expression
-      (identifier_expression
-        (qualified_identifier
-          (identifier)))
-      (tuple_expression
-        (identifier_expression
-          (qualified_identifier
-            (identifier)))
-        (identifier_expression
-          (qualified_identifier
-            (identifier))))
-      (identifier_expression
-        (qualified_identifier
-          (identifier))))))
-
-=================
-Application 3
-=================
-
-a b (c, d)
-
-------
-
-(source_file
-  (expression_declaration
-    (application_expression
-      (identifier_expression
-        (qualified_identifier
-          (identifier)))
-      (identifier_expression
-        (qualified_identifier
-          (identifier)))
-      (tuple_expression
-        (identifier_expression
-          (qualified_identifier
-            (identifier)))
-        (identifier_expression
-          (qualified_identifier
-            (identifier)))))))
-
-=================
-Application 3
-=================
-
-a b (c, d)
-
-------
-
-(source_file
-  (expression_declaration
-    (application_expression
-      (identifier_expression
-        (qualified_identifier
-          (identifier)))
-      (identifier_expression
-        (qualified_identifier
-          (identifier)))
-      (tuple_expression
-        (identifier_expression
-          (qualified_identifier
-            (identifier)))
-        (identifier_expression
-          (qualified_identifier
-            (identifier)))))))
-
-=================
-Precedence: application vs type
-=================
-
-a b : int
-
-------
-
-(source_file
-  (expression_declaration
-    (typed_expression
-      (application_expression
-        (identifier_expression
-          (qualified_identifier
-            (identifier)))
-        (identifier_expression
-          (qualified_identifier
-            (identifier))))
-      (qualified_tycon
-        (type_identifier)))))
-
-=================
-Precedence: application vs andalso
-=================
-
-a b andalso c
-
-------
-
-(source_file
-  (expression_declaration
-    (conjunction_expression
-      (application_expression
-        (identifier_expression
-          (qualified_identifier
-            (identifier)))
-        (identifier_expression
-          (qualified_identifier
-            (identifier))))
-      (identifier_expression
-        (qualified_identifier
-          (identifier))))))
-
-=================
-Precedence: application vs orelse
-=================
-
-a b orelse c
-
-------
-
-(source_file
-  (expression_declaration
-    (disjunction_expression
-      (application_expression
-        (identifier_expression
-          (qualified_identifier
-            (identifier)))
-        (identifier_expression
-          (qualified_identifier
-            (identifier))))
-      (identifier_expression
-        (qualified_identifier
-          (identifier))))))
-
-=================
-Precedence: application vs handle
-=================
-
-a b handle e => f
-
-------
-
-(source_file
-  (expression_declaration
-    (handle_expression
-      (application_expression
-        (identifier_expression
-          (qualified_identifier
-            (identifier)))
-        (identifier_expression
-          (qualified_identifier
-            (identifier))))
-      (match
-        (rule
-          (identifier_pattern
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (application_expression
+          (identifier_expression
             (qualified_identifier
               (identifier)))
+          (tuple_expression
+            (identifier_expression
+              (qualified_identifier
+                (identifier)))
+            (identifier_expression
+              (qualified_identifier
+                (identifier))))
           (identifier_expression
             (qualified_identifier
               (identifier))))))))
 
 =================
-Precedence: application vs raise
+Application 3
 =================
 
-raise a b
+val _ = a b (c, d)
 
 ------
 
 (source_file
-  (expression_declaration
-    (raise_expression
-      (application_expression
-        (identifier_expression
-          (qualified_identifier
-            (identifier)))
-        (identifier_expression
-          (qualified_identifier
-            (identifier)))))))
-
-=================
-Precedence: application vs if
-=================
-
-if a b then c d else e f
-
-------
-
-(source_file
-  (expression_declaration
-    (conditional_expression
-      (application_expression
-        (identifier_expression
-          (qualified_identifier
-            (identifier)))
-        (identifier_expression
-          (qualified_identifier
-            (identifier))))
-      (application_expression
-        (identifier_expression
-          (qualified_identifier
-            (identifier)))
-        (identifier_expression
-          (qualified_identifier
-            (identifier))))
-      (application_expression
-        (identifier_expression
-          (qualified_identifier
-            (identifier)))
-        (identifier_expression
-          (qualified_identifier
-            (identifier)))))))
-
-=================
-Precedence: application vs while
-=================
-
-while a b do c d
-
-------
-
-(source_file
-  (expression_declaration
-    (iteration_expression
-      (application_expression
-        (identifier_expression
-          (qualified_identifier
-            (identifier)))
-        (identifier_expression
-          (qualified_identifier
-            (identifier))))
-      (application_expression
-        (identifier_expression
-          (qualified_identifier
-            (identifier)))
-        (identifier_expression
-          (qualified_identifier
-            (identifier)))))))
-
-=================
-Precedence: type vs conjunction
-=================
-
-x andalso y : int
-
-------
-
-(source_file
-  (expression_declaration
-    (conjunction_expression
-      (identifier_expression
-        (qualified_identifier
-          (identifier)))
-      (typed_expression
-        (identifier_expression
-          (qualified_identifier
-            (identifier)))
-        (qualified_tycon
-          (type_identifier))))))
-
-=================
-Precedence: conjunction vs disjunction
-=================
-
-x orelse y andalso z
-
-------
-
-(source_file
-  (expression_declaration
-    (disjunction_expression
-      (identifier_expression
-        (qualified_identifier
-          (identifier)))
-      (conjunction_expression
-        (identifier_expression
-          (qualified_identifier
-            (identifier)))
-        (identifier_expression
-          (qualified_identifier
-            (identifier)))))))
-
-=================
-Precedence: conjunction vs disjunction 2
-=================
-
-x andalso y orelse z
-
-------
-
-(source_file
-  (expression_declaration
-    (disjunction_expression
-      (conjunction_expression
-        (identifier_expression
-          (qualified_identifier
-            (identifier)))
-        (identifier_expression
-          (qualified_identifier
-            (identifier))))
-      (identifier_expression
-        (qualified_identifier
-          (identifier))))))
-
-=================
-Associativity: andalso
-=================
-
-x andalso y andalso z
-
-------
-
-(source_file
-  (expression_declaration
-    (conjunction_expression
-      (conjunction_expression
-        (identifier_expression
-          (qualified_identifier
-            (identifier)))
-        (identifier_expression
-          (qualified_identifier
-            (identifier))))
-      (identifier_expression
-        (qualified_identifier
-          (identifier))))))
-
-=================
-Associativity: orelse
-=================
-
-x orelse y orelse z
-
-------
-
-(source_file
-  (expression_declaration
-    (disjunction_expression
-      (disjunction_expression
-        (identifier_expression
-          (qualified_identifier
-            (identifier)))
-        (identifier_expression
-          (qualified_identifier
-            (identifier))))
-      (identifier_expression
-        (qualified_identifier
-          (identifier))))))
-
-=================
-Precedence: orelse vs handle
-=================
-
-x orelse y handle e => f
-
-------
-
-(source_file
-  (expression_declaration
-    (handle_expression
-      (disjunction_expression
-        (identifier_expression
-          (qualified_identifier
-            (identifier)))
-        (identifier_expression
-          (qualified_identifier
-            (identifier))))
-      (match
-        (rule
-          (identifier_pattern
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (application_expression
+          (identifier_expression
             (qualified_identifier
               (identifier)))
           (identifier_expression
             (qualified_identifier
-              (identifier))))))))
-
-=================
-Precedence: orelse vs raise
-=================
-
-raise x orelse y
-
-------
-
-(source_file
-  (expression_declaration
-    (raise_expression
-      (disjunction_expression
-        (identifier_expression
-          (qualified_identifier
-            (identifier)))
-        (identifier_expression
-          (qualified_identifier
-            (identifier)))))))
-
-=================
-Precedence: handle vs raise
-=================
-
-raise x handle e => f
-
-------
-
-(source_file
-  (expression_declaration
-    (raise_expression
-      (handle_expression
-        (identifier_expression
-          (qualified_identifier
-            (identifier)))
-        (match
-          (rule
-            (identifier_pattern
+              (identifier)))
+          (tuple_expression
+            (identifier_expression
               (qualified_identifier
                 (identifier)))
             (identifier_expression
@@ -472,78 +114,431 @@ raise x handle e => f
                 (identifier)))))))))
 
 =================
-Case 1
+Application 3
 =================
 
-case a of b => c
+val _ = a b (c, d)
 
 ------
 
 (source_file
-  (expression_declaration
-    (case_expression
-      (identifier_expression
-        (qualified_identifier
-          (identifier)))
-      (match
-        (rule
-          (identifier_pattern
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (application_expression
+          (identifier_expression
             (qualified_identifier
               (identifier)))
+          (identifier_expression
+            (qualified_identifier
+              (identifier)))
+          (tuple_expression
+            (identifier_expression
+              (qualified_identifier
+                (identifier)))
+            (identifier_expression
+              (qualified_identifier
+                (identifier)))))))))
+
+=================
+Precedence: application vs type
+=================
+
+val _ = a b : int
+
+------
+
+(source_file
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (typed_expression
+          (application_expression
+            (identifier_expression
+              (qualified_identifier
+                (identifier)))
+            (identifier_expression
+              (qualified_identifier
+                (identifier))))
+          (qualified_tycon
+            (type_identifier)))))))
+
+=================
+Precedence: application vs andalso
+=================
+
+val _ = a b andalso c
+
+------
+
+(source_file
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (conjunction_expression
+          (application_expression
+            (identifier_expression
+              (qualified_identifier
+                (identifier)))
+            (identifier_expression
+              (qualified_identifier
+                (identifier))))
           (identifier_expression
             (qualified_identifier
               (identifier))))))))
 
 =================
-Case 2
+Precedence: application vs orelse
 =================
 
-case a of b => c | d => e
+val _ = a b orelse c
 
 ------
 
 (source_file
-  (expression_declaration
-    (case_expression
-      (identifier_expression
-        (qualified_identifier
-          (identifier)))
-      (match
-        (rule
-          (identifier_pattern
-            (qualified_identifier
-              (identifier)))
-          (identifier_expression
-            (qualified_identifier
-              (identifier))))
-        (rule
-          (identifier_pattern
-            (qualified_identifier
-              (identifier)))
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (disjunction_expression
+          (application_expression
+            (identifier_expression
+              (qualified_identifier
+                (identifier)))
+            (identifier_expression
+              (qualified_identifier
+                (identifier))))
           (identifier_expression
             (qualified_identifier
               (identifier))))))))
 
 =================
-Case associativity
+Precedence: application vs handle
 =================
 
-case a of b => case c of d => e | x => y
+val _ = a b handle e => f
 
 ------
 
 (source_file
-  (expression_declaration
-    (case_expression
-      (identifier_expression
-        (qualified_identifier
-          (identifier)))
-      (match
-        (rule
-          (identifier_pattern
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (handle_expression
+          (application_expression
+            (identifier_expression
+              (qualified_identifier
+                (identifier)))
+            (identifier_expression
+              (qualified_identifier
+                (identifier))))
+          (match
+            (rule
+              (identifier_pattern
+                (qualified_identifier
+                  (identifier)))
+              (identifier_expression
+                (qualified_identifier
+                  (identifier))))))))))
+
+=================
+Precedence: application vs raise
+=================
+
+val _ = raise a b
+
+------
+
+(source_file
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (raise_expression
+          (application_expression
+            (identifier_expression
+              (qualified_identifier
+                (identifier)))
+            (identifier_expression
+              (qualified_identifier
+                (identifier)))))))))
+
+=================
+Precedence: application vs if
+=================
+
+val _ = if a b then c d else e f
+
+------
+
+(source_file
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (conditional_expression
+          (application_expression
+            (identifier_expression
+              (qualified_identifier
+                (identifier)))
+            (identifier_expression
+              (qualified_identifier
+                (identifier))))
+          (application_expression
+            (identifier_expression
+              (qualified_identifier
+                (identifier)))
+            (identifier_expression
+              (qualified_identifier
+                (identifier))))
+          (application_expression
+            (identifier_expression
+              (qualified_identifier
+                (identifier)))
+            (identifier_expression
+              (qualified_identifier
+                (identifier)))))))))
+
+=================
+Precedence: application vs while
+=================
+
+val _ = while a b do c d
+
+------
+
+(source_file
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (iteration_expression
+          (application_expression
+            (identifier_expression
+              (qualified_identifier
+                (identifier)))
+            (identifier_expression
+              (qualified_identifier
+                (identifier))))
+          (application_expression
+            (identifier_expression
+              (qualified_identifier
+                (identifier)))
+            (identifier_expression
+              (qualified_identifier
+                (identifier)))))))))
+
+=================
+Precedence: type vs conjunction
+=================
+
+val _ = x andalso y : int
+
+------
+
+(source_file
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (conjunction_expression
+          (identifier_expression
             (qualified_identifier
               (identifier)))
-          (case_expression
+          (typed_expression
+            (identifier_expression
+              (qualified_identifier
+                (identifier)))
+            (qualified_tycon
+              (type_identifier))))))))
+
+=================
+Precedence: conjunction vs disjunction
+=================
+
+val _ = x orelse y andalso z
+
+------
+
+(source_file
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (disjunction_expression
+          (identifier_expression
+            (qualified_identifier
+              (identifier)))
+          (conjunction_expression
+            (identifier_expression
+              (qualified_identifier
+                (identifier)))
+            (identifier_expression
+              (qualified_identifier
+                (identifier)))))))))
+
+=================
+Precedence: conjunction vs disjunction 2
+=================
+
+val _ = x andalso y orelse z
+
+------
+
+(source_file
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (disjunction_expression
+          (conjunction_expression
+            (identifier_expression
+              (qualified_identifier
+                (identifier)))
+            (identifier_expression
+              (qualified_identifier
+                (identifier))))
+          (identifier_expression
+            (qualified_identifier
+              (identifier))))))))
+
+=================
+Associativity: andalso
+=================
+
+val _ = x andalso y andalso z
+
+------
+
+(source_file
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (conjunction_expression
+          (conjunction_expression
+            (identifier_expression
+              (qualified_identifier
+                (identifier)))
+            (identifier_expression
+              (qualified_identifier
+                (identifier))))
+          (identifier_expression
+            (qualified_identifier
+              (identifier))))))))
+
+=================
+Associativity: orelse
+=================
+
+val _ = x orelse y orelse z
+
+------
+
+(source_file
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (disjunction_expression
+          (disjunction_expression
+            (identifier_expression
+              (qualified_identifier
+                (identifier)))
+            (identifier_expression
+              (qualified_identifier
+                (identifier))))
+          (identifier_expression
+            (qualified_identifier
+              (identifier))))))))
+
+=================
+Precedence: orelse vs handle
+=================
+
+val _ = x orelse y handle e => f
+
+------
+
+(source_file
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (handle_expression
+          (disjunction_expression
+            (identifier_expression
+              (qualified_identifier
+                (identifier)))
+            (identifier_expression
+              (qualified_identifier
+                (identifier))))
+          (match
+            (rule
+              (identifier_pattern
+                (qualified_identifier
+                  (identifier)))
+              (identifier_expression
+                (qualified_identifier
+                  (identifier))))))))))
+
+=================
+Precedence: orelse vs raise
+=================
+
+val _ = raise x orelse y
+
+------
+
+(source_file
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (raise_expression
+          (disjunction_expression
+            (identifier_expression
+              (qualified_identifier
+                (identifier)))
+            (identifier_expression
+              (qualified_identifier
+                (identifier)))))))))
+
+=================
+Precedence: handle vs raise
+=================
+
+val _ = raise x handle e => f
+
+------
+
+(source_file
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (raise_expression
+          (handle_expression
             (identifier_expression
               (qualified_identifier
                 (identifier)))
@@ -554,44 +549,145 @@ case a of b => case c of d => e | x => y
                     (identifier)))
                 (identifier_expression
                   (qualified_identifier
-                    (identifier))))
-              (rule
-                (identifier_pattern
-                  (qualified_identifier
-                    (identifier)))
+                    (identifier)))))))))))
+
+=================
+Case 1
+=================
+
+val _ = case a of b => c
+
+------
+
+(source_file
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (case_expression
+          (identifier_expression
+            (qualified_identifier
+              (identifier)))
+          (match
+            (rule
+              (identifier_pattern
+                (qualified_identifier
+                  (identifier)))
+              (identifier_expression
+                (qualified_identifier
+                  (identifier))))))))))
+
+=================
+Case 2
+=================
+
+val _ = case a of b => c | d => e
+
+------
+
+(source_file
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (case_expression
+          (identifier_expression
+            (qualified_identifier
+              (identifier)))
+          (match
+            (rule
+              (identifier_pattern
+                (qualified_identifier
+                  (identifier)))
+              (identifier_expression
+                (qualified_identifier
+                  (identifier))))
+            (rule
+              (identifier_pattern
+                (qualified_identifier
+                  (identifier)))
+              (identifier_expression
+                (qualified_identifier
+                  (identifier))))))))))
+
+=================
+Case associativity
+=================
+
+val _ = case a of b => case c of d => e | x => y
+
+------
+
+(source_file
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (case_expression
+          (identifier_expression
+            (qualified_identifier
+              (identifier)))
+          (match
+            (rule
+              (identifier_pattern
+                (qualified_identifier
+                  (identifier)))
+              (case_expression
                 (identifier_expression
                   (qualified_identifier
-                    (identifier)))))))))))
+                    (identifier)))
+                (match
+                  (rule
+                    (identifier_pattern
+                      (qualified_identifier
+                        (identifier)))
+                    (identifier_expression
+                      (qualified_identifier
+                        (identifier))))
+                  (rule
+                    (identifier_pattern
+                      (qualified_identifier
+                        (identifier)))
+                    (identifier_expression
+                      (qualified_identifier
+                        (identifier)))))))))))))
 
 =================
 Fn associativity
 =================
 
-fn a => fn b => c | x => y
+val _ = fn a => fn b => c | x => y
 
 ------
 
 (source_file
-  (expression_declaration
-    (function_expression
-      (match
-        (rule
-          (identifier_pattern
-            (qualified_identifier
-              (identifier)))
-          (function_expression
-            (match
-              (rule
-                (identifier_pattern
-                  (qualified_identifier
-                    (identifier)))
-                (identifier_expression
-                  (qualified_identifier
-                    (identifier))))
-              (rule
-                (identifier_pattern
-                  (qualified_identifier
-                    (identifier)))
-                (identifier_expression
-                  (qualified_identifier
-                    (identifier)))))))))))
+  (value_declaration
+    (valbind
+      (lhs
+        (wildcard))
+      (rhs
+        (function_expression
+          (match
+            (rule
+              (identifier_pattern
+                (qualified_identifier
+                  (identifier)))
+              (function_expression
+                (match
+                  (rule
+                    (identifier_pattern
+                      (qualified_identifier
+                        (identifier)))
+                    (identifier_expression
+                      (qualified_identifier
+                        (identifier))))
+                  (rule
+                    (identifier_pattern
+                      (qualified_identifier
+                        (identifier)))
+                    (identifier_expression
+                      (qualified_identifier
+                        (identifier)))))))))))))
