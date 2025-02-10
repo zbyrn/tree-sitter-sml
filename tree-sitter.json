@@ -4,9 +4,9 @@
       "name": "sml",
       "camelcase": "SML",
       "scope": "source.sml",
+      "path": "grammars/sml",
       "file-types": [
-        ".sig",
-        ".sml"
+        "sml", "sig", "fun"
       ],
       "injection-regex": "^sml$"
     }
