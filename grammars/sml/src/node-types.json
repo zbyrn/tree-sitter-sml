@@ -2318,6 +2318,10 @@
       "required": true,
       "types": [
         {
+          "type": "tybind",
+          "named": true
+        },
+        {
           "type": "typdesc",
           "named": true
         }

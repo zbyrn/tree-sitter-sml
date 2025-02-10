@@ -656,7 +656,10 @@ module.exports = grammar({
     _valdescs: $ => sep1("and", $.valdesc),
 
     type_spec: $ => seq(
-      "type", $._typdescs
+      "type", choice(
+        $._typdescs,
+        $._tybinds
+      ),
     ),
     typdesc: $ => seq(
       optional($.tyvarseq),

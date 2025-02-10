@@ -3488,8 +3488,17 @@
           "value": "type"
         },
         {
-          "type": "SYMBOL",
-          "name": "_typdescs"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_typdescs"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_tybinds"
+            }
+          ]
         }
       ]
     },
