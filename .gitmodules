@@ -1,0 +1,6 @@
+[submodule "examples/smlnj"]
+	path = examples/smlnj
+	url = git@github.com:smlnj/legacy.git
+[submodule "examples/mlton"]
+	path = examples/mlton
+	url = git@github.com:MLton/mlton.git
