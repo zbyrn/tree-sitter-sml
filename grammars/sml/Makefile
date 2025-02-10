@@ -1,3 +1,3 @@
-LANGUAGE_NAME := tree-sitter-ocaml
+LANGUAGE_NAME := tree-sitter-sml
 
 include ../../common/common.mk
