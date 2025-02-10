@@ -4,7 +4,7 @@
   "word": "_alphanum_identifier",
   "rules": {
     "source_file": {
-      "type": "REPEAT1",
+      "type": "REPEAT",
       "content": {
         "type": "CHOICE",
         "members": [

@@ -39,6 +39,10 @@ dist/
 *.tgz
 *.zip
 
+# Generated file
+/grammars/sml/src/parser.c
+
 # SML reference
 ref
 test.sml
+

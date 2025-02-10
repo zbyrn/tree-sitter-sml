@@ -95,7 +95,7 @@ module.exports = grammar({
   word: $ => $._alphanum_identifier,
 
   rules: {
-    source_file: $ => repeat1(choice(
+    source_file: $ => repeat(choice(
       $._top_level_declaration,
       ";"
     )),
