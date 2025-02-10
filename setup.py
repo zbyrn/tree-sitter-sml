@@ -35,7 +35,7 @@ setup(
             name="_binding",
             sources=[
                 "bindings/python/tree_sitter_sml/binding.c",
-                "src/parser.c",
+                "grammars/sml/src/parser.c",
                 # NOTE: if your language uses an external scanner, add it here.
             ],
             extra_compile_args=[

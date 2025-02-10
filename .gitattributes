@@ -1,9 +1,9 @@
 * text=auto eol=lf
 
 # Generated source files
-src/*.json linguist-generated
-src/parser.c linguist-generated
-src/tree_sitter/* linguist-generated
+grammars/sml/src/*.json linguist-generated
+grammars/sml/src/parser.c linguist-generated
+grammars/sml/src/tree_sitter/* linguist-generated
 
 # C bindings
 bindings/c/* linguist-generated

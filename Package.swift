@@ -15,7 +15,7 @@ let package = Package(
             dependencies: [],
             path: ".",
             sources: [
-                "src/parser.c",
+                "grammars/sml/src/parser.c",
                 // NOTE: if your language has an external scanner, add it here.
             ],
             resources: [
