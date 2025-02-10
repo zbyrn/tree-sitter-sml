@@ -352,7 +352,35 @@
     "named": true,
     "subtypes": [
       {
-        "type": "_local_level_declaration",
+        "type": "abstype_declaration",
+        "named": true
+      },
+      {
+        "type": "datatype_declaration",
+        "named": true
+      },
+      {
+        "type": "exception_declaration",
+        "named": true
+      },
+      {
+        "type": "function_declaration",
+        "named": true
+      },
+      {
+        "type": "infixl_declaration",
+        "named": true
+      },
+      {
+        "type": "infixr_declaration",
+        "named": true
+      },
+      {
+        "type": "nonfix_declaration",
+        "named": true
+      },
+      {
+        "type": "open_declaration",
         "named": true
       },
       {
@@ -361,6 +389,14 @@
       },
       {
         "type": "structure_local_declaration",
+        "named": true
+      },
+      {
+        "type": "type_declaration",
+        "named": true
+      },
+      {
+        "type": "value_declaration",
         "named": true
       }
     ]
@@ -945,6 +981,10 @@
         {
           "type": "_local_level_declaration",
           "named": true
+        },
+        {
+          "type": "_structure_level_declaration",
+          "named": true
         }
       ]
     }
@@ -1343,6 +1383,10 @@
       "types": [
         {
           "type": "_local_level_declaration",
+          "named": true
+        },
+        {
+          "type": "_structure_level_declaration",
           "named": true
         }
       ]
@@ -1982,7 +2026,11 @@
       "required": false,
       "types": [
         {
-          "type": "_structure_level_declaration",
+          "type": "exposed",
+          "named": true
+        },
+        {
+          "type": "local",
           "named": true
         }
       ]

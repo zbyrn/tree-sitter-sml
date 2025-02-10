@@ -1,0 +1,64 @@
+=====================
+fun and case
+=====================
+
+fun annotation a = 
+ case a of
+   a => a
+ | b => b
+ | c => c
+
+--------
+
+(source_file
+  (function_declaration
+    (fvalbind
+      (clause
+        (lhs
+          (identifier_pattern
+            (qualified_identifier
+              (identifier)))
+          (identifier_pattern
+            (qualified_identifier
+              (identifier))))
+        (rhs
+          (case_expression
+            (identifier_expression
+              (qualified_identifier
+                (identifier)))
+            (match
+              (rule
+                (identifier_pattern
+                  (qualified_identifier
+                    (identifier)))
+                (identifier_expression
+                  (qualified_identifier
+                    (identifier))))
+              (rule
+                (identifier_pattern
+                  (qualified_identifier
+                    (identifier)))
+                (identifier_expression
+                  (qualified_identifier
+                    (identifier))))
+              (rule
+                (identifier_pattern
+                  (qualified_identifier
+                    (identifier)))
+                (identifier_expression
+                  (qualified_identifier
+                    (identifier)))))))))))
+
+=====================
+local declaration
+=====================
+
+local
+     val x = y
+     val a = b
+     structure S = F()
+in
+     val c = d
+end
+
+------

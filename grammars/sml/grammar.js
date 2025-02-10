@@ -495,14 +495,13 @@ module.exports = grammar({
       repeat1($.identifier)
     ),
 
-    local_declaration: $ => prec(3, seq(
+    local_declaration: $ => seq(
       "local",
       alias(optional($._local_level_declarations), $.local),
       "in",
       alias(optional($._local_level_declarations), $.exposed),
       "end"
-    )),
-
+    ),
 
     _local_level_declaration: $ => choice(
       $.value_declaration,
@@ -518,11 +517,10 @@ module.exports = grammar({
       $.nonfix_declaration,
     ),
     _local_level_declarations: $ => repeat1(
-      prec(3, choice(
+      choice(
         $._local_level_declaration,
         ";",
-        $.local_declaration
-      ))
+      )
     ),
 
     structure_identifier: $ => $._alphanum_identifier,
@@ -589,20 +587,29 @@ module.exports = grammar({
     ),
     _strbinds: $ => sep1("and", $.strbind),
 
-    structure_local_declaration: $ => prec(2, seq(
+    structure_local_declaration: $ => seq(
       "local",
-      optional($._structure_level_declarations),
+      alias(optional($._structure_level_declarations), $.local),
       "in",
-      optional($._structure_level_declarations),
+      alias(optional($._structure_level_declarations), $.exposed),
       "end"
-    )),
+    ),
     _structure_level_declaration: $ => choice(
-      $._local_level_declaration,
+      $.value_declaration,
+      $.function_declaration,
+      $.type_declaration,
+      $.datatype_declaration,
+      $.abstype_declaration,
+      $.exception_declaration,
+      $.open_declaration,
+      $.infixl_declaration,
+      $.infixr_declaration,
+      $.nonfix_declaration,
       $.structure_declaration,
       $.structure_local_declaration,
     ),
     _structure_level_declarations: $ => repeat1(
-      prec(2, choice($._structure_level_declaration, ";"))
+      choice($._structure_level_declaration, ";")
     ),
 
     sig_expression: $ => seq(
