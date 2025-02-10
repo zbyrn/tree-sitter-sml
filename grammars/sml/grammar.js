@@ -503,6 +503,16 @@ module.exports = grammar({
       "end"
     ),
 
+    overload_declaration: $ => seq(
+      "_overload",
+      optional(/[0-9]/),
+      $.identifier,
+      ":",
+      $._type,
+      "as",
+      sep1("and", $.qualified_identifier)
+    ),
+
     _local_level_declaration: $ => choice(
       $.value_declaration,
       $.function_declaration,
@@ -515,6 +525,7 @@ module.exports = grammar({
       $.infixl_declaration,
       $.infixr_declaration,
       $.nonfix_declaration,
+      $.overload_declaration,
     ),
     _local_level_declarations: $ => repeat1(
       choice(
@@ -605,6 +616,7 @@ module.exports = grammar({
       $.infixl_declaration,
       $.infixr_declaration,
       $.nonfix_declaration,
+      $.overload_declaration,
       $.structure_declaration,
       $.structure_local_declaration,
     ),

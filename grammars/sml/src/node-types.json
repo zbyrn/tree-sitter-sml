@@ -226,6 +226,10 @@
         "named": true
       },
       {
+        "type": "overload_declaration",
+        "named": true
+      },
+      {
         "type": "type_declaration",
         "named": true
       },
@@ -381,6 +385,10 @@
       },
       {
         "type": "open_declaration",
+        "named": true
+      },
+      {
+        "type": "overload_declaration",
         "named": true
       },
       {
@@ -1485,6 +1493,49 @@
       "types": [
         {
           "type": "_pattern",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "overload_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "arrow_type",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "qualified_identifier",
+          "named": true
+        },
+        {
+          "type": "qualified_tycon",
+          "named": true
+        },
+        {
+          "type": "record_type",
+          "named": true
+        },
+        {
+          "type": "tuple_type",
+          "named": true
+        },
+        {
+          "type": "tyapp",
+          "named": true
+        },
+        {
+          "type": "tyvar",
           "named": true
         }
       ]
@@ -2619,6 +2670,10 @@
   },
   {
     "type": "]",
+    "named": false
+  },
+  {
+    "type": "_overload",
     "named": false
   },
   {

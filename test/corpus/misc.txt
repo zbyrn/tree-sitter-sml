@@ -1,8 +1,8 @@
 =====================
-fun and case
+Fun and case
 =====================
 
-fun annotation a = 
+fun annotation a =
  case a of
    a => a
  | b => b
@@ -50,7 +50,7 @@ fun annotation a =
                     (identifier)))))))))))
 
 =====================
-local declaration
+Local declaration
 =====================
 
 local
@@ -62,3 +62,70 @@ in
 end
 
 ------
+
+(source_file
+  (structure_local_declaration
+    (local
+      (value_declaration
+        (valbind
+          (lhs
+            (identifier_pattern
+              (qualified_identifier
+                (identifier))))
+          (rhs
+            (identifier_expression
+              (qualified_identifier
+                (identifier))))))
+      (value_declaration
+        (valbind
+          (lhs
+            (identifier_pattern
+              (qualified_identifier
+                (identifier))))
+          (rhs
+            (identifier_expression
+              (qualified_identifier
+                (identifier))))))
+      (structure_declaration
+        (strbind
+          (structure_identifier)
+          (functor_application_expression
+            (functor_identifier)))))
+    (exposed
+      (value_declaration
+        (valbind
+          (lhs
+            (identifier_pattern
+              (qualified_identifier
+                (identifier))))
+          (rhs
+            (identifier_expression
+              (qualified_identifier
+                (identifier)))))))))
+
+=====================
+Overload declaration
+=====================
+
+_overload ~ :   ('a -> 'a)
+as  Int.~
+and IntInf.~
+and Real.~
+
+------
+
+(source_file
+  (overload_declaration
+    (identifier)
+    (arrow_type
+      (tyvar)
+      (tyvar))
+    (qualified_identifier
+      (structure_identifier)
+      (identifier))
+    (qualified_identifier
+      (structure_identifier)
+      (identifier))
+    (qualified_identifier
+      (structure_identifier)
+      (identifier))))
