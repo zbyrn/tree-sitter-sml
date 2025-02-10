@@ -80,19 +80,25 @@ module.exports = grammar({
     $._expression,
     $._atomic_expression,
     $._local_level_declaration,
-    $._declaration,
+    $._top_level_declaration,
     $._literal,
     $._label,
     $._atomic_pattern,
     $._pattern,
+    $._structure_expression,
+    $._structure_level_declaration,
+    $._signature_expression,
+    $._spec,
+    $._top_level_declaration,
   ],
 
   word: $ => $._alphanum_identifier,
 
   rules: {
-    source_file: $ => choice(
-      $._declaration
-    ),
+    source_file: $ => repeat1(choice(
+      $._top_level_declaration,
+      ";"
+    )),
 
     /************************ IDENTIFIERS ********************************/
     _alphanum_identifier: $ => token(IDA),
@@ -104,7 +110,7 @@ module.exports = grammar({
     index: $ => token(INT),
 
     qualified_identifier: $ => seq(
-      repeat(seq(alias($._alphanum_identifier, $.structure_name), ".")),
+      repeat(seq($.structure_identifier, ".")),
       $.identifier
     ),
 
@@ -454,18 +460,10 @@ module.exports = grammar({
     _exbinds: $ => sep1("and", $.exbind),
 
 
-    local_declaration: $ => seq(
-      "local",
-      alias(optional($._local_level_declarations), $.local),
-      "in",
-      alias(optional($._local_level_declarations), $.exposed),
-      "end"
-    ),
-
 
     open_declaration: $ => seq(
       "open",
-      repeat1($.qualified_identifier)
+      repeat1($.qualified_structure_identifier)
     ),
 
 
@@ -486,6 +484,15 @@ module.exports = grammar({
       repeat1($.identifier)
     ),
 
+    local_declaration: $ => prec(3, seq(
+      "local",
+      alias(optional($._local_level_declarations), $.local),
+      "in",
+      alias(optional($._local_level_declarations), $.exposed),
+      "end"
+    )),
+
+
     _local_level_declaration: $ => choice(
       $.value_declaration,
       $.function_declaration,
@@ -500,18 +507,249 @@ module.exports = grammar({
       $.nonfix_declaration,
     ),
     _local_level_declarations: $ => repeat1(
-      choice($._local_level_declaration, ";")
+      prec(3, choice(
+        $._local_level_declaration,
+        ";",
+        $.local_declaration
+      ))
     ),
+
+    structure_identifier: $ => $._alphanum_identifier,
+    qualified_structure_identifier: $ => seq(
+      repeat(seq($.structure_identifier, ".")),
+      $.structure_identifier
+    ),
+
+    struct_expression: $ => seq(
+      "struct",
+      optional($._structure_level_declarations),
+      "end"
+    ),
+
+    struct_identifier_expression: $ => $.qualified_structure_identifier,
+
+    transparent_constraint_expression: $ => seq(
+      $._structure_expression,
+      ":",
+      $._signature_expression
+    ),
+
+    opaque_constraint_expression: $ => seq(
+      $._structure_expression,
+      ":>",
+      $._signature_expression
+    ),
+
+    functor_application_expression: $ => seq(
+      $.functor_identifier,
+      "(",
+        choice(
+          $._structure_expression,
+          optional($._structure_level_declarations),
+        ),
+      ")"
+    ),
+
+    structure_local_expression: $ => seq(
+      "let",
+      optional($._structure_level_declarations),
+      "in",
+      $._structure_expression,
+      "end"
+    ),
+
+    _structure_expression: $ => choice(
+      $.struct_expression,
+      $.struct_identifier_expression,
+      $.transparent_constraint_expression,
+      $.opaque_constraint_expression,
+      $.functor_application_expression,
+      $.structure_local_expression
+    ),
+
+    structure_declaration: $ => seq(
+      "structure",
+      $._strbinds
+    ),
+    strbind: $ => choice(
+      seq($.structure_identifier, "=", $._structure_expression),
+      seq($.structure_identifier, ":", $._signature_expression, "=", $._structure_expression),
+      seq($.structure_identifier, ":>", $._signature_expression, "=", $._structure_expression),
+    ),
+    _strbinds: $ => sep1("and", $.strbind),
+
+    structure_local_declaration: $ => prec(2, seq(
+      "local",
+      optional($._structure_level_declarations),
+      "in",
+      optional($._structure_level_declarations),
+      "end"
+    )),
+    _structure_level_declaration: $ => choice(
+      $._local_level_declaration,
+      $.structure_declaration,
+      $.structure_local_declaration,
+    ),
+    _structure_level_declarations: $ => repeat1(
+      prec(2, choice($._structure_level_declaration, ";"))
+    ),
+
+    sig_expression: $ => seq(
+      "sig",
+      optional($._specs),
+      "end"
+    ),
+    signature_identifier: $ => $._alphanum_identifier,
+    signature_identifier_expression: $ => $.signature_identifier,
+    type_realization_expression: $ => seq(
+      $._signature_expression,
+      "where",
+      "type",
+      optional($.tyvarseq),
+      $.qualified_tycon,
+      "=",
+      $._type
+    ),
+
+    _signature_expression: $ => choice(
+      $.sig_expression,
+      $.signature_identifier_expression,
+      $.type_realization_expression,
+    ),
+
+    sigbind: $ => seq(
+      $.signature_identifier,
+      "=",
+      $._signature_expression,
+    ),
+    _sigbinds: $ => sep1("and", $.sigbind),
+    signature_declaration: $ => seq(
+      "signature",
+      $._sigbinds,
+    ),
+
+    value_spec: $ => seq(
+      "val", $._valdescs
+    ),
+    valdesc: $ => seq(
+      $.identifier, ":", $._type
+    ),
+    _valdescs: $ => sep1("and", $.valdesc),
+
+    type_spec: $ => seq(
+      "type", $._typdescs
+    ),
+    typdesc: $ => seq(
+      optional($.tyvarseq),
+      $.type_identifier
+    ),
+    _typdescs: $ => sep1("and", $.typdesc),
+
+    eqtype_spec: $ => seq(
+      "eqtype", $._typdescs
+    ),
+
+    datatype_spec: $ => seq(
+      "datatype", $._datdescs
+    ),
+    datdesc: $ => seq(
+      optional($.tyvarseq),
+      $.type_identifier,
+      "=",
+      $._condescs
+    ),
+    _datdescs: $ => sep1("and", $.datdesc),
+    condesc: $ => seq(
+      $.identifier,
+      optional(seq("of", $._type))
+    ),
+    _condescs: $ => sep1("|", $.condesc),
+
+    replication_spec: $ => seq(
+      "datatype",
+      $.type_identifier,
+      "=",
+      "datatype",
+      $.qualified_tycon
+    ),
+
+    exception_spec: $ => seq(
+      "exception",
+      $._exdescs
+    ),
+    exdesc: $ => seq(
+      $.identifier,
+      optional(seq("of", $._type)),
+    ),
+    _exdescs: $ => sep1("and", $.exdesc),
+
+    structure_spec: $ => seq(
+      "structure",
+      $._strdescs,
+    ),
+    strdesc: $ => seq(
+      $.structure_identifier,
+      ":",
+      $._signature_expression
+    ),
+    _strdescs: $ => sep1("and", $.strdesc),
+
+    include_spec: $ => seq(
+      "include",
+      $._signature_expression,
+    ),
+
+    sharing_spec: $ => prec.left(0, seq(
+      optional($._specs),
+      "sharing",
+      "type",
+      sep2("=", $.qualified_tycon),
+    )),
+
+    _spec: $ => choice(
+      $.value_spec,
+      $.type_spec,
+      $.eqtype_spec,
+      $.datatype_spec,
+      $.replication_spec,
+      $.exception_spec,
+      $.structure_spec,
+      $.include_spec,
+      $.sharing_spec
+    ),
+    _specs: $ => prec.left(1, repeat1(
+      prec.left(1, choice($._spec, ";"))
+    )),
+
+    functor_declaration: $ => seq(
+      "functor",
+      $._funbinds
+    ),
+    functor_identifier: $ => $._alphanum_identifier,
+    funbind: $ => seq(
+      $.functor_identifier,
+      "(",
+      choice(
+        seq($.structure_identifier, ":", $._signature_expression),
+        optional($._specs),
+      ),
+      ")",
+      optional(seq(
+        choice(":", ":>"),
+        $._signature_expression
+      )),
+      "=",
+      $._structure_expression
+    ),
+    _funbinds: $ => sep1("and", $.funbind),
 
     expression_declaration: $ => $._expression,
 
-    structure_level_declaration: $ => choice(
-      $._local_level_declarations,
-    ),
-
-    _declaration: $ => choice(
-      $.structure_level_declaration,
-      $.expression_declaration
+    _top_level_declaration: $ => choice(
+      $._structure_level_declaration,
+      $.signature_declaration,
+      $.functor_declaration,
+      // $.expression_declaration
     ),
   },
 
@@ -568,7 +806,6 @@ module.exports = grammar({
       ":>",
     ],
   },
-
 });
 
 function sequential(rule) {

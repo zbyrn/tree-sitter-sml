@@ -92,20 +92,6 @@
     ]
   },
   {
-    "type": "_declaration",
-    "named": true,
-    "subtypes": [
-      {
-        "type": "expression_declaration",
-        "named": true
-      },
-      {
-        "type": "structure_level_declaration",
-        "named": true
-      }
-    ]
-  },
-  {
     "type": "_expression",
     "named": true,
     "subtypes": [
@@ -263,6 +249,132 @@
       },
       {
         "type": "layered_pattern",
+        "named": true
+      }
+    ]
+  },
+  {
+    "type": "_signature_expression",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "sig_expression",
+        "named": true
+      },
+      {
+        "type": "signature_identifier_expression",
+        "named": true
+      },
+      {
+        "type": "type_realization_expression",
+        "named": true
+      }
+    ]
+  },
+  {
+    "type": "_spec",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "datatype_spec",
+        "named": true
+      },
+      {
+        "type": "eqtype_spec",
+        "named": true
+      },
+      {
+        "type": "exception_spec",
+        "named": true
+      },
+      {
+        "type": "include_spec",
+        "named": true
+      },
+      {
+        "type": "replication_spec",
+        "named": true
+      },
+      {
+        "type": "sharing_spec",
+        "named": true
+      },
+      {
+        "type": "structure_spec",
+        "named": true
+      },
+      {
+        "type": "type_spec",
+        "named": true
+      },
+      {
+        "type": "value_spec",
+        "named": true
+      }
+    ]
+  },
+  {
+    "type": "_structure_expression",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "functor_application_expression",
+        "named": true
+      },
+      {
+        "type": "opaque_constraint_expression",
+        "named": true
+      },
+      {
+        "type": "struct_expression",
+        "named": true
+      },
+      {
+        "type": "struct_identifier_expression",
+        "named": true
+      },
+      {
+        "type": "structure_local_expression",
+        "named": true
+      },
+      {
+        "type": "transparent_constraint_expression",
+        "named": true
+      }
+    ]
+  },
+  {
+    "type": "_structure_level_declaration",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "_local_level_declaration",
+        "named": true
+      },
+      {
+        "type": "structure_declaration",
+        "named": true
+      },
+      {
+        "type": "structure_local_declaration",
+        "named": true
+      }
+    ]
+  },
+  {
+    "type": "_top_level_declaration",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "_structure_level_declaration",
+        "named": true
+      },
+      {
+        "type": "functor_declaration",
+        "named": true
+      },
+      {
+        "type": "signature_declaration",
         "named": true
       }
     ]
@@ -429,6 +541,45 @@
     }
   },
   {
+    "type": "condesc",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "arrow_type",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "qualified_tycon",
+          "named": true
+        },
+        {
+          "type": "record_type",
+          "named": true
+        },
+        {
+          "type": "tuple_type",
+          "named": true
+        },
+        {
+          "type": "tyapp",
+          "named": true
+        },
+        {
+          "type": "tyvar",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "conditional_expression",
     "named": true,
     "fields": {
@@ -573,6 +724,21 @@
     }
   },
   {
+    "type": "datatype_spec",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "datdesc",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "datbind",
     "named": true,
     "fields": {},
@@ -600,6 +766,29 @@
     }
   },
   {
+    "type": "datdesc",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "condesc",
+          "named": true
+        },
+        {
+          "type": "type_identifier",
+          "named": true
+        },
+        {
+          "type": "tyvarseq",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "disjunction_expression",
     "named": true,
     "fields": {},
@@ -609,6 +798,21 @@
       "types": [
         {
           "type": "_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "eqtype_spec",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "typdesc",
           "named": true
         }
       ]
@@ -673,6 +877,60 @@
     }
   },
   {
+    "type": "exception_spec",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "exdesc",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "exdesc",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "arrow_type",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "qualified_tycon",
+          "named": true
+        },
+        {
+          "type": "record_type",
+          "named": true
+        },
+        {
+          "type": "tuple_type",
+          "named": true
+        },
+        {
+          "type": "tyapp",
+          "named": true
+        },
+        {
+          "type": "tyvar",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "exposed",
     "named": true,
     "fields": {},
@@ -688,15 +946,31 @@
     }
   },
   {
-    "type": "expression_declaration",
+    "type": "funbind",
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
-          "type": "_expression",
+          "type": "_signature_expression",
+          "named": true
+        },
+        {
+          "type": "_spec",
+          "named": true
+        },
+        {
+          "type": "_structure_expression",
+          "named": true
+        },
+        {
+          "type": "functor_identifier",
+          "named": true
+        },
+        {
+          "type": "structure_identifier",
           "named": true
         }
       ]
@@ -735,6 +1009,49 @@
         }
       ]
     }
+  },
+  {
+    "type": "functor_application_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_structure_expression",
+          "named": true
+        },
+        {
+          "type": "_structure_level_declaration",
+          "named": true
+        },
+        {
+          "type": "functor_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "functor_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "funbind",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "functor_identifier",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "fvalbind",
@@ -815,6 +1132,21 @@
       "types": [
         {
           "type": "qualified_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "include_spec",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "_signature_expression",
           "named": true
         }
       ]
@@ -1054,6 +1386,25 @@
     }
   },
   {
+    "type": "opaque_constraint_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_signature_expression",
+          "named": true
+        },
+        {
+          "type": "_structure_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "open_declaration",
     "named": true,
     "fields": {},
@@ -1062,7 +1413,7 @@
       "required": true,
       "types": [
         {
-          "type": "qualified_identifier",
+          "type": "qualified_structure_identifier",
           "named": true
         }
       ]
@@ -1173,7 +1524,22 @@
           "named": true
         },
         {
-          "type": "structure_name",
+          "type": "structure_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "qualified_structure_identifier",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "structure_identifier",
           "named": true
         }
       ]
@@ -1308,6 +1674,25 @@
     }
   },
   {
+    "type": "replication_spec",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "qualified_tycon",
+          "named": true
+        },
+        {
+          "type": "type_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "rhs",
     "named": true,
     "fields": {},
@@ -1377,23 +1762,26 @@
     }
   },
   {
-    "type": "source_file",
+    "type": "sharing_spec",
     "named": true,
-    "root": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
-          "type": "_declaration",
+          "type": "_spec",
+          "named": true
+        },
+        {
+          "type": "qualified_tycon",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "structure_level_declaration",
+    "type": "sig_expression",
     "named": true,
     "fields": {},
     "children": {
@@ -1401,7 +1789,237 @@
       "required": false,
       "types": [
         {
-          "type": "_local_level_declaration",
+          "type": "_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "sigbind",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_signature_expression",
+          "named": true
+        },
+        {
+          "type": "signature_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "signature_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "sigbind",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "signature_identifier",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "signature_identifier_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "signature_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "source_file",
+    "named": true,
+    "root": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "_top_level_declaration",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "strbind",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_signature_expression",
+          "named": true
+        },
+        {
+          "type": "_structure_expression",
+          "named": true
+        },
+        {
+          "type": "structure_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "strdesc",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_signature_expression",
+          "named": true
+        },
+        {
+          "type": "structure_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "struct_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "_structure_level_declaration",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "struct_identifier_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "qualified_structure_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "structure_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "strbind",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "structure_identifier",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "structure_local_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "_structure_level_declaration",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "structure_local_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_structure_expression",
+          "named": true
+        },
+        {
+          "type": "_structure_level_declaration",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "structure_spec",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "strdesc",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "transparent_constraint_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_signature_expression",
+          "named": true
+        },
+        {
+          "type": "_structure_expression",
           "named": true
         }
       ]
@@ -1531,6 +2149,25 @@
     }
   },
   {
+    "type": "typdesc",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "type_identifier",
+          "named": true
+        },
+        {
+          "type": "tyvarseq",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "type_declaration",
     "named": true,
     "fields": {},
@@ -1549,6 +2186,49 @@
     "type": "type_identifier",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "type_realization_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_signature_expression",
+          "named": true
+        },
+        {
+          "type": "arrow_type",
+          "named": true
+        },
+        {
+          "type": "qualified_tycon",
+          "named": true
+        },
+        {
+          "type": "record_type",
+          "named": true
+        },
+        {
+          "type": "tuple_type",
+          "named": true
+        },
+        {
+          "type": "tyapp",
+          "named": true
+        },
+        {
+          "type": "tyvar",
+          "named": true
+        },
+        {
+          "type": "tyvarseq",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "type_row",
@@ -1584,6 +2264,21 @@
         },
         {
           "type": "tyvar",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "type_spec",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "typdesc",
           "named": true
         }
       ]
@@ -1677,6 +2372,45 @@
     }
   },
   {
+    "type": "valdesc",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "arrow_type",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "qualified_tycon",
+          "named": true
+        },
+        {
+          "type": "record_type",
+          "named": true
+        },
+        {
+          "type": "tuple_type",
+          "named": true
+        },
+        {
+          "type": "tyapp",
+          "named": true
+        },
+        {
+          "type": "tyvar",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "value_declaration",
     "named": true,
     "fields": {},
@@ -1690,6 +2424,21 @@
         },
         {
           "type": "valbind",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "value_spec",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "valdesc",
           "named": true
         }
       ]
@@ -1744,6 +2493,10 @@
   },
   {
     "type": ":",
+    "named": false
+  },
+  {
+    "type": ":>",
     "named": false
   },
   {
@@ -1811,6 +2564,10 @@
     "named": false
   },
   {
+    "type": "eqtype",
+    "named": false
+  },
+  {
     "type": "exception",
     "named": false
   },
@@ -1823,6 +2580,10 @@
     "named": false
   },
   {
+    "type": "functor",
+    "named": false
+  },
+  {
     "type": "handle",
     "named": false
   },
@@ -1832,6 +2593,10 @@
   },
   {
     "type": "in",
+    "named": false
+  },
+  {
+    "type": "include",
     "named": false
   },
   {
@@ -1895,8 +2660,28 @@
     "named": true
   },
   {
+    "type": "sharing",
+    "named": false
+  },
+  {
+    "type": "sig",
+    "named": false
+  },
+  {
+    "type": "signature",
+    "named": false
+  },
+  {
     "type": "string_literal",
     "named": true
+  },
+  {
+    "type": "struct",
+    "named": false
+  },
+  {
+    "type": "structure",
+    "named": false
   },
   {
     "type": "structure_name",
@@ -1916,6 +2701,10 @@
   },
   {
     "type": "val",
+    "named": false
+  },
+  {
+    "type": "where",
     "named": false
   },
   {
