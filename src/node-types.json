@@ -8,11 +8,85 @@
         "named": true
       },
       {
+        "type": "identifier_expression",
+        "named": true
+      },
+      {
         "type": "let_expression",
         "named": true
       },
       {
+        "type": "list_expression",
+        "named": true
+      },
+      {
+        "type": "parenthesized_expression",
+        "named": true
+      },
+      {
         "type": "record_expression",
+        "named": true
+      },
+      {
+        "type": "record_selector_expression",
+        "named": true
+      },
+      {
+        "type": "sequence_expression",
+        "named": true
+      },
+      {
+        "type": "tuple_expression",
+        "named": true
+      },
+      {
+        "type": "unit_expression",
+        "named": true
+      }
+    ]
+  },
+  {
+    "type": "_atomic_pattern",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "identifier_pattern",
+        "named": true
+      },
+      {
+        "type": "list_pattern",
+        "named": true
+      },
+      {
+        "type": "literal_pattern",
+        "named": true
+      },
+      {
+        "type": "or_pattern",
+        "named": true
+      },
+      {
+        "type": "parenthesized_pattern",
+        "named": true
+      },
+      {
+        "type": "record_pattern",
+        "named": true
+      },
+      {
+        "type": "tuple_pattern",
+        "named": true
+      },
+      {
+        "type": "unit_pattern",
+        "named": true
+      },
+      {
+        "type": "vector_pattern",
+        "named": true
+      },
+      {
+        "type": "wildcard",
         "named": true
       }
     ]
@@ -37,6 +111,46 @@
     "subtypes": [
       {
         "type": "_atomic_expression",
+        "named": true
+      },
+      {
+        "type": "application_expression",
+        "named": true
+      },
+      {
+        "type": "case_expression",
+        "named": true
+      },
+      {
+        "type": "conditional_expression",
+        "named": true
+      },
+      {
+        "type": "conjunction_expression",
+        "named": true
+      },
+      {
+        "type": "disjunction_expression",
+        "named": true
+      },
+      {
+        "type": "function_expression",
+        "named": true
+      },
+      {
+        "type": "handle_expression",
+        "named": true
+      },
+      {
+        "type": "iteration_expression",
+        "named": true
+      },
+      {
+        "type": "raise_expression",
+        "named": true
+      },
+      {
+        "type": "typed_expression",
         "named": true
       }
     ]
@@ -132,6 +246,28 @@
     ]
   },
   {
+    "type": "_pattern",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "_atomic_pattern",
+        "named": true
+      },
+      {
+        "type": "application_pattern",
+        "named": true
+      },
+      {
+        "type": "constraint_pattern",
+        "named": true
+      },
+      {
+        "type": "layered_pattern",
+        "named": true
+      }
+    ]
+  },
+  {
     "type": "abstype_declaration",
     "named": true,
     "fields": {},
@@ -145,6 +281,36 @@
         },
         {
           "type": "datbind",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "application_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_atomic_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "application_pattern",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_atomic_pattern",
           "named": true
         }
       ]
@@ -180,6 +346,25 @@
         },
         {
           "type": "tyvar",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "case_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_expression",
+          "named": true
+        },
+        {
+          "type": "match",
           "named": true
         }
       ]
@@ -244,6 +429,57 @@
     }
   },
   {
+    "type": "conditional_expression",
+    "named": true,
+    "fields": {
+      "else": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_expression",
+            "named": true
+          }
+        ]
+      },
+      "if": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_expression",
+            "named": true
+          }
+        ]
+      },
+      "then": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "conjunction_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "constraint_pattern",
     "named": true,
     "fields": {},
@@ -252,39 +488,15 @@
       "required": true,
       "types": [
         {
+          "type": "_pattern",
+          "named": true
+        },
+        {
           "type": "arrow_type",
           "named": true
         },
         {
-          "type": "constraint_pattern",
-          "named": true
-        },
-        {
-          "type": "identifier_pattern",
-          "named": true
-        },
-        {
-          "type": "layered_pattern",
-          "named": true
-        },
-        {
-          "type": "list_pattern",
-          "named": true
-        },
-        {
-          "type": "literal_pattern",
-          "named": true
-        },
-        {
-          "type": "parenthesized_pattern",
-          "named": true
-        },
-        {
           "type": "qualified_tycon",
-          "named": true
-        },
-        {
-          "type": "record_pattern",
           "named": true
         },
         {
@@ -301,14 +513,6 @@
         },
         {
           "type": "tyvar",
-          "named": true
-        },
-        {
-          "type": "vector_pattern",
-          "named": true
-        },
-        {
-          "type": "wildcard",
           "named": true
         }
       ]
@@ -390,6 +594,21 @@
         },
         {
           "type": "tyvarseq",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "disjunction_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_expression",
           "named": true
         }
       ]
@@ -503,6 +722,21 @@
     }
   },
   {
+    "type": "function_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "match",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "fvalbind",
     "named": true,
     "fields": {},
@@ -518,9 +752,43 @@
     }
   },
   {
+    "type": "handle_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_expression",
+          "named": true
+        },
+        {
+          "type": "match",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "identifier",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "identifier_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "qualified_identifier",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "identifier_label",
@@ -598,6 +866,32 @@
     }
   },
   {
+    "type": "iteration_expression",
+    "named": true,
+    "fields": {
+      "do": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_expression",
+            "named": true
+          }
+        ]
+      },
+      "while": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "layered_pattern",
     "named": true,
     "fields": {},
@@ -606,39 +900,7 @@
       "required": true,
       "types": [
         {
-          "type": "constraint_pattern",
-          "named": true
-        },
-        {
-          "type": "identifier_pattern",
-          "named": true
-        },
-        {
-          "type": "layered_pattern",
-          "named": true
-        },
-        {
-          "type": "list_pattern",
-          "named": true
-        },
-        {
-          "type": "literal_pattern",
-          "named": true
-        },
-        {
-          "type": "parenthesized_pattern",
-          "named": true
-        },
-        {
-          "type": "record_pattern",
-          "named": true
-        },
-        {
-          "type": "vector_pattern",
-          "named": true
-        },
-        {
-          "type": "wildcard",
+          "type": "_pattern",
           "named": true
         }
       ]
@@ -672,43 +934,26 @@
       "required": true,
       "types": [
         {
-          "type": "constraint_pattern",
-          "named": true
-        },
-        {
-          "type": "identifier_pattern",
-          "named": true
-        },
-        {
-          "type": "layered_pattern",
-          "named": true
-        },
-        {
-          "type": "list_pattern",
-          "named": true
-        },
-        {
-          "type": "literal_pattern",
-          "named": true
-        },
-        {
-          "type": "parenthesized_pattern",
-          "named": true
-        },
-        {
-          "type": "record_pattern",
+          "type": "_atomic_pattern",
           "named": true
         },
         {
           "type": "type_identifier",
           "named": true
-        },
+        }
+      ]
+    }
+  },
+  {
+    "type": "list_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
         {
-          "type": "vector_pattern",
-          "named": true
-        },
-        {
-          "type": "wildcard",
+          "type": "_expression",
           "named": true
         }
       ]
@@ -723,39 +968,7 @@
       "required": false,
       "types": [
         {
-          "type": "constraint_pattern",
-          "named": true
-        },
-        {
-          "type": "identifier_pattern",
-          "named": true
-        },
-        {
-          "type": "layered_pattern",
-          "named": true
-        },
-        {
-          "type": "list_pattern",
-          "named": true
-        },
-        {
-          "type": "literal_pattern",
-          "named": true
-        },
-        {
-          "type": "parenthesized_pattern",
-          "named": true
-        },
-        {
-          "type": "record_pattern",
-          "named": true
-        },
-        {
-          "type": "vector_pattern",
-          "named": true
-        },
-        {
-          "type": "wildcard",
+          "type": "_pattern",
           "named": true
         }
       ]
@@ -811,6 +1024,21 @@
     }
   },
   {
+    "type": "match",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "rule",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "nonfix_declaration",
     "named": true,
     "fields": {},
@@ -841,47 +1069,45 @@
     }
   },
   {
-    "type": "parenthesized_pattern",
+    "type": "or_pattern",
     "named": true,
     "fields": {},
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
         {
-          "type": "constraint_pattern",
+          "type": "_pattern",
           "named": true
-        },
+        }
+      ]
+    }
+  },
+  {
+    "type": "parenthesized_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
         {
-          "type": "identifier_pattern",
+          "type": "_expression",
           "named": true
-        },
+        }
+      ]
+    }
+  },
+  {
+    "type": "parenthesized_pattern",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
         {
-          "type": "layered_pattern",
-          "named": true
-        },
-        {
-          "type": "list_pattern",
-          "named": true
-        },
-        {
-          "type": "literal_pattern",
-          "named": true
-        },
-        {
-          "type": "parenthesized_pattern",
-          "named": true
-        },
-        {
-          "type": "record_pattern",
-          "named": true
-        },
-        {
-          "type": "vector_pattern",
-          "named": true
-        },
-        {
-          "type": "wildcard",
+          "type": "_pattern",
           "named": true
         }
       ]
@@ -900,39 +1126,15 @@
           "named": true
         },
         {
+          "type": "_pattern",
+          "named": true
+        },
+        {
           "type": "arrow_type",
           "named": true
         },
         {
-          "type": "constraint_pattern",
-          "named": true
-        },
-        {
-          "type": "identifier_pattern",
-          "named": true
-        },
-        {
-          "type": "layered_pattern",
-          "named": true
-        },
-        {
-          "type": "list_pattern",
-          "named": true
-        },
-        {
-          "type": "literal_pattern",
-          "named": true
-        },
-        {
-          "type": "parenthesized_pattern",
-          "named": true
-        },
-        {
           "type": "qualified_tycon",
-          "named": true
-        },
-        {
-          "type": "record_pattern",
           "named": true
         },
         {
@@ -952,11 +1154,7 @@
           "named": true
         },
         {
-          "type": "vector_pattern",
-          "named": true
-        },
-        {
-          "type": "wildcard",
+          "type": "wildcard_row",
           "named": true
         }
       ]
@@ -995,6 +1193,21 @@
         },
         {
           "type": "type_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "raise_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "_expression",
           "named": true
         }
       ]
@@ -1042,6 +1255,21 @@
           "type": "_expression",
           "named": true
         },
+        {
+          "type": "_label",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "record_selector_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
         {
           "type": "_label",
           "named": true
@@ -1115,6 +1343,40 @@
     }
   },
   {
+    "type": "rule",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_expression",
+          "named": true
+        },
+        {
+          "type": "_pattern",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "sequence_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "source_file",
     "named": true,
     "root": true,
@@ -1135,11 +1397,41 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
-      "required": true,
+      "multiple": true,
+      "required": false,
       "types": [
         {
           "type": "_local_level_declaration",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "tuple_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "tuple_pattern",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_pattern",
           "named": true
         }
       ]
@@ -1298,6 +1590,45 @@
     }
   },
   {
+    "type": "typed_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_expression",
+          "named": true
+        },
+        {
+          "type": "arrow_type",
+          "named": true
+        },
+        {
+          "type": "qualified_tycon",
+          "named": true
+        },
+        {
+          "type": "record_type",
+          "named": true
+        },
+        {
+          "type": "tuple_type",
+          "named": true
+        },
+        {
+          "type": "tyapp",
+          "named": true
+        },
+        {
+          "type": "tyvar",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "tyvarseq",
     "named": true,
     "fields": {},
@@ -1311,6 +1642,16 @@
         }
       ]
     }
+  },
+  {
+    "type": "unit_expression",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "unit_pattern",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "valbind",
@@ -1363,43 +1704,15 @@
       "required": false,
       "types": [
         {
-          "type": "constraint_pattern",
-          "named": true
-        },
-        {
-          "type": "identifier_pattern",
-          "named": true
-        },
-        {
-          "type": "layered_pattern",
-          "named": true
-        },
-        {
-          "type": "list_pattern",
-          "named": true
-        },
-        {
-          "type": "literal_pattern",
-          "named": true
-        },
-        {
-          "type": "parenthesized_pattern",
-          "named": true
-        },
-        {
-          "type": "record_pattern",
-          "named": true
-        },
-        {
-          "type": "vector_pattern",
-          "named": true
-        },
-        {
-          "type": "wildcard",
+          "type": "_pattern",
           "named": true
         }
       ]
     }
+  },
+  {
+    "type": "#",
+    "named": false
   },
   {
     "type": "#[",
@@ -1442,6 +1755,10 @@
     "named": false
   },
   {
+    "type": "=>",
+    "named": false
+  },
+  {
     "type": "[",
     "named": false
   },
@@ -1458,7 +1775,15 @@
     "named": false
   },
   {
+    "type": "andalso",
+    "named": false
+  },
+  {
     "type": "as",
+    "named": false
+  },
+  {
+    "type": "case",
     "named": false
   },
   {
@@ -1474,6 +1799,14 @@
     "named": false
   },
   {
+    "type": "do",
+    "named": false
+  },
+  {
+    "type": "else",
+    "named": false
+  },
+  {
     "type": "end",
     "named": false
   },
@@ -1482,7 +1815,19 @@
     "named": false
   },
   {
+    "type": "fn",
+    "named": false
+  },
+  {
     "type": "fun",
+    "named": false
+  },
+  {
+    "type": "handle",
+    "named": false
+  },
+  {
+    "type": "if",
     "named": false
   },
   {
@@ -1534,6 +1879,14 @@
     "named": false
   },
   {
+    "type": "orelse",
+    "named": false
+  },
+  {
+    "type": "raise",
+    "named": false
+  },
+  {
     "type": "real_literal",
     "named": true
   },
@@ -1550,6 +1903,10 @@
     "named": true
   },
   {
+    "type": "then",
+    "named": false
+  },
+  {
     "type": "type",
     "named": false
   },
@@ -1562,7 +1919,15 @@
     "named": false
   },
   {
+    "type": "while",
+    "named": false
+  },
+  {
     "type": "wildcard",
+    "named": true
+  },
+  {
+    "type": "wildcard_row",
     "named": true
   },
   {

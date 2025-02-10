@@ -28,7 +28,7 @@ val () = 3
     (value_declaration
       (valbind
         (lhs
-          (parenthesized_pattern))
+          (unit_pattern))
         (rhs
           (integer_literal))))))
 
@@ -432,12 +432,43 @@ val SOME x = 3
     (value_declaration
       (valbind
         (lhs
-          (identifier_pattern
-            (qualified_identifier
-              (identifier)))
-          (identifier_pattern
-            (qualified_identifier
-              (identifier))))
+          (application_pattern
+            (identifier_pattern
+              (qualified_identifier
+                (identifier)))
+            (identifier_pattern
+              (qualified_identifier
+                (identifier)))))
+        (rhs
+          (integer_literal))))))
+
+===================
+Compound pattern 1.5 (infix)
+===================
+
+val (x, y) + z = 3
+
+-----
+
+(source_file
+  (structure_level_declaration
+    (value_declaration
+      (valbind
+        (lhs
+          (application_pattern
+            (tuple_pattern
+              (identifier_pattern
+                (qualified_identifier
+                  (identifier)))
+              (identifier_pattern
+                (qualified_identifier
+                  (identifier))))
+            (identifier_pattern
+              (qualified_identifier
+                (identifier)))
+            (identifier_pattern
+              (qualified_identifier
+                (identifier)))))
         (rhs
           (integer_literal))))))
 
@@ -529,7 +560,7 @@ val (x, x as y) = 3
     (value_declaration
       (valbind
         (lhs
-          (parenthesized_pattern
+          (tuple_pattern
             (identifier_pattern
               (qualified_identifier
                 (identifier)))
@@ -556,7 +587,7 @@ val (x | y) = 3
     (value_declaration
       (valbind
         (lhs
-          (parenthesized_pattern
+          (or_pattern
             (identifier_pattern
               (qualified_identifier
                 (identifier)))
@@ -565,3 +596,39 @@ val (x | y) = 3
                 (identifier)))))
         (rhs
           (integer_literal))))))
+
+===================
+Record dot dot dot
+===================
+
+val {sourceStream, errConsumer, interactive, sourceMap, anyErrors, ...} = source
+
+-----
+
+(source_file
+  (structure_level_declaration
+    (value_declaration
+      (valbind
+        (lhs
+          (record_pattern
+            (pattern_row
+              (identifier_label
+                (identifier)))
+            (pattern_row
+              (identifier_label
+                (identifier)))
+            (pattern_row
+              (identifier_label
+                (identifier)))
+            (pattern_row
+              (identifier_label
+                (identifier)))
+            (pattern_row
+              (identifier_label
+                (identifier)))
+            (pattern_row
+              (wildcard_row))))
+        (rhs
+          (identifier_expression
+            (qualified_identifier
+              (identifier))))))))

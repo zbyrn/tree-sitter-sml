@@ -1,0 +1,597 @@
+=================
+Application 0
+=================
+
+a b c d
+
+------
+
+(source_file
+  (expression_declaration
+    (application_expression
+      (identifier_expression
+        (qualified_identifier
+          (identifier)))
+      (identifier_expression
+        (qualified_identifier
+          (identifier)))
+      (identifier_expression
+        (qualified_identifier
+          (identifier)))
+      (identifier_expression
+        (qualified_identifier
+          (identifier))))))
+
+=================
+Application 1
+=================
+
+(a, b) c d
+
+------
+
+(source_file
+  (expression_declaration
+    (application_expression
+      (tuple_expression
+        (identifier_expression
+          (qualified_identifier
+            (identifier)))
+        (identifier_expression
+          (qualified_identifier
+            (identifier))))
+      (identifier_expression
+        (qualified_identifier
+          (identifier)))
+      (identifier_expression
+        (qualified_identifier
+          (identifier))))))
+
+=================
+Application 2
+=================
+
+a (b, c) d
+
+------
+
+(source_file
+  (expression_declaration
+    (application_expression
+      (identifier_expression
+        (qualified_identifier
+          (identifier)))
+      (tuple_expression
+        (identifier_expression
+          (qualified_identifier
+            (identifier)))
+        (identifier_expression
+          (qualified_identifier
+            (identifier))))
+      (identifier_expression
+        (qualified_identifier
+          (identifier))))))
+
+=================
+Application 3
+=================
+
+a b (c, d)
+
+------
+
+(source_file
+  (expression_declaration
+    (application_expression
+      (identifier_expression
+        (qualified_identifier
+          (identifier)))
+      (identifier_expression
+        (qualified_identifier
+          (identifier)))
+      (tuple_expression
+        (identifier_expression
+          (qualified_identifier
+            (identifier)))
+        (identifier_expression
+          (qualified_identifier
+            (identifier)))))))
+
+=================
+Application 3
+=================
+
+a b (c, d)
+
+------
+
+(source_file
+  (expression_declaration
+    (application_expression
+      (identifier_expression
+        (qualified_identifier
+          (identifier)))
+      (identifier_expression
+        (qualified_identifier
+          (identifier)))
+      (tuple_expression
+        (identifier_expression
+          (qualified_identifier
+            (identifier)))
+        (identifier_expression
+          (qualified_identifier
+            (identifier)))))))
+
+=================
+Precedence: application vs type
+=================
+
+a b : int
+
+------
+
+(source_file
+  (expression_declaration
+    (typed_expression
+      (application_expression
+        (identifier_expression
+          (qualified_identifier
+            (identifier)))
+        (identifier_expression
+          (qualified_identifier
+            (identifier))))
+      (qualified_tycon
+        (type_identifier)))))
+
+=================
+Precedence: application vs andalso
+=================
+
+a b andalso c
+
+------
+
+(source_file
+  (expression_declaration
+    (conjunction_expression
+      (application_expression
+        (identifier_expression
+          (qualified_identifier
+            (identifier)))
+        (identifier_expression
+          (qualified_identifier
+            (identifier))))
+      (identifier_expression
+        (qualified_identifier
+          (identifier))))))
+
+=================
+Precedence: application vs orelse
+=================
+
+a b orelse c
+
+------
+
+(source_file
+  (expression_declaration
+    (disjunction_expression
+      (application_expression
+        (identifier_expression
+          (qualified_identifier
+            (identifier)))
+        (identifier_expression
+          (qualified_identifier
+            (identifier))))
+      (identifier_expression
+        (qualified_identifier
+          (identifier))))))
+
+=================
+Precedence: application vs handle
+=================
+
+a b handle e => f
+
+------
+
+(source_file
+  (expression_declaration
+    (handle_expression
+      (application_expression
+        (identifier_expression
+          (qualified_identifier
+            (identifier)))
+        (identifier_expression
+          (qualified_identifier
+            (identifier))))
+      (match
+        (rule
+          (identifier_pattern
+            (qualified_identifier
+              (identifier)))
+          (identifier_expression
+            (qualified_identifier
+              (identifier))))))))
+
+=================
+Precedence: application vs raise
+=================
+
+raise a b
+
+------
+
+(source_file
+  (expression_declaration
+    (raise_expression
+      (application_expression
+        (identifier_expression
+          (qualified_identifier
+            (identifier)))
+        (identifier_expression
+          (qualified_identifier
+            (identifier)))))))
+
+=================
+Precedence: application vs if
+=================
+
+if a b then c d else e f
+
+------
+
+(source_file
+  (expression_declaration
+    (conditional_expression
+      (application_expression
+        (identifier_expression
+          (qualified_identifier
+            (identifier)))
+        (identifier_expression
+          (qualified_identifier
+            (identifier))))
+      (application_expression
+        (identifier_expression
+          (qualified_identifier
+            (identifier)))
+        (identifier_expression
+          (qualified_identifier
+            (identifier))))
+      (application_expression
+        (identifier_expression
+          (qualified_identifier
+            (identifier)))
+        (identifier_expression
+          (qualified_identifier
+            (identifier)))))))
+
+=================
+Precedence: application vs while
+=================
+
+while a b do c d
+
+------
+
+(source_file
+  (expression_declaration
+    (iteration_expression
+      (application_expression
+        (identifier_expression
+          (qualified_identifier
+            (identifier)))
+        (identifier_expression
+          (qualified_identifier
+            (identifier))))
+      (application_expression
+        (identifier_expression
+          (qualified_identifier
+            (identifier)))
+        (identifier_expression
+          (qualified_identifier
+            (identifier)))))))
+
+=================
+Precedence: type vs conjunction
+=================
+
+x andalso y : int
+
+------
+
+(source_file
+  (expression_declaration
+    (conjunction_expression
+      (identifier_expression
+        (qualified_identifier
+          (identifier)))
+      (typed_expression
+        (identifier_expression
+          (qualified_identifier
+            (identifier)))
+        (qualified_tycon
+          (type_identifier))))))
+
+=================
+Precedence: conjunction vs disjunction
+=================
+
+x orelse y andalso z
+
+------
+
+(source_file
+  (expression_declaration
+    (disjunction_expression
+      (identifier_expression
+        (qualified_identifier
+          (identifier)))
+      (conjunction_expression
+        (identifier_expression
+          (qualified_identifier
+            (identifier)))
+        (identifier_expression
+          (qualified_identifier
+            (identifier)))))))
+
+=================
+Precedence: conjunction vs disjunction 2
+=================
+
+x andalso y orelse z
+
+------
+
+(source_file
+  (expression_declaration
+    (disjunction_expression
+      (conjunction_expression
+        (identifier_expression
+          (qualified_identifier
+            (identifier)))
+        (identifier_expression
+          (qualified_identifier
+            (identifier))))
+      (identifier_expression
+        (qualified_identifier
+          (identifier))))))
+
+=================
+Associativity: andalso
+=================
+
+x andalso y andalso z
+
+------
+
+(source_file
+  (expression_declaration
+    (conjunction_expression
+      (conjunction_expression
+        (identifier_expression
+          (qualified_identifier
+            (identifier)))
+        (identifier_expression
+          (qualified_identifier
+            (identifier))))
+      (identifier_expression
+        (qualified_identifier
+          (identifier))))))
+
+=================
+Associativity: orelse
+=================
+
+x orelse y orelse z
+
+------
+
+(source_file
+  (expression_declaration
+    (disjunction_expression
+      (disjunction_expression
+        (identifier_expression
+          (qualified_identifier
+            (identifier)))
+        (identifier_expression
+          (qualified_identifier
+            (identifier))))
+      (identifier_expression
+        (qualified_identifier
+          (identifier))))))
+
+=================
+Precedence: orelse vs handle
+=================
+
+x orelse y handle e => f
+
+------
+
+(source_file
+  (expression_declaration
+    (handle_expression
+      (disjunction_expression
+        (identifier_expression
+          (qualified_identifier
+            (identifier)))
+        (identifier_expression
+          (qualified_identifier
+            (identifier))))
+      (match
+        (rule
+          (identifier_pattern
+            (qualified_identifier
+              (identifier)))
+          (identifier_expression
+            (qualified_identifier
+              (identifier))))))))
+
+=================
+Precedence: orelse vs raise
+=================
+
+raise x orelse y
+
+------
+
+(source_file
+  (expression_declaration
+    (raise_expression
+      (disjunction_expression
+        (identifier_expression
+          (qualified_identifier
+            (identifier)))
+        (identifier_expression
+          (qualified_identifier
+            (identifier)))))))
+
+=================
+Precedence: handle vs raise
+=================
+
+raise x handle e => f
+
+------
+
+(source_file
+  (expression_declaration
+    (raise_expression
+      (handle_expression
+        (identifier_expression
+          (qualified_identifier
+            (identifier)))
+        (match
+          (rule
+            (identifier_pattern
+              (qualified_identifier
+                (identifier)))
+            (identifier_expression
+              (qualified_identifier
+                (identifier)))))))))
+
+=================
+Case 1
+=================
+
+case a of b => c
+
+------
+
+(source_file
+  (expression_declaration
+    (case_expression
+      (identifier_expression
+        (qualified_identifier
+          (identifier)))
+      (match
+        (rule
+          (identifier_pattern
+            (qualified_identifier
+              (identifier)))
+          (identifier_expression
+            (qualified_identifier
+              (identifier))))))))
+
+=================
+Case 2
+=================
+
+case a of b => c | d => e
+
+------
+
+(source_file
+  (expression_declaration
+    (case_expression
+      (identifier_expression
+        (qualified_identifier
+          (identifier)))
+      (match
+        (rule
+          (identifier_pattern
+            (qualified_identifier
+              (identifier)))
+          (identifier_expression
+            (qualified_identifier
+              (identifier))))
+        (rule
+          (identifier_pattern
+            (qualified_identifier
+              (identifier)))
+          (identifier_expression
+            (qualified_identifier
+              (identifier))))))))
+
+=================
+Case associativity
+=================
+
+case a of b => case c of d => e | x => y
+
+------
+
+(source_file
+  (expression_declaration
+    (case_expression
+      (identifier_expression
+        (qualified_identifier
+          (identifier)))
+      (match
+        (rule
+          (identifier_pattern
+            (qualified_identifier
+              (identifier)))
+          (case_expression
+            (identifier_expression
+              (qualified_identifier
+                (identifier)))
+            (match
+              (rule
+                (identifier_pattern
+                  (qualified_identifier
+                    (identifier)))
+                (identifier_expression
+                  (qualified_identifier
+                    (identifier))))
+              (rule
+                (identifier_pattern
+                  (qualified_identifier
+                    (identifier)))
+                (identifier_expression
+                  (qualified_identifier
+                    (identifier)))))))))))
+
+=================
+Fn associativity
+=================
+
+fn a => fn b => c | x => y
+
+------
+
+(source_file
+  (expression_declaration
+    (function_expression
+      (match
+        (rule
+          (identifier_pattern
+            (qualified_identifier
+              (identifier)))
+          (function_expression
+            (match
+              (rule
+                (identifier_pattern
+                  (qualified_identifier
+                    (identifier)))
+                (identifier_expression
+                  (qualified_identifier
+                    (identifier))))
+              (rule
+                (identifier_pattern
+                  (qualified_identifier
+                    (identifier)))
+                (identifier_expression
+                  (qualified_identifier
+                    (identifier)))))))))))

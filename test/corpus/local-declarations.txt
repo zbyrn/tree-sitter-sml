@@ -311,13 +311,14 @@ fun (_ f y) 10 = 3
         (clause
           (lhs
             (parenthesized_pattern
-              (wildcard)
-              (identifier_pattern
-                (qualified_identifier
-                  (identifier)))
-              (identifier_pattern
-                (qualified_identifier
-                  (identifier))))
+              (application_pattern
+                (wildcard)
+                (identifier_pattern
+                  (qualified_identifier
+                    (identifier)))
+                (identifier_pattern
+                  (qualified_identifier
+                    (identifier)))))
             (literal_pattern
               (integer_literal)))
           (rhs
@@ -340,7 +341,7 @@ fun op f (_, y) 10 = 3
             (identifier_pattern
               (qualified_identifier
                 (identifier)))
-            (parenthesized_pattern
+            (tuple_pattern
               (wildcard)
               (identifier_pattern
                 (qualified_identifier
@@ -736,4 +737,295 @@ infixr 9 ++ --
   (structure_level_declaration
     (infixr_declaration
       (identifier)
+      (identifier))))
+
+=================
+Sequential (infix)
+=================
+val x = y
+infix a
+infix b
+-----
+
+(source_file
+  (structure_level_declaration
+    (value_declaration
+      (valbind
+        (lhs
+          (identifier_pattern
+            (qualified_identifier
+              (identifier))))
+        (rhs
+          (identifier_expression
+            (qualified_identifier
+              (identifier))))))
+    (infixl_declaration
+      (identifier))
+    (infixl_declaration
+      (identifier))))
+
+=================
+Sequential (fun)
+=================
+val x = y
+fun f x = x
+fun f x = x
+-----
+
+(source_file
+  (structure_level_declaration
+    (value_declaration
+      (valbind
+        (lhs
+          (identifier_pattern
+            (qualified_identifier
+              (identifier))))
+        (rhs
+          (identifier_expression
+            (qualified_identifier
+              (identifier))))))
+    (function_declaration
+      (fvalbind
+        (clause
+          (lhs
+            (identifier_pattern
+              (qualified_identifier
+                (identifier)))
+            (identifier_pattern
+              (qualified_identifier
+                (identifier))))
+          (rhs
+            (identifier_expression
+              (qualified_identifier
+                (identifier)))))))
+    (function_declaration
+      (fvalbind
+        (clause
+          (lhs
+            (identifier_pattern
+              (qualified_identifier
+                (identifier)))
+            (identifier_pattern
+              (qualified_identifier
+                (identifier))))
+          (rhs
+            (identifier_expression
+              (qualified_identifier
+                (identifier)))))))))
+
+=================
+Sequential (datatype)
+=================
+val x = y
+datatype x = x
+
+-----
+
+(source_file
+  (structure_level_declaration
+    (value_declaration
+      (valbind
+        (lhs
+          (identifier_pattern
+            (qualified_identifier
+              (identifier))))
+        (rhs
+          (identifier_expression
+            (qualified_identifier
+              (identifier))))))
+    (datatype_declaration
+      (datbind
+        (type_identifier)
+        (constructor
+          (identifier))))))
+
+=================
+Sequential (abstype)
+=================
+val x = y
+abstype x = x with val x = y val x = y end
+-----
+
+(source_file
+  (structure_level_declaration
+    (value_declaration
+      (valbind
+        (lhs
+          (identifier_pattern
+            (qualified_identifier
+              (identifier))))
+        (rhs
+          (identifier_expression
+            (qualified_identifier
+              (identifier))))))
+    (abstype_declaration
+      (datbind
+        (type_identifier)
+        (constructor
+          (identifier)))
+      (value_declaration
+        (valbind
+          (lhs
+            (identifier_pattern
+              (qualified_identifier
+                (identifier))))
+          (rhs
+            (identifier_expression
+              (qualified_identifier
+                (identifier))))))
+      (value_declaration
+        (valbind
+          (lhs
+            (identifier_pattern
+              (qualified_identifier
+                (identifier))))
+          (rhs
+            (identifier_expression
+              (qualified_identifier
+                (identifier)))))))))
+
+=================
+Sequential (abstype)
+=================
+val x = y
+exception A
+exception B
+-----
+
+(source_file
+  (structure_level_declaration
+    (value_declaration
+      (valbind
+        (lhs
+          (identifier_pattern
+            (qualified_identifier
+              (identifier))))
+        (rhs
+          (identifier_expression
+            (qualified_identifier
+              (identifier))))))
+    (exception_declaration
+      (exbind
+        (identifier)))
+    (exception_declaration
+      (exbind
+        (identifier)))))
+
+=================
+Sequential (abstype)
+=================
+val x = y
+local in end
+-----
+
+(source_file
+  (structure_level_declaration
+    (value_declaration
+      (valbind
+        (lhs
+          (identifier_pattern
+            (qualified_identifier
+              (identifier))))
+        (rhs
+          (identifier_expression
+            (qualified_identifier
+              (identifier))))))
+    (local_declaration)))
+
+=================
+Sequential (abstype)
+=================
+val x = y
+local in end
+-----
+
+(source_file
+  (structure_level_declaration
+    (value_declaration
+      (valbind
+        (lhs
+          (identifier_pattern
+            (qualified_identifier
+              (identifier))))
+        (rhs
+          (identifier_expression
+            (qualified_identifier
+              (identifier))))))
+    (local_declaration)))
+
+=================
+Sequential (open)
+=================
+val x = y
+open x
+open y
+-----
+
+(source_file
+  (structure_level_declaration
+    (value_declaration
+      (valbind
+        (lhs
+          (identifier_pattern
+            (qualified_identifier
+              (identifier))))
+        (rhs
+          (identifier_expression
+            (qualified_identifier
+              (identifier))))))
+    (open_declaration
+      (qualified_identifier
+        (identifier)))
+    (open_declaration
+      (qualified_identifier
+        (identifier)))))
+
+=================
+Sequential (infixr)
+=================
+val x = y
+infixr x
+infixr y
+-----
+
+(source_file
+  (structure_level_declaration
+    (value_declaration
+      (valbind
+        (lhs
+          (identifier_pattern
+            (qualified_identifier
+              (identifier))))
+        (rhs
+          (identifier_expression
+            (qualified_identifier
+              (identifier))))))
+    (infixr_declaration
+      (identifier))
+    (infixr_declaration
+      (identifier))))
+
+=================
+Sequential (nonfix)
+=================
+val x = y
+nonfix x
+nonfix y
+-----
+
+(source_file
+  (structure_level_declaration
+    (value_declaration
+      (valbind
+        (lhs
+          (identifier_pattern
+            (qualified_identifier
+              (identifier))))
+        (rhs
+          (identifier_expression
+            (qualified_identifier
+              (identifier))))))
+    (nonfix_declaration
+      (identifier))
+    (nonfix_declaration
       (identifier))))

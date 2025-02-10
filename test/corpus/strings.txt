@@ -130,11 +130,15 @@ Unknown escape
 ================
 "\q"
 
+------
+
 ================
 Incomplete numeric escape
 :error
 ================
 "\0"
+
+------
 
 ================
 Backslash line continuation
@@ -173,11 +177,15 @@ Unclosed string
 ================
 "This string never ends
 
+------
+
 ================
 Ends in backslash
 :error
 ================
 "Backslash at end \
+
+------
 
 ================
 Multiple numeric escapes

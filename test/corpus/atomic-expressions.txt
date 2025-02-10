@@ -1,0 +1,183 @@
+=================
+Record selector expression 1
+=================
+
+#1
+
+-------
+
+(source_file
+  (expression_declaration
+    (record_selector_expression
+      (int_label
+        (index)))))
+
+=================
+Record selector expression 2
+=================
+
+#x
+
+-------
+
+(source_file
+  (expression_declaration
+    (record_selector_expression
+      (identifier_label
+        (identifier)))))
+
+=================
+Not record selector expression 1
+=================
+
+#**
+
+-------
+
+(source_file
+  (expression_declaration
+    (identifier_expression
+      (qualified_identifier
+        (identifier)))))
+
+=================
+Not record selector expression 2
+=================
+
+###
+
+-------
+
+(source_file
+  (expression_declaration
+    (identifier_expression
+      (qualified_identifier
+        (identifier)))))
+
+=================
+Unit 1
+=================
+
+()
+
+-------
+
+(source_file
+  (expression_declaration
+    (unit_expression)))
+
+=================
+Unit 2
+=================
+
+( )
+
+-------
+
+(source_file
+  (expression_declaration
+    (unit_expression)))
+
+=================
+Unit 3
+=================
+
+((**))
+
+-------
+
+(source_file
+  (expression_declaration
+    (unit_expression
+      (comment))))
+
+=================
+Tuple
+=================
+
+(x, y)
+
+-------
+
+(source_file
+  (expression_declaration
+    (tuple_expression
+      (identifier_expression
+        (qualified_identifier
+          (identifier)))
+      (identifier_expression
+        (qualified_identifier
+          (identifier))))))
+
+=================
+List
+=================
+
+[1, 2, 3]
+
+-------
+
+(source_file
+  (expression_declaration
+    (list_expression
+      (integer_literal)
+      (integer_literal)
+      (integer_literal))))
+
+=================
+Sequence
+=================
+
+(a;b)
+
+-------
+
+(source_file
+  (expression_declaration
+    (sequence_expression
+      (identifier_expression
+        (qualified_identifier
+          (identifier)))
+      (identifier_expression
+        (qualified_identifier
+          (identifier))))))
+
+=================
+Invalid sequence
+:error
+=================
+
+(a;)
+
+-------
+
+(source_file
+  (expression_declaration
+    (list_expression
+      (integer_literal)
+      (integer_literal)
+      (integer_literal))))
+
+==================
+Parenthesized
+==================
+
+(a (b andalso c))
+
+-------
+
+(source_file
+  (expression_declaration
+    (parenthesized_expression
+      (application_expression
+        (identifier_expression
+          (qualified_identifier
+            (identifier)))
+        (parenthesized_expression
+          (conjunction_expression
+            (identifier_expression
+              (qualified_identifier
+                (identifier)))
+            (identifier_expression
+              (qualified_identifier
+                (identifier)))))))))

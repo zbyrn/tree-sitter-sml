@@ -78,11 +78,15 @@ Char empty
 ================
 #""
 
+------
+
 ================
 Char multichar
 :error
 ================
 #"ab"
+
+------
 
 ================
 Char unknown escape
@@ -90,9 +94,12 @@ Char unknown escape
 ================
 #"\q"
 
+------
+
 ================
 Char incomplete oct
 :error
 ================
 #"\0"
 
+------

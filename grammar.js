@@ -41,7 +41,7 @@ const IDS    = /[!%&$#+\-/:<>?@\\~'^|=*]+/;
  * to simplify lexing. But since tree-sitter uses context-sensitive lexing, I
  * don't think there is any benefit in handling these cases specifically.
  *
- * As an example, `val = = 3;` is accepted in this grammar while both smlnj and
+ * As an example, `val = = 3;` is accepted in tree-sitter while both smlnj and
  * mlton complained.
  */
 
@@ -62,7 +62,7 @@ const ESCAPE_CHAR =
 //    NOTE: The standard said the ordinary characters can only be
 //    ASCII 33..126, but SML/NJ seems to allow any unicode code points
 //    except newlines.
-const ORD_CHAR = /[^"\\\n\r]+/;
+const ORD_CHAR = /[^"\\\n\r]/;
 
 module.exports = grammar({
   name: "sml",
@@ -78,11 +78,13 @@ module.exports = grammar({
 
   supertypes: $ => [
     $._expression,
+    $._atomic_expression,
     $._local_level_declaration,
     $._declaration,
     $._literal,
-    $._atomic_expression,
     $._label,
+    $._atomic_pattern,
+    $._pattern,
   ],
 
   word: $ => $._alphanum_identifier,
@@ -175,18 +177,134 @@ module.exports = grammar({
       "let",
       optional($._local_level_declarations),
       "in",
-      $._expression,
+      sep1(";", $._expression),
       "end"
+    ),
+
+    identifier_expression: $ => seq(
+      optional("op"),
+      $.qualified_identifier
+    ),
+
+    record_selector_expression: $ => seq(
+      "#",
+      $._label,
+    ),
+
+    unit_expression: $ => seq(
+      "(", ")"
+    ),
+
+    tuple_expression: $ => parenthesize(
+      sep2(",", $._expression)
+    ),
+
+    list_expression: $ => seq(
+      "[",
+      sep(",", $._expression),
+      "]"
+    ),
+
+    sequence_expression: $ => parenthesize(
+      sep2(";", $._expression)
+    ),
+
+    parenthesized_expression: $ => parenthesize(
+      $._expression
     ),
 
     _atomic_expression: $ => choice(
       $._literal,
       $.record_expression,
       $.let_expression,
+      $.identifier_expression,
+      $.record_selector_expression,
+      $.unit_expression,
+      $.tuple_expression,
+      $.list_expression,
+      $.sequence_expression,
+      $.parenthesized_expression,
     ),
+
+    application_expression: $ => repeat2($._atomic_expression),
+
+    typed_expression: $ => prec.left(10, seq(
+      $._expression,
+      ":",
+      $._type
+    )),
+
+    conjunction_expression: $ => prec.left(9, seq(
+      $._expression,
+      "andalso",
+      $._expression
+    )),
+
+    disjunction_expression: $ => prec.left(8, seq(
+      $._expression,
+      "orelse",
+      $._expression
+    )),
+
+    handle_expression: $ => prec(7, seq(
+      $._expression,
+      "handle",
+      $.match,
+    )),
+
+    raise_expression: $ => prec(6, seq(
+      "raise",
+      $._expression
+    )),
+
+    conditional_expression: $ => prec(5, seq(
+      "if",
+      field("if", $._expression),
+      "then",
+      field("then", $._expression),
+      "else",
+      field("else", $._expression)
+    )),
+
+    iteration_expression: $ => prec(4, seq(
+      "while",
+      field("while", $._expression),
+      "do",
+      field("do", $._expression),
+    )),
+
+    case_expression: $ => prec(2, seq(
+      "case",
+      $._expression,
+      "of",
+      $.match
+    )),
+
+    function_expression: $ => prec(1, seq(
+      "fn",
+      $.match
+    )),
+
+    rule: $ => seq(
+      $._pattern,
+      "=>",
+      $._expression
+    ),
+
+    match: $ => prec.right(3, sep1("|", $.rule)),
 
     _expression: $ => choice(
       $._atomic_expression,
+      $.application_expression,
+      $.typed_expression,
+      $.conjunction_expression,
+      $.disjunction_expression,
+      $.handle_expression,
+      $.raise_expression,
+      $.conditional_expression,
+      $.iteration_expression,
+      $.case_expression,
+      $.function_expression
     ),
 
     /************************ PATTERNS ****************************/
@@ -201,11 +319,15 @@ module.exports = grammar({
     vector_pattern: $ => seq("#[", sep(",", $._pattern), "]"),
 
     pattern_row: $ => choice(
+      alias("...", $.wildcard_row),
       seq($._label, "=", $._pattern),
       seq($.identifier_label, optional(seq(":", $._type)), optional(seq("as", $._pattern)))
     ),
 
-    parenthesized_pattern: $ => parenthesize(sep(choice("|",","), $._pattern)),
+    unit_pattern: $ => seq("(", ")"),
+    parenthesized_pattern: $ => parenthesize($._pattern),
+    or_pattern: $ => parenthesize(sep2("|", $._pattern)),
+    tuple_pattern: $ => parenthesize(sep2(",", $._pattern)),
 
     _atomic_pattern: $ => choice(
       $.wildcard,
@@ -214,15 +336,20 @@ module.exports = grammar({
       $.list_pattern,
       $.record_pattern,
       $.vector_pattern,
+      $.unit_pattern,
+      $.tuple_pattern,
+      $.or_pattern,
       $.parenthesized_pattern,
     ),
 
+    application_pattern: $ => repeat2($._atomic_pattern),
     constraint_pattern: $ => prec(1, seq($._pattern, ":", $._type)),
     layered_pattern: $ => prec.right(2, seq($._pattern, "as", $._pattern)),
     _pattern: $ => choice(
       $.constraint_pattern,
       $.layered_pattern,
-      repeat1($._atomic_pattern),
+      $._atomic_pattern,
+      $.application_pattern,
     ),
 
     /************************ TYPES ****************************/
@@ -274,7 +401,7 @@ module.exports = grammar({
     ),
     fvalbind: $ => sep1("|", alias($._fvalbind_clause, $.clause)),
     _fvalbinds: $ => sep1("and", $.fvalbind),
-    
+
 
     type_declaration: $ => seq("type", $._tybinds),
     tybind: $ => seq(
@@ -379,14 +506,13 @@ module.exports = grammar({
     expression_declaration: $ => $._expression,
 
     structure_level_declaration: $ => choice(
-      $._local_level_declaration,
+      $._local_level_declarations,
     ),
 
     _declaration: $ => choice(
       $.structure_level_declaration,
       $.expression_declaration
     ),
-
   },
 
   /* See PR: https://github.com/tree-sitter/tree-sitter/pull/3896 */
