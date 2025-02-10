@@ -301,10 +301,10 @@ module.exports = grammar({
     rule: $ => seq(
       $._pattern,
       "=>",
-      $._expression
+      prec.right($._expression),
     ),
 
-    match: $ => prec.right(3, sep1("|", $.rule)),
+    match: $ => prec.right(seq($.rule, repeat(seq("|", $.rule)))),
 
     _expression: $ => choice(
       $._atomic_expression,
@@ -406,13 +406,17 @@ module.exports = grammar({
 
 
     function_declaration: $ => seq("fun", optional($.tyvarseq), $._fvalbinds),
-    _fvalbind_clause: $ => seq(
-      alias(repeat1($._atomic_pattern), $.lhs),
+    _clause_arguments: $ => repeat2($._atomic_pattern),
+    clause: $ => prec.right(0, seq(
+      alias($._clause_arguments, $.lhs),
       optional(seq(":", field("return_type", $._type))),
       "=",
-      alias($._expression, $.rhs)
-    ),
-    fvalbind: $ => sep1("|", alias($._fvalbind_clause, $.clause)),
+      alias(prec.right($._expression), $.rhs)
+    )),
+    fvalbind: $ => prec.right(0, seq(
+      $.clause,
+      repeat(seq("|", $.clause)),
+    )),
     _fvalbinds: $ => sep1("and", $.fvalbind),
 
 

@@ -1018,14 +1018,18 @@
           "value": "=>"
         },
         {
-          "type": "SYMBOL",
-          "name": "_expression"
+          "type": "PREC_RIGHT",
+          "value": 0,
+          "content": {
+            "type": "SYMBOL",
+            "name": "_expression"
+          }
         }
       ]
     },
     "match": {
       "type": "PREC_RIGHT",
-      "value": 3,
+      "value": 0,
       "content": {
         "type": "SEQ",
         "members": [
@@ -2057,95 +2061,110 @@
         }
       ]
     },
-    "_fvalbind_clause": {
+    "_clause_arguments": {
       "type": "SEQ",
       "members": [
         {
-          "type": "ALIAS",
-          "content": {
-            "type": "REPEAT1",
-            "content": {
-              "type": "SYMBOL",
-              "name": "_atomic_pattern"
-            }
-          },
-          "named": true,
-          "value": "lhs"
+          "type": "SYMBOL",
+          "name": "_atomic_pattern"
         },
         {
-          "type": "CHOICE",
-          "members": [
-            {
+          "type": "REPEAT1",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_atomic_pattern"
+          }
+        }
+      ]
+    },
+    "clause": {
+      "type": "PREC_RIGHT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_clause_arguments"
+            },
+            "named": true,
+            "value": "lhs"
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": ":"
+                  },
+                  {
+                    "type": "FIELD",
+                    "name": "return_type",
+                    "content": {
+                      "type": "SYMBOL",
+                      "name": "_type"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
+            "type": "STRING",
+            "value": "="
+          },
+          {
+            "type": "ALIAS",
+            "content": {
+              "type": "PREC_RIGHT",
+              "value": 0,
+              "content": {
+                "type": "SYMBOL",
+                "name": "_expression"
+              }
+            },
+            "named": true,
+            "value": "rhs"
+          }
+        ]
+      }
+    },
+    "fvalbind": {
+      "type": "PREC_RIGHT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "clause"
+          },
+          {
+            "type": "REPEAT",
+            "content": {
               "type": "SEQ",
               "members": [
                 {
                   "type": "STRING",
-                  "value": ":"
+                  "value": "|"
                 },
                 {
-                  "type": "FIELD",
-                  "name": "return_type",
-                  "content": {
-                    "type": "SYMBOL",
-                    "name": "_type"
-                  }
+                  "type": "SYMBOL",
+                  "name": "clause"
                 }
               ]
-            },
-            {
-              "type": "BLANK"
             }
-          ]
-        },
-        {
-          "type": "STRING",
-          "value": "="
-        },
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "SYMBOL",
-            "name": "_expression"
-          },
-          "named": true,
-          "value": "rhs"
-        }
-      ]
-    },
-    "fvalbind": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "SYMBOL",
-            "name": "_fvalbind_clause"
-          },
-          "named": true,
-          "value": "clause"
-        },
-        {
-          "type": "REPEAT",
-          "content": {
-            "type": "SEQ",
-            "members": [
-              {
-                "type": "STRING",
-                "value": "|"
-              },
-              {
-                "type": "ALIAS",
-                "content": {
-                  "type": "SYMBOL",
-                  "name": "_fvalbind_clause"
-                },
-                "named": true,
-                "value": "clause"
-              }
-            ]
           }
-        }
-      ]
+        ]
+      }
     },
     "_fvalbinds": {
       "type": "SEQ",
