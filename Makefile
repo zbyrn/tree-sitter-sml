@@ -7,7 +7,10 @@ test:
 	$(TS) test
 
 generate:
-	cd grammars/sml && $(TS) generate
+	$(TS) generate grammars/sml
+
+build:
+	$(TS) build grammars/sml
 
 
-.PHONY: all install uninstall clean test update generate
+.PHONY: all install uninstall clean test update generate build
