@@ -34,7 +34,7 @@ const HEXNUM = /[0-9a-fA-F]+/;
 const FRAC   = /\.[0-9]+/;
 const EXPO   = /[eE]~?[0-9]+/;
 const IDA    = /[A-Za-z][A-Za-z'_0-9]*/;
-const IDS    = /[!%&$#+\-/:<>?@\\~'^|=*]+/;
+const IDS    = /[!%&$#+\-/:<>?@\\~`^|=*][!%&$#+\-/:<>?@\\~'`^|=*]*/;
 /* NOTE: There are restrictions on where ASTERISKs and EQUALOPs can be used as
  * identifiers. Specifically, a single * and = cannot be used as tycons and a
  * single = cannot be used as unqualified vid. I think this restriction is there
@@ -377,7 +377,7 @@ module.exports = grammar({
       repeat(seq(alias($._alphanum_identifier, $.structure_name), ".")),
       $._tycon
     ),
-    tyvar: _ => token(seq("'", /[A-Za-z'_0-9]+/)),
+    tyvar: _ => token(seq("'", /[A-Za-z'`_0-9]+/)),
     tyvarseq: $ => choice($.tyvar, parenthesize(sep2(",", $.tyvar))),
     type_row: $ => seq($._label, ":", $._type),
     record_type: $ => seq("{", sep(",", $.type_row), "}"),
@@ -795,6 +795,13 @@ module.exports = grammar({
       $.functor_declaration,
       // $.expression_declaration
     ),
+
+    _kw_colon: $ => ":",
+    _kw_bar: $ => "|",
+    _kw_equal: $ => "=",
+    _kw_darrow: $ => "=>",
+    _kw_arrow: $ => "->",
+    _kw_hash: $ => "#",
   },
 
   /* See PR: https://github.com/tree-sitter/tree-sitter/pull/3896 */
