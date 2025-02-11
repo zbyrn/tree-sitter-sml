@@ -34,7 +34,7 @@ const HEXNUM = /[0-9a-fA-F]+/;
 const FRAC   = /\.[0-9]+/;
 const EXPO   = /[eE]~?[0-9]+/;
 const IDA    = /[A-Za-z][A-Za-z'_0-9]*/;
-const IDS    = /[!%&$#+\-/:<>?@\\~`^|=*][!%&$#+\-/:<>?@\\~'`^|=*]*/;
+const IDS    = /[!%&$#+\-/:<>?@\\~`^|=*][!%&$#+\-/:<>?@\\~`^|=*]*/;
 /* NOTE: There are restrictions on where ASTERISKs and EQUALOPs can be used as
  * identifiers. Specifically, a single * and = cannot be used as tycons and a
  * single = cannot be used as unqualified vid. I think this restriction is there
@@ -176,7 +176,7 @@ module.exports = grammar({
 
     record_row: $ => seq(
       $._label,
-      "=",
+      $._kw_equal,
       $._expression
     ),
 
@@ -197,7 +197,7 @@ module.exports = grammar({
     ),
 
     record_selector_expression: $ => seq(
-      "#",
+      $._kw_hash,
       $._label,
     ),
 
@@ -247,7 +247,7 @@ module.exports = grammar({
 
     typed_expression: $ => prec.left(10, seq(
       $._expression,
-      ":",
+      $._kw_colon,
       $._type
     )),
 
@@ -304,11 +304,11 @@ module.exports = grammar({
 
     rule: $ => seq(
       $._pattern,
-      "=>",
+      $._kw_darrow,
       prec.right($._expression),
     ),
 
-    match: $ => prec.right(seq($.rule, repeat(seq("|", $.rule)))),
+    match: $ => prec.right(seq($.rule, repeat(seq($._kw_bar, $.rule)))),
 
     _expression: $ => choice(
       $._atomic_expression,
@@ -337,13 +337,13 @@ module.exports = grammar({
 
     pattern_row: $ => choice(
       alias("...", $.wildcard_row),
-      seq($._label, "=", $._pattern),
-      seq($.identifier_label, optional(seq(":", $._type)), optional(seq("as", $._pattern)))
+      seq($._label, $._kw_equal, $._pattern),
+      seq($.identifier_label, optional(seq($._kw_colon, $._type)), optional(seq("as", $._pattern)))
     ),
 
     unit_pattern: $ => seq("(", ")"),
     parenthesized_pattern: $ => parenthesize($._pattern),
-    or_pattern: $ => parenthesize(sep2("|", $._pattern)),
+    or_pattern: $ => parenthesize(sep2($._kw_bar, $._pattern)),
     tuple_pattern: $ => parenthesize(sep2(",", $._pattern)),
 
     _atomic_pattern: $ => choice(
@@ -360,7 +360,7 @@ module.exports = grammar({
     ),
 
     application_pattern: $ => repeat2($._atomic_pattern),
-    constraint_pattern: $ => prec(1, seq($._pattern, ":", $._type)),
+    constraint_pattern: $ => prec(1, seq($._pattern, $._kw_colon, $._type)),
     layered_pattern: $ => prec.right(2, seq($._pattern, "as", $._pattern)),
     _pattern: $ => choice(
       $.constraint_pattern,
@@ -377,16 +377,16 @@ module.exports = grammar({
       repeat(seq(alias($._alphanum_identifier, $.structure_name), ".")),
       $._tycon
     ),
-    tyvar: _ => token(seq("'", /[A-Za-z'`_0-9]+/)),
+    tyvar: _ => token(seq("'", /[A-Za-z'_0-9]+/)),
     tyvarseq: $ => choice($.tyvar, parenthesize(sep2(",", $.tyvar))),
-    type_row: $ => seq($._label, ":", $._type),
+    type_row: $ => seq($._label, $._kw_colon, $._type),
     record_type: $ => seq("{", sep(",", $.type_row), "}"),
     tuple_type: $ => sep2("*", $._type0),
     tyapp: $ => seq(
       choice($._type0, parenthesize(sep2(",", $._type))),
       $.qualified_tycon
     ),
-    arrow_type: $ => prec.right(1, seq($._type, "->", $._type)),
+    arrow_type: $ => prec.right(1, seq($._type, $._kw_arrow, $._type)),
     _type0: $ => choice(
       $.tyvar,
       $.record_type,
@@ -403,7 +403,7 @@ module.exports = grammar({
     /************************ DECL ****************************/
     value_declaration: $ => seq("val", optional($.tyvarseq), $._valbinds),
     _valbind: $ => choice(
-      seq(optional("lazy"), alias($._pattern, $.lhs), "=", alias($._expression, $.rhs)),
+      seq(optional("lazy"), alias($._pattern, $.lhs), $._kw_equal, alias($._expression, $.rhs)),
       seq(alias("rec", $.rec), $._valbind)
     ),
     _valbinds: $ => sep1("and", alias($._valbind, $.valbind)),
@@ -413,13 +413,13 @@ module.exports = grammar({
     _clause_arguments: $ => repeat2($._atomic_pattern),
     clause: $ => prec.right(0, seq(
       alias($._clause_arguments, $.lhs),
-      optional(seq(":", field("return_type", $._type))),
-      "=",
+      optional(seq($._kw_colon, field("return_type", $._type))),
+      $._kw_equal,
       alias(prec.right($._expression), $.rhs)
     )),
     fvalbind: $ => prec.right(0, seq(
       $.clause,
-      repeat(seq("|", $.clause)),
+      repeat(seq($._kw_bar, $.clause)),
     )),
     _fvalbinds: $ => sep1("and", $.fvalbind),
 
@@ -428,7 +428,7 @@ module.exports = grammar({
     tybind: $ => seq(
       optional($.tyvarseq),
       alias($._tycon, $.lhs),
-      "=",
+      $._kw_equal,
       alias($._type, $.rhs)
     ),
     _tybinds: $ => sep1("and", $.tybind),
@@ -438,8 +438,8 @@ module.exports = grammar({
     datbind: $ => seq(
       optional($.tyvarseq),
       $._tycon,
-      "=",
-      sep1("|", $._con_or_replication_bind)
+      $._kw_equal,
+      sep1($._kw_bar, $._con_or_replication_bind)
     ),
     _datbinds: $ => sep1("and", $.datbind),
     _conbind: $ => seq(
@@ -470,7 +470,7 @@ module.exports = grammar({
     ),
     exbind: $ => choice(
       seq(optional("op"), $.identifier, optional(seq("of", $._type))),
-      seq(optional("op"), $.identifier, "=", optional("op"), $.qualified_identifier)
+      seq(optional("op"), $.identifier, $._kw_equal, optional("op"), $.qualified_identifier)
     ),
     _exbinds: $ => sep1("and", $.exbind),
 
@@ -511,7 +511,7 @@ module.exports = grammar({
       "_overload",
       optional(/[0-9]/),
       $.identifier,
-      ":",
+      $._kw_colon,
       $._type,
       "as",
       sep1("and", $.qualified_identifier)
@@ -554,7 +554,7 @@ module.exports = grammar({
 
     transparent_constraint_expression: $ => seq(
       $._structure_expression,
-      ":",
+      $._kw_colon,
       $._signature_expression
     ),
 
@@ -596,9 +596,9 @@ module.exports = grammar({
       $._strbinds
     ),
     strbind: $ => choice(
-      seq($.structure_identifier, "=", $._structure_expression),
-      seq($.structure_identifier, ":", $._signature_expression, "=", $._structure_expression),
-      seq($.structure_identifier, ":>", $._signature_expression, "=", $._structure_expression),
+      seq($.structure_identifier, $._kw_equal, $._structure_expression),
+      seq($.structure_identifier, $._kw_colon, $._signature_expression, $._kw_equal, $._structure_expression),
+      seq($.structure_identifier, ":>", $._signature_expression, $._kw_equal, $._structure_expression),
     ),
     _strbinds: $ => sep1("and", $.strbind),
 
@@ -641,8 +641,8 @@ module.exports = grammar({
       $._where_equations,
     ),
     where_equation: $ => choice(
-      seq("type", optional($.tyvarseq), $.qualified_tycon, "=", $._type),
-      seq($.qualified_structure_identifier, "=", $.qualified_structure_identifier)
+      seq("type", optional($.tyvarseq), $.qualified_tycon, $._kw_equal, $._type),
+      seq($.qualified_structure_identifier, $._kw_equal, $.qualified_structure_identifier)
     ),
     _where_equations: $ => prec.left(sep1("and", $.where_equation)),
 
@@ -654,7 +654,7 @@ module.exports = grammar({
 
     sigbind: $ => seq(
       $.signature_identifier,
-      "=",
+      $._kw_equal,
       $._signature_expression,
     ),
     _sigbinds: $ => sep1("and", $.sigbind),
@@ -667,7 +667,7 @@ module.exports = grammar({
       "val", $._valdescs
     ),
     valdesc: $ => seq(
-      $.identifier, ":", $._type
+      $.identifier, $._kw_colon, $._type
     ),
     _valdescs: $ => sep1("and", $.valdesc),
 
@@ -693,7 +693,7 @@ module.exports = grammar({
     datdesc: $ => seq(
       optional($.tyvarseq),
       $.type_identifier,
-      "=",
+      $._kw_equal,
       $._condescs
     ),
     _datdescs: $ => sep1("and", $.datdesc),
@@ -701,12 +701,12 @@ module.exports = grammar({
       $.identifier,
       optional(seq("of", $._type))
     ),
-    _condescs: $ => sep1("|", $.condesc),
+    _condescs: $ => sep1($._kw_bar, $.condesc),
 
     replication_spec: $ => seq(
       "datatype",
       $.type_identifier,
-      "=",
+      $._kw_equal,
       "datatype",
       $.qualified_tycon
     ),
@@ -727,7 +727,7 @@ module.exports = grammar({
     ),
     strdesc: $ => seq(
       $.structure_identifier,
-      ":",
+      $._kw_colon,
       $._signature_expression
     ),
     _strdescs: $ => sep1("and", $.strdesc),
@@ -745,8 +745,8 @@ module.exports = grammar({
       optional($._specs),
       "sharing",
       choice(
-        seq("type", sep2("=", $.qualified_tycon)),
-        sep2("=", $.qualified_structure_identifier)
+        seq("type", sep2($._kw_equal, $.qualified_tycon)),
+        sep2($._kw_equal, $.qualified_structure_identifier)
       ),
     )),
 
@@ -774,15 +774,15 @@ module.exports = grammar({
       $.functor_identifier,
       "(",
       choice(
-        seq($.structure_identifier, ":", $._signature_expression),
+        seq($.structure_identifier, $._kw_colon, $._signature_expression),
         optional($._specs),
       ),
       ")",
       optional(seq(
-        choice(":", ":>"),
+        choice($._kw_colon, ":>"),
         $._signature_expression
       )),
-      "=",
+      $._kw_equal,
       $._structure_expression
     ),
     _funbinds: $ => sep1("and", $.funbind),
