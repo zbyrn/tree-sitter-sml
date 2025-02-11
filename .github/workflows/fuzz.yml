@@ -14,10 +14,6 @@ on:
 jobs:
   fuzz:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        language: [grammars/sml]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
