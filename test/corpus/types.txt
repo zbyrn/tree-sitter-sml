@@ -341,3 +341,166 @@ val x : {1: int} = 3
       (rhs
         (atomic_application_expression
           (integer_literal))))))
+
+===================
+Type assoc app
+===================
+
+val x : int list list list = 3
+
+------
+
+(source_file
+  (value_declaration
+    (valbind
+      (lhs
+        (constraint_pattern
+          (identifier_pattern
+            (qualified_identifier
+              (alphanum_identifier)))
+          (tyapp
+            (tyapp
+              (tyapp
+                (qualified_type_identifier
+                  (type_identifier
+                    (alphanum_identifier)))
+                (qualified_type_identifier
+                  (type_identifier
+                    (alphanum_identifier))))
+              (qualified_type_identifier
+                (type_identifier
+                  (alphanum_identifier))))
+            (qualified_type_identifier
+              (type_identifier
+                (alphanum_identifier))))))
+      (rhs
+        (atomic_application_expression
+          (integer_literal))))))
+
+===================
+Type prec app vs tuple
+===================
+
+val x : int list * list = 3
+
+------
+
+(source_file
+  (value_declaration
+    (valbind
+      (lhs
+        (constraint_pattern
+          (identifier_pattern
+            (qualified_identifier
+              (alphanum_identifier)))
+          (tuple_type
+            (tyapp
+              (qualified_type_identifier
+                (type_identifier
+                  (alphanum_identifier)))
+              (qualified_type_identifier
+                (type_identifier
+                  (alphanum_identifier))))
+            (qualified_type_identifier
+              (type_identifier
+                (alphanum_identifier))))))
+      (rhs
+        (atomic_application_expression
+          (integer_literal))))))
+
+===================
+Type prec app vs arrow
+===================
+
+val x : int list -> list = 3
+
+------
+
+(source_file
+  (value_declaration
+    (valbind
+      (lhs
+        (constraint_pattern
+          (identifier_pattern
+            (qualified_identifier
+              (alphanum_identifier)))
+          (arrow_type
+            (tyapp
+              (qualified_type_identifier
+                (type_identifier
+                  (alphanum_identifier)))
+              (qualified_type_identifier
+                (type_identifier
+                  (alphanum_identifier))))
+            (qualified_type_identifier
+              (type_identifier
+                (alphanum_identifier))))))
+      (rhs
+        (atomic_application_expression
+          (integer_literal))))))
+
+===================
+Type prec tuple vs arrow
+===================
+
+val x : int * list -> list = 3
+
+------
+
+(source_file
+  (value_declaration
+    (valbind
+      (lhs
+        (constraint_pattern
+          (identifier_pattern
+            (qualified_identifier
+              (alphanum_identifier)))
+          (arrow_type
+            (tuple_type
+              (qualified_type_identifier
+                (type_identifier
+                  (alphanum_identifier)))
+              (qualified_type_identifier
+                (type_identifier
+                  (alphanum_identifier))))
+            (qualified_type_identifier
+              (type_identifier
+                (alphanum_identifier))))))
+      (rhs
+        (atomic_application_expression
+          (integer_literal))))))
+
+===================
+Type prec app vs tuple vs arrow
+===================
+
+val x : int list * list -> list = 3
+
+------
+
+(source_file
+  (value_declaration
+    (valbind
+      (lhs
+        (constraint_pattern
+          (identifier_pattern
+            (qualified_identifier
+              (alphanum_identifier)))
+          (arrow_type
+            (tuple_type
+              (tyapp
+                (qualified_type_identifier
+                  (type_identifier
+                    (alphanum_identifier)))
+                (qualified_type_identifier
+                  (type_identifier
+                    (alphanum_identifier))))
+              (qualified_type_identifier
+                (type_identifier
+                  (alphanum_identifier))))
+            (qualified_type_identifier
+              (type_identifier
+                (alphanum_identifier))))))
+      (rhs
+        (atomic_application_expression
+          (integer_literal))))))

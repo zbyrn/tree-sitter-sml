@@ -470,31 +470,28 @@ module.exports = grammar({
     type_row: $ => seq($._label, $._kw_colon, $._type),
 
     // tuple type, n >= 2
-    tuple_type: $ => sep2("*", $._type0),
+    tuple_type: $ => prec.left(2, seq(
+      $._type, repeat1(prec.left(2, seq("*", $._type)))
+    )),
 
     // type construction
-    tyapp: $ => seq(
-      choice($._type0, parenthesize(sep2(",", $._type))),
+    tyapp: $ => prec(3, seq(
+      choice($._type, parenthesize(sep2(",", $._type))),
       $.qualified_type_identifier
-    ),
+    )),
 
     // function type expression
-    arrow_type: $ => prec.right(1, seq($._type, $._kw_arrow, $._type)),
+    arrow_type: $ => prec.right(0, seq($._type, $._kw_arrow, $._type)),
 
-    // _type0 are the atomic types
-    _type0: $ => choice(
+    // ty
+    _type: $ => choice(
       $.tyvar,
       $.record_type,
       $.tyapp,
       $.qualified_type_identifier,
-      parenthesize($._type)
-    ),
-
-    // ty
-    _type: $ => choice(
+      parenthesize($._type),
       $.tuple_type,
       $.arrow_type,
-      $._type0
     ),
 
     /** local level declarations (p. 78, fig. 21) */
