@@ -1,4 +1,4 @@
-const root = require("path").join(__dirname, "..", "..");
+const root = require("path").join(__dirname, "..", "..", "grammars", "sml");
 
 module.exports =
   typeof process.versions.bun === "string"

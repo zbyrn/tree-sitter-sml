@@ -1,7 +1,8 @@
 package tree_sitter_sml
 
 // #cgo CFLAGS: -std=c11 -fPIC
-// #include "../../src/parser.c"
+// #include "../../grammars/sml/src/parser.c"
+// #include "../../grammars/sml/src/scanner.c"
 // // NOTE: if your language has an external scanner, add it here.
 import "C"
 
