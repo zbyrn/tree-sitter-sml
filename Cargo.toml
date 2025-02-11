@@ -7,7 +7,7 @@ license = "MIT"
 readme = "README.md"
 keywords = ["incremental", "parsing", "tree-sitter", "sml"]
 categories = ["parsing", "text-editors"]
-repository = "https://github.com/tree-sitter/tree-sitter-sml"
+repository = "https://github.com/zbyrn/tree-sitter-sml"
 edition = "2021"
 autoexamples = false
 

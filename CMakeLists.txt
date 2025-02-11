@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.13)
 project(tree-sitter-sml
         VERSION "0.1.0"
         DESCRIPTION "Tree-sitter parser for Standard ML"
-        HOMEPAGE_URL "https://github.com/tree-sitter/tree-sitter-sml"
+        HOMEPAGE_URL "https://github.com/zbyrn/tree-sitter-sml"
         LANGUAGES C)
 
 option(BUILD_SHARED_LIBS "Build using shared libraries" ON)
