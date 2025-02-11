@@ -354,7 +354,6 @@ module.exports = grammar({
 
     // exp
     _expression: $ => choice(
-      // $._atomic_expression,
       $.atomic_application_expression,
       $.typed_expression,
       $.conjunction_expression,
@@ -913,7 +912,6 @@ module.exports = grammar({
 
     _kw_colon: $ => ":",
     _kw_bar: $ => "|",
-    // _kw_equal: $ => "=",
     _kw_darrow: $ => "=>",
     _kw_arrow: $ => "->",
   },
