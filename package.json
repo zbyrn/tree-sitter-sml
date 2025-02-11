@@ -1,8 +1,8 @@
 {
   "name": "tree-sitter-sml",
   "version": "0.1.0",
-  "description": "Tree-sitter parser for Standard ML",
-  "repository": "https://github.com/tree-sitter/tree-sitter-sml",
+  "description": "Standard ML grammar for tree-sitter",
+  "repository": "https://github.com/zbyrn/tree-sitter-sml",
   "license": "MIT",
   "author": {
     "name": "Byron Zhong",
@@ -17,7 +17,7 @@
     "sml"
   ],
   "files": [
-    "grammar/grammar.js",
+    "grammar.js",
     "tree-sitter.json",
     "binding.gyp",
     "prebuilds/**",

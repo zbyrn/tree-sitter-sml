@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "tree-sitter-sml"
-description = "Tree-sitter parser for Standard ML"
+description = "Standard ML grammar for tree-sitter"
 version = "0.1.0"
 keywords = ["incremental", "parsing", "tree-sitter", "sml"]
 classifiers = [
@@ -19,7 +19,7 @@ license.text = "MIT"
 readme = "README.md"
 
 [project.urls]
-Homepage = "https://github.com/tree-sitter/tree-sitter-sml"
+Homepage = "https://github.com/zbyrn/tree-sitter-sml"
 
 [project.optional-dependencies]
 core = ["tree-sitter~=0.22"]
