@@ -1676,7 +1676,7 @@
           },
           {
             "type": "PATTERN",
-            "value": "[A-Za-z'_0-9]+"
+            "value": "[A-Za-z'_0-9]*"
           }
         ]
       }
@@ -2312,6 +2312,18 @@
         {
           "type": "SYMBOL",
           "name": "_datbinds"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "withtype"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },
@@ -2468,6 +2480,19 @@
         }
       ]
     },
+    "withtype": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "withtype"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_tybinds"
+        }
+      ]
+    },
     "abstype_declaration": {
       "type": "SEQ",
       "members": [
@@ -2478,6 +2503,18 @@
         {
           "type": "SYMBOL",
           "name": "_datbinds"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "withtype"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         },
         {
           "type": "STRING",
@@ -3445,8 +3482,8 @@
       ]
     },
     "_where_equations": {
-      "type": "PREC_LEFT",
-      "value": 0,
+      "type": "PREC_RIGHT",
+      "value": 1,
       "content": {
         "type": "SEQ",
         "members": [
@@ -3927,29 +3964,33 @@
       ]
     },
     "_strdescs": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "strdesc"
-        },
-        {
-          "type": "REPEAT",
-          "content": {
-            "type": "SEQ",
-            "members": [
-              {
-                "type": "STRING",
-                "value": "and"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "strdesc"
-              }
-            ]
+      "type": "PREC_RIGHT",
+      "value": 2,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "strdesc"
+          },
+          {
+            "type": "REPEAT",
+            "content": {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "and"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "strdesc"
+                }
+              ]
+            }
           }
-        }
-      ]
+        ]
+      }
     },
     "include_spec": {
       "type": "SEQ",

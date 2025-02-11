@@ -442,6 +442,10 @@
         {
           "type": "datbind",
           "named": true
+        },
+        {
+          "type": "withtype",
+          "named": true
         }
       ]
     }
@@ -766,6 +770,10 @@
       "types": [
         {
           "type": "datbind",
+          "named": true
+        },
+        {
+          "type": "withtype",
           "named": true
         }
       ]
@@ -2632,6 +2640,21 @@
     }
   },
   {
+    "type": "withtype",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "tybind",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "#",
     "named": false
   },
@@ -2897,6 +2920,10 @@
   },
   {
     "type": "with",
+    "named": false
+  },
+  {
+    "type": "withtype",
     "named": false
   },
   {

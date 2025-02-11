@@ -377,7 +377,7 @@ module.exports = grammar({
       repeat(seq(alias($._alphanum_identifier, $.structure_name), ".")),
       $._tycon
     ),
-    tyvar: _ => token(seq("'", /[A-Za-z'_0-9]+/)),
+    tyvar: _ => token(seq("'", /[A-Za-z'_0-9]*/)),
     tyvarseq: $ => choice($.tyvar, parenthesize(sep2(",", $.tyvar))),
     type_row: $ => seq($._label, $._kw_colon, $._type),
     record_type: $ => seq("{", sep(",", $.type_row), "}"),
@@ -434,7 +434,11 @@ module.exports = grammar({
     _tybinds: $ => sep1("and", $.tybind),
 
 
-    datatype_declaration: $ => seq("datatype", $._datbinds),
+    datatype_declaration: $ => seq(
+      "datatype",
+      $._datbinds,
+      optional($.withtype)
+    ),
     datbind: $ => seq(
       optional($.tyvarseq),
       $._tycon,
@@ -455,10 +459,15 @@ module.exports = grammar({
       alias($._conbind, $.constructor),
       alias($._replication_bind, $.replication)
     ),
+    withtype: $ => seq(
+      "withtype",
+      $._tybinds,
+    ),
 
     abstype_declaration: $ => seq(
       "abstype",
       $._datbinds,
+      optional($.withtype),
       "with",
       optional($._local_level_declarations),
       "end"
@@ -644,7 +653,7 @@ module.exports = grammar({
       seq("type", optional($.tyvarseq), $.qualified_tycon, $._kw_equal, $._type),
       seq($.qualified_structure_identifier, $._kw_equal, $.qualified_structure_identifier)
     ),
-    _where_equations: $ => prec.left(sep1("and", $.where_equation)),
+    _where_equations: $ => prec.right(1, sep1("and", $.where_equation)),
 
     _signature_expression: $ => choice(
       $.sig_expression,
@@ -730,7 +739,7 @@ module.exports = grammar({
       $._kw_colon,
       $._signature_expression
     ),
-    _strdescs: $ => sep1("and", $.strdesc),
+    _strdescs: $ => prec.right(2, sep1("and", $.strdesc)),
 
     include_spec: $ => seq(
       "include",
