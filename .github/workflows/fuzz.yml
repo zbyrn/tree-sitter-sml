@@ -6,10 +6,12 @@ on:
     paths:
       - src/scanner.c
       - src/parser.c
+      - .github/workflow/fuzz.yml
   pull_request:
     paths:
       - src/scanner.c
       - src/parser.c
+      - .github/workflow/fuzz.yml
 
 jobs:
   fuzz:
