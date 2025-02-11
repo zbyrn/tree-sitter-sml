@@ -12,7 +12,7 @@ val _ = a b c d
       (lhs
         (wildcard))
       (rhs
-        (application_expression
+        (atomic_application_expression
           (identifier_expression
             (qualified_identifier
               (type_identifier)))
@@ -40,14 +40,16 @@ val _ = (a, b) c d
       (lhs
         (wildcard))
       (rhs
-        (application_expression
+        (atomic_application_expression
           (tuple_expression
-            (identifier_expression
-              (qualified_identifier
-                (type_identifier)))
-            (identifier_expression
-              (qualified_identifier
-                (type_identifier))))
+            (atomic_application_expression
+              (identifier_expression
+                (qualified_identifier
+                  (type_identifier))))
+            (atomic_application_expression
+              (identifier_expression
+                (qualified_identifier
+                  (type_identifier)))))
           (identifier_expression
             (qualified_identifier
               (type_identifier)))
@@ -69,17 +71,19 @@ val _ = a (b, c) d
       (lhs
         (wildcard))
       (rhs
-        (application_expression
+        (atomic_application_expression
           (identifier_expression
             (qualified_identifier
               (type_identifier)))
           (tuple_expression
-            (identifier_expression
-              (qualified_identifier
-                (type_identifier)))
-            (identifier_expression
-              (qualified_identifier
-                (type_identifier))))
+            (atomic_application_expression
+              (identifier_expression
+                (qualified_identifier
+                  (type_identifier))))
+            (atomic_application_expression
+              (identifier_expression
+                (qualified_identifier
+                  (type_identifier)))))
           (identifier_expression
             (qualified_identifier
               (type_identifier))))))))
@@ -98,7 +102,7 @@ val _ = a b (c, d)
       (lhs
         (wildcard))
       (rhs
-        (application_expression
+        (atomic_application_expression
           (identifier_expression
             (qualified_identifier
               (type_identifier)))
@@ -106,12 +110,14 @@ val _ = a b (c, d)
             (qualified_identifier
               (type_identifier)))
           (tuple_expression
-            (identifier_expression
-              (qualified_identifier
-                (type_identifier)))
-            (identifier_expression
-              (qualified_identifier
-                (type_identifier)))))))))
+            (atomic_application_expression
+              (identifier_expression
+                (qualified_identifier
+                  (type_identifier))))
+            (atomic_application_expression
+              (identifier_expression
+                (qualified_identifier
+                  (type_identifier))))))))))
 
 =================
 Application 3
@@ -127,7 +133,7 @@ val _ = a b (c, d)
       (lhs
         (wildcard))
       (rhs
-        (application_expression
+        (atomic_application_expression
           (identifier_expression
             (qualified_identifier
               (type_identifier)))
@@ -135,12 +141,14 @@ val _ = a b (c, d)
             (qualified_identifier
               (type_identifier)))
           (tuple_expression
-            (identifier_expression
-              (qualified_identifier
-                (type_identifier)))
-            (identifier_expression
-              (qualified_identifier
-                (type_identifier)))))))))
+            (atomic_application_expression
+              (identifier_expression
+                (qualified_identifier
+                  (type_identifier))))
+            (atomic_application_expression
+              (identifier_expression
+                (qualified_identifier
+                  (type_identifier))))))))))
 
 =================
 Precedence: application vs type
@@ -157,7 +165,7 @@ val _ = a b : int
         (wildcard))
       (rhs
         (typed_expression
-          (application_expression
+          (atomic_application_expression
             (identifier_expression
               (qualified_identifier
                 (type_identifier)))
@@ -182,16 +190,17 @@ val _ = a b andalso c
         (wildcard))
       (rhs
         (conjunction_expression
-          (application_expression
+          (atomic_application_expression
             (identifier_expression
               (qualified_identifier
                 (type_identifier)))
             (identifier_expression
               (qualified_identifier
                 (type_identifier))))
-          (identifier_expression
-            (qualified_identifier
-              (type_identifier))))))))
+          (atomic_application_expression
+            (identifier_expression
+              (qualified_identifier
+                (type_identifier)))))))))
 
 =================
 Precedence: application vs orelse
@@ -208,16 +217,17 @@ val _ = a b orelse c
         (wildcard))
       (rhs
         (disjunction_expression
-          (application_expression
+          (atomic_application_expression
             (identifier_expression
               (qualified_identifier
                 (type_identifier)))
             (identifier_expression
               (qualified_identifier
                 (type_identifier))))
-          (identifier_expression
-            (qualified_identifier
-              (type_identifier))))))))
+          (atomic_application_expression
+            (identifier_expression
+              (qualified_identifier
+                (type_identifier)))))))))
 
 =================
 Precedence: application vs handle
@@ -234,7 +244,7 @@ val _ = a b handle e => f
         (wildcard))
       (rhs
         (handle_expression
-          (application_expression
+          (atomic_application_expression
             (identifier_expression
               (qualified_identifier
                 (type_identifier)))
@@ -246,9 +256,10 @@ val _ = a b handle e => f
               (identifier_pattern
                 (qualified_identifier
                   (type_identifier)))
-              (identifier_expression
-                (qualified_identifier
-                  (type_identifier))))))))))
+              (atomic_application_expression
+                (identifier_expression
+                  (qualified_identifier
+                    (type_identifier)))))))))))
 
 =================
 Precedence: application vs raise
@@ -265,7 +276,7 @@ val _ = raise a b
         (wildcard))
       (rhs
         (raise_expression
-          (application_expression
+          (atomic_application_expression
             (identifier_expression
               (qualified_identifier
                 (type_identifier)))
@@ -288,21 +299,21 @@ val _ = if a b then c d else e f
         (wildcard))
       (rhs
         (conditional_expression
-          (application_expression
+          (atomic_application_expression
             (identifier_expression
               (qualified_identifier
                 (type_identifier)))
             (identifier_expression
               (qualified_identifier
                 (type_identifier))))
-          (application_expression
+          (atomic_application_expression
             (identifier_expression
               (qualified_identifier
                 (type_identifier)))
             (identifier_expression
               (qualified_identifier
                 (type_identifier))))
-          (application_expression
+          (atomic_application_expression
             (identifier_expression
               (qualified_identifier
                 (type_identifier)))
@@ -325,14 +336,14 @@ val _ = while a b do c d
         (wildcard))
       (rhs
         (iteration_expression
-          (application_expression
+          (atomic_application_expression
             (identifier_expression
               (qualified_identifier
                 (type_identifier)))
             (identifier_expression
               (qualified_identifier
                 (type_identifier))))
-          (application_expression
+          (atomic_application_expression
             (identifier_expression
               (qualified_identifier
                 (type_identifier)))
@@ -355,13 +366,15 @@ val _ = x andalso y : int
         (wildcard))
       (rhs
         (conjunction_expression
-          (identifier_expression
-            (qualified_identifier
-              (type_identifier)))
-          (typed_expression
+          (atomic_application_expression
             (identifier_expression
               (qualified_identifier
-                (type_identifier)))
+                (type_identifier))))
+          (typed_expression
+            (atomic_application_expression
+              (identifier_expression
+                (qualified_identifier
+                  (type_identifier))))
             (qualified_identifier
               (type_identifier))))))))
 
@@ -380,16 +393,19 @@ val _ = x orelse y andalso z
         (wildcard))
       (rhs
         (disjunction_expression
-          (identifier_expression
-            (qualified_identifier
-              (type_identifier)))
+          (atomic_application_expression
+            (identifier_expression
+              (qualified_identifier
+                (type_identifier))))
           (conjunction_expression
-            (identifier_expression
-              (qualified_identifier
-                (type_identifier)))
-            (identifier_expression
-              (qualified_identifier
-                (type_identifier)))))))))
+            (atomic_application_expression
+              (identifier_expression
+                (qualified_identifier
+                  (type_identifier))))
+            (atomic_application_expression
+              (identifier_expression
+                (qualified_identifier
+                  (type_identifier))))))))))
 
 =================
 Precedence: conjunction vs disjunction 2
@@ -407,15 +423,18 @@ val _ = x andalso y orelse z
       (rhs
         (disjunction_expression
           (conjunction_expression
+            (atomic_application_expression
+              (identifier_expression
+                (qualified_identifier
+                  (type_identifier))))
+            (atomic_application_expression
+              (identifier_expression
+                (qualified_identifier
+                  (type_identifier)))))
+          (atomic_application_expression
             (identifier_expression
               (qualified_identifier
-                (type_identifier)))
-            (identifier_expression
-              (qualified_identifier
-                (type_identifier))))
-          (identifier_expression
-            (qualified_identifier
-              (type_identifier))))))))
+                (type_identifier)))))))))
 
 =================
 Associativity: andalso
@@ -433,15 +452,18 @@ val _ = x andalso y andalso z
       (rhs
         (conjunction_expression
           (conjunction_expression
+            (atomic_application_expression
+              (identifier_expression
+                (qualified_identifier
+                  (type_identifier))))
+            (atomic_application_expression
+              (identifier_expression
+                (qualified_identifier
+                  (type_identifier)))))
+          (atomic_application_expression
             (identifier_expression
               (qualified_identifier
-                (type_identifier)))
-            (identifier_expression
-              (qualified_identifier
-                (type_identifier))))
-          (identifier_expression
-            (qualified_identifier
-              (type_identifier))))))))
+                (type_identifier)))))))))
 
 =================
 Associativity: orelse
@@ -459,15 +481,18 @@ val _ = x orelse y orelse z
       (rhs
         (disjunction_expression
           (disjunction_expression
+            (atomic_application_expression
+              (identifier_expression
+                (qualified_identifier
+                  (type_identifier))))
+            (atomic_application_expression
+              (identifier_expression
+                (qualified_identifier
+                  (type_identifier)))))
+          (atomic_application_expression
             (identifier_expression
               (qualified_identifier
-                (type_identifier)))
-            (identifier_expression
-              (qualified_identifier
-                (type_identifier))))
-          (identifier_expression
-            (qualified_identifier
-              (type_identifier))))))))
+                (type_identifier)))))))))
 
 =================
 Precedence: orelse vs handle
@@ -485,20 +510,23 @@ val _ = x orelse y handle e => f
       (rhs
         (handle_expression
           (disjunction_expression
-            (identifier_expression
-              (qualified_identifier
-                (type_identifier)))
-            (identifier_expression
-              (qualified_identifier
-                (type_identifier))))
+            (atomic_application_expression
+              (identifier_expression
+                (qualified_identifier
+                  (type_identifier))))
+            (atomic_application_expression
+              (identifier_expression
+                (qualified_identifier
+                  (type_identifier)))))
           (match
             (rule
               (identifier_pattern
                 (qualified_identifier
                   (type_identifier)))
-              (identifier_expression
-                (qualified_identifier
-                  (type_identifier))))))))))
+              (atomic_application_expression
+                (identifier_expression
+                  (qualified_identifier
+                    (type_identifier)))))))))))
 
 =================
 Precedence: orelse vs raise
@@ -516,12 +544,14 @@ val _ = raise x orelse y
       (rhs
         (raise_expression
           (disjunction_expression
-            (identifier_expression
-              (qualified_identifier
-                (type_identifier)))
-            (identifier_expression
-              (qualified_identifier
-                (type_identifier)))))))))
+            (atomic_application_expression
+              (identifier_expression
+                (qualified_identifier
+                  (type_identifier))))
+            (atomic_application_expression
+              (identifier_expression
+                (qualified_identifier
+                  (type_identifier))))))))))
 
 =================
 Precedence: handle vs raise
@@ -539,17 +569,19 @@ val _ = raise x handle e => f
       (rhs
         (raise_expression
           (handle_expression
-            (identifier_expression
-              (qualified_identifier
-                (type_identifier)))
+            (atomic_application_expression
+              (identifier_expression
+                (qualified_identifier
+                  (type_identifier))))
             (match
               (rule
                 (identifier_pattern
                   (qualified_identifier
                     (type_identifier)))
-                (identifier_expression
-                  (qualified_identifier
-                    (type_identifier)))))))))))
+                (atomic_application_expression
+                  (identifier_expression
+                    (qualified_identifier
+                      (type_identifier))))))))))))
 
 =================
 Case 1
@@ -566,17 +598,19 @@ val _ = case a of b => c
         (wildcard))
       (rhs
         (case_expression
-          (identifier_expression
-            (qualified_identifier
-              (type_identifier)))
+          (atomic_application_expression
+            (identifier_expression
+              (qualified_identifier
+                (type_identifier))))
           (match
             (rule
               (identifier_pattern
                 (qualified_identifier
                   (type_identifier)))
-              (identifier_expression
-                (qualified_identifier
-                  (type_identifier))))))))))
+              (atomic_application_expression
+                (identifier_expression
+                  (qualified_identifier
+                    (type_identifier)))))))))))
 
 =================
 Case 2
@@ -593,24 +627,27 @@ val _ = case a of b => c | d => e
         (wildcard))
       (rhs
         (case_expression
-          (identifier_expression
-            (qualified_identifier
-              (type_identifier)))
+          (atomic_application_expression
+            (identifier_expression
+              (qualified_identifier
+                (type_identifier))))
           (match
             (rule
               (identifier_pattern
                 (qualified_identifier
                   (type_identifier)))
-              (identifier_expression
-                (qualified_identifier
-                  (type_identifier))))
+              (atomic_application_expression
+                (identifier_expression
+                  (qualified_identifier
+                    (type_identifier)))))
             (rule
               (identifier_pattern
                 (qualified_identifier
                   (type_identifier)))
-              (identifier_expression
-                (qualified_identifier
-                  (type_identifier))))))))))
+              (atomic_application_expression
+                (identifier_expression
+                  (qualified_identifier
+                    (type_identifier)))))))))))
 
 =================
 Case associativity
@@ -627,33 +664,37 @@ val _ = case a of b => case c of d => e | x => y
         (wildcard))
       (rhs
         (case_expression
-          (identifier_expression
-            (qualified_identifier
-              (type_identifier)))
+          (atomic_application_expression
+            (identifier_expression
+              (qualified_identifier
+                (type_identifier))))
           (match
             (rule
               (identifier_pattern
                 (qualified_identifier
                   (type_identifier)))
               (case_expression
-                (identifier_expression
-                  (qualified_identifier
-                    (type_identifier)))
+                (atomic_application_expression
+                  (identifier_expression
+                    (qualified_identifier
+                      (type_identifier))))
                 (match
                   (rule
                     (identifier_pattern
                       (qualified_identifier
                         (type_identifier)))
-                    (identifier_expression
-                      (qualified_identifier
-                        (type_identifier))))
+                    (atomic_application_expression
+                      (identifier_expression
+                        (qualified_identifier
+                          (type_identifier)))))
                   (rule
                     (identifier_pattern
                       (qualified_identifier
                         (type_identifier)))
-                    (identifier_expression
-                      (qualified_identifier
-                        (type_identifier)))))))))))))
+                    (atomic_application_expression
+                      (identifier_expression
+                        (qualified_identifier
+                          (type_identifier))))))))))))))
 
 =================
 Fn associativity
@@ -681,13 +722,15 @@ val _ = fn a => fn b => c | x => y
                     (identifier_pattern
                       (qualified_identifier
                         (type_identifier)))
-                    (identifier_expression
-                      (qualified_identifier
-                        (type_identifier))))
+                    (atomic_application_expression
+                      (identifier_expression
+                        (qualified_identifier
+                          (type_identifier)))))
                   (rule
                     (identifier_pattern
                       (qualified_identifier
                         (type_identifier)))
-                    (identifier_expression
-                      (qualified_identifier
-                        (type_identifier)))))))))))))
+                    (atomic_application_expression
+                      (identifier_expression
+                        (qualified_identifier
+                          (type_identifier))))))))))))))

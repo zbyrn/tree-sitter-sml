@@ -1,4 +1,4 @@
-/**
+/*
  * @file Tree-sitter parser for Standard ML
  * @author Byron Zhong <zhongbangyuan@gmail.com>
  * @license MIT
@@ -6,27 +6,6 @@
 
 /// <reference types="tree-sitter-cli/dsl" />
 // @ts-check
-
-const PREC = {
-  prefix: 19,
-  dot: 18,
-  hash: 17,
-  app: 16,
-  neg: 15,
-  pow: 14,
-  mult: 13,
-  add: 12,
-  cons: 11,
-  concat: 10,
-  rel: 9,
-  and: 8,
-  or: 7,
-  prod: 6,
-  assign: 5,
-  if: 4,
-  seq: 3,
-  case: 2
-};
 
 const INT    = /[1-9][0-9]*/;
 const NUM    = /[0-9]+/;
@@ -64,19 +43,6 @@ const ESCAPE_CHAR =
 //    ASCII 33..126, but SML/NJ seems to allow any unicode code points
 //    except newlines.
 const ORD_CHAR = /[^"\\\n\r]/;
-
-// Additional identifiers that MLton uses, which should be lexed as identifiers.
-// const MLTON_BUILTINS = [
-//   "_address",
-//   "_build_const",
-//   "_command_line_const",
-//   "_const",
-//   "_export",
-//   "_import",
-//   // "_overload",
-//   "_prim",
-//   "_symbol"
-// ];
 
 module.exports = grammar({
   name: "sml",
@@ -306,7 +272,9 @@ module.exports = grammar({
 
     // application expression
     // This is just a list of atexps with no special care about the fixities.
-    application_expression: $ => prec.left(11, repeat2($._atomic_expression)),
+    atomic_application_expression: $ => prec.left(11,
+      repeat1($._atomic_expression)
+    ),
 
     // typed
     typed_expression: $ => prec.left(10, seq(
@@ -386,8 +354,8 @@ module.exports = grammar({
 
     // exp
     _expression: $ => choice(
-      $._atomic_expression,
-      $.application_expression,
+      // $._atomic_expression,
+      $.atomic_application_expression,
       $.typed_expression,
       $.conjunction_expression,
       $.disjunction_expression,

@@ -10,7 +10,8 @@ val _ = {}
       (lhs
         (wildcard))
       (rhs
-        (record_expression)))))
+        (atomic_application_expression
+          (record_expression))))))
 
 ================
 One-field record
@@ -24,11 +25,13 @@ val _ = {x=1}
       (lhs
         (wildcard))
       (rhs
-        (record_expression
-          (record_row
-            (identifier_label
-              (identifier))
-            (integer_literal)))))))
+        (atomic_application_expression
+          (record_expression
+            (record_row
+              (identifier_label
+                (identifier))
+              (atomic_application_expression
+                (integer_literal)))))))))
 
 ================
 One-field selector record
@@ -42,11 +45,13 @@ val _ = { 1 = 1 }
       (lhs
         (wildcard))
       (rhs
-        (record_expression
-          (record_row
-            (int_label
-              (index))
-            (integer_literal)))))))
+        (atomic_application_expression
+          (record_expression
+            (record_row
+              (int_label
+                (index))
+              (atomic_application_expression
+                (integer_literal)))))))))
 
 ================
 Two-field record
@@ -61,15 +66,18 @@ val _ = { x = 1, y = 2 }
       (lhs
         (wildcard))
       (rhs
-        (record_expression
-          (record_row
-            (identifier_label
-              (identifier))
-            (integer_literal))
-          (record_row
-            (identifier_label
-              (identifier))
-            (integer_literal)))))))
+        (atomic_application_expression
+          (record_expression
+            (record_row
+              (identifier_label
+                (identifier))
+              (atomic_application_expression
+                (integer_literal)))
+            (record_row
+              (identifier_label
+                (identifier))
+              (atomic_application_expression
+                (integer_literal)))))))))
 
 ================
 ID vs Ident
@@ -84,8 +92,10 @@ val _ = { * = 1 }
       (lhs
         (wildcard))
       (rhs
-        (record_expression
-          (record_row
-            (identifier_label
-              (identifier))
-            (integer_literal)))))))
+        (atomic_application_expression
+          (record_expression
+            (record_row
+              (identifier_label
+                (identifier))
+              (atomic_application_expression
+                (integer_literal)))))))))

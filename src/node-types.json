@@ -100,11 +100,7 @@
     "named": true,
     "subtypes": [
       {
-        "type": "_atomic_expression",
-        "named": true
-      },
-      {
-        "type": "application_expression",
+        "type": "atomic_application_expression",
         "named": true
       },
       {
@@ -443,21 +439,6 @@
     }
   },
   {
-    "type": "application_expression",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "_atomic_expression",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "application_pattern",
     "named": true,
     "fields": {},
@@ -502,6 +483,21 @@
         },
         {
           "type": "tyvar",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "atomic_application_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_atomic_expression",
           "named": true
         }
       ]

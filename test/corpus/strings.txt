@@ -10,7 +10,8 @@ val _ = ""
       (lhs
         (wildcard))
       (rhs
-        (string_literal)))))
+        (atomic_application_expression
+          (string_literal))))))
 
 ================
 Single char
@@ -24,7 +25,8 @@ val _ = "A"
       (lhs
         (wildcard))
       (rhs
-        (string_literal)))))
+        (atomic_application_expression
+          (string_literal))))))
 
 ================
 Space only
@@ -38,7 +40,8 @@ val _ = " "
       (lhs
         (wildcard))
       (rhs
-        (string_literal)))))
+        (atomic_application_expression
+          (string_literal))))))
 
 ================
 Printable min max
@@ -52,7 +55,8 @@ val _ = "!~"
       (lhs
         (wildcard))
       (rhs
-        (string_literal)))))
+        (atomic_application_expression
+          (string_literal))))))
 
 ================
 Escape newline
@@ -66,7 +70,8 @@ val _ = "\n"
       (lhs
         (wildcard))
       (rhs
-        (string_literal)))))
+        (atomic_application_expression
+          (string_literal))))))
 
 ================
 Escape tab
@@ -80,7 +85,8 @@ val _ = "\t"
       (lhs
         (wildcard))
       (rhs
-        (string_literal)))))
+        (atomic_application_expression
+          (string_literal))))))
 
 ================
 Escape carriage return
@@ -94,7 +100,8 @@ val _ = "\r"
       (lhs
         (wildcard))
       (rhs
-        (string_literal)))))
+        (atomic_application_expression
+          (string_literal))))))
 
 ================
 Multiple escapes
@@ -108,7 +115,8 @@ val _ = "Line1\nLine2\tTabbed"
       (lhs
         (wildcard))
       (rhs
-        (string_literal)))))
+        (atomic_application_expression
+          (string_literal))))))
 
 ================
 Octal escape
@@ -122,7 +130,8 @@ val _ = "\007"
       (lhs
         (wildcard))
       (rhs
-        (string_literal)))))
+        (atomic_application_expression
+          (string_literal))))))
 
 ================
 Hex escape
@@ -136,7 +145,8 @@ val _ = "\u0061"
       (lhs
         (wildcard))
       (rhs
-        (string_literal)))))
+        (atomic_application_expression
+          (string_literal))))))
 
 ================
 Control character
@@ -150,7 +160,8 @@ val _ = "\^@"
       (lhs
         (wildcard))
       (rhs
-        (string_literal)))))
+        (atomic_application_expression
+          (string_literal))))))
 
 ================
 Escaped quote
@@ -164,7 +175,8 @@ val _ = "\""
       (lhs
         (wildcard))
       (rhs
-        (string_literal)))))
+        (atomic_application_expression
+          (string_literal))))))
 
 ================
 Double backslash
@@ -178,7 +190,8 @@ val _ = "\\"
       (lhs
         (wildcard))
       (rhs
-        (string_literal)))))
+        (atomic_application_expression
+          (string_literal))))))
 
 ================
 Repeated backslashes
@@ -192,7 +205,8 @@ val _ = "\\\\"
       (lhs
         (wildcard))
       (rhs
-        (string_literal)))))
+        (atomic_application_expression
+          (string_literal))))))
 
 ================
 Unknown escape
@@ -227,7 +241,8 @@ val _ = "Hello \
       (lhs
         (wildcard))
       (rhs
-        (string_literal)))))
+        (atomic_application_expression
+          (string_literal))))))
 
 ================
 Multiline with blank
@@ -243,7 +258,8 @@ val _ = "Here is a line \
       (lhs
         (wildcard))
       (rhs
-        (string_literal)))))
+        (atomic_application_expression
+          (string_literal))))))
 
 ================
 Multiline ending with quote
@@ -258,7 +274,8 @@ val _ = "Here is a line \
       (lhs
         (wildcard))
       (rhs
-        (string_literal)))))
+        (atomic_application_expression
+          (string_literal))))))
 
 ================
 Unclosed string
@@ -292,4 +309,5 @@ val _ = "\097\098\099"
       (lhs
         (wildcard))
       (rhs
-        (string_literal)))))
+        (atomic_application_expression
+          (string_literal))))))

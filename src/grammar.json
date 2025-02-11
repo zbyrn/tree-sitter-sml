@@ -804,24 +804,15 @@
         }
       ]
     },
-    "application_expression": {
+    "atomic_application_expression": {
       "type": "PREC_LEFT",
       "value": 11,
       "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "SYMBOL",
-            "name": "_atomic_expression"
-          },
-          {
-            "type": "REPEAT1",
-            "content": {
-              "type": "SYMBOL",
-              "name": "_atomic_expression"
-            }
-          }
-        ]
+        "type": "REPEAT1",
+        "content": {
+          "type": "SYMBOL",
+          "name": "_atomic_expression"
+        }
       }
     },
     "typed_expression": {
@@ -1100,11 +1091,7 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "_atomic_expression"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "application_expression"
+          "name": "atomic_application_expression"
         },
         {
           "type": "SYMBOL",

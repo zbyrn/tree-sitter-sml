@@ -10,7 +10,8 @@ val _ = #"a"
       (lhs
         (wildcard))
       (rhs
-        (char_literal)))))
+        (atomic_application_expression
+          (char_literal))))))
 
 ================
 Char escaped newline
@@ -24,7 +25,8 @@ val _ = #"\n"
       (lhs
         (wildcard))
       (rhs
-        (char_literal)))))
+        (atomic_application_expression
+          (char_literal))))))
 
 ================
 Char control at
@@ -38,7 +40,8 @@ val _ = #"\^@"
       (lhs
         (wildcard))
       (rhs
-        (char_literal)))))
+        (atomic_application_expression
+          (char_literal))))))
 
 ================
 Char oct
@@ -52,7 +55,8 @@ val _ = #"\007"
       (lhs
         (wildcard))
       (rhs
-        (char_literal)))))
+        (atomic_application_expression
+          (char_literal))))))
 
 ================
 Char hex
@@ -66,7 +70,8 @@ val _ = #"\u0061"
       (lhs
         (wildcard))
       (rhs
-        (char_literal)))))
+        (atomic_application_expression
+          (char_literal))))))
 
 ================
 Char escaped quote
@@ -80,7 +85,8 @@ val _ = #"\""
       (lhs
         (wildcard))
       (rhs
-        (char_literal)))))
+        (atomic_application_expression
+          (char_literal))))))
 
 ================
 Char escaped backslash
@@ -94,7 +100,8 @@ val _ = #"\\"
       (lhs
         (wildcard))
       (rhs
-        (char_literal)))))
+        (atomic_application_expression
+          (char_literal))))))
 
 ================
 Char multiline
@@ -110,7 +117,8 @@ val _ = #"c\
       (lhs
         (wildcard))
       (rhs
-        (char_literal)))))
+        (atomic_application_expression
+          (char_literal))))))
 
 ================
 Char empty

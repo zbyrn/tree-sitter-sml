@@ -12,9 +12,10 @@ val _ = #1
       (lhs
         (wildcard))
       (rhs
-        (record_selector_expression
-          (int_label
-            (index)))))))
+        (atomic_application_expression
+          (record_selector_expression
+            (int_label
+              (index))))))))
 
 =================
 Record selector expression 2
@@ -30,9 +31,10 @@ val _ = #x
       (lhs
         (wildcard))
       (rhs
-        (record_selector_expression
-          (identifier_label
-            (identifier)))))))
+        (atomic_application_expression
+          (record_selector_expression
+            (identifier_label
+              (identifier))))))))
 
 =================
 Not record selector expression 1
@@ -48,9 +50,10 @@ val _ = #**
       (lhs
         (wildcard))
       (rhs
-        (identifier_expression
-          (qualified_identifier
-            (type_identifier)))))))
+        (atomic_application_expression
+          (identifier_expression
+            (qualified_identifier
+              (type_identifier))))))))
 
 =================
 Not record selector expression 2
@@ -66,9 +69,10 @@ val _ = ###
       (lhs
         (wildcard))
       (rhs
-        (identifier_expression
-          (qualified_identifier
-            (type_identifier)))))))
+        (atomic_application_expression
+          (identifier_expression
+            (qualified_identifier
+              (type_identifier))))))))
 
 =================
 Unit 1
@@ -84,7 +88,8 @@ val _ = ()
       (lhs
         (wildcard))
       (rhs
-        (unit_expression)))))
+        (atomic_application_expression
+          (unit_expression))))))
 
 =================
 Unit 2
@@ -100,7 +105,8 @@ val _ = ( )
       (lhs
         (wildcard))
       (rhs
-        (unit_expression)))))
+        (atomic_application_expression
+          (unit_expression))))))
 
 =================
 Unit 3
@@ -116,8 +122,9 @@ val _ = ((**))
       (lhs
         (wildcard))
       (rhs
-        (unit_expression
-          (comment))))))
+        (atomic_application_expression
+          (unit_expression
+            (comment)))))))
 
 =================
 Tuple
@@ -133,13 +140,16 @@ val _ = (x, y)
       (lhs
         (wildcard))
       (rhs
-        (tuple_expression
-          (identifier_expression
-            (qualified_identifier
-              (type_identifier)))
-          (identifier_expression
-            (qualified_identifier
-              (type_identifier))))))))
+        (atomic_application_expression
+          (tuple_expression
+            (atomic_application_expression
+              (identifier_expression
+                (qualified_identifier
+                  (type_identifier))))
+            (atomic_application_expression
+              (identifier_expression
+                (qualified_identifier
+                  (type_identifier))))))))))
 
 =================
 List
@@ -155,10 +165,14 @@ val _ = [1, 2, 3]
       (lhs
         (wildcard))
       (rhs
-        (list_expression
-          (integer_literal)
-          (integer_literal)
-          (integer_literal))))))
+        (atomic_application_expression
+          (list_expression
+            (atomic_application_expression
+              (integer_literal))
+            (atomic_application_expression
+              (integer_literal))
+            (atomic_application_expression
+              (integer_literal))))))))
 
 =================
 Sequence
@@ -174,13 +188,16 @@ val _ = (a;b)
       (lhs
         (wildcard))
       (rhs
-        (sequence_expression
-          (identifier_expression
-            (qualified_identifier
-              (type_identifier)))
-          (identifier_expression
-            (qualified_identifier
-              (type_identifier))))))))
+        (atomic_application_expression
+          (sequence_expression
+            (atomic_application_expression
+              (identifier_expression
+                (qualified_identifier
+                  (type_identifier))))
+            (atomic_application_expression
+              (identifier_expression
+                (qualified_identifier
+                  (type_identifier))))))))))
 
 =================
 Invalid sequence
@@ -212,16 +229,19 @@ val _ = (a (b andalso c))
       (lhs
         (wildcard))
       (rhs
-        (parenthesized_expression
-          (application_expression
-            (identifier_expression
-              (qualified_identifier
-                (type_identifier)))
-            (parenthesized_expression
-              (conjunction_expression
-                (identifier_expression
-                  (qualified_identifier
-                    (type_identifier)))
-                (identifier_expression
-                  (qualified_identifier
-                    (type_identifier)))))))))))
+        (atomic_application_expression
+          (parenthesized_expression
+            (atomic_application_expression
+              (identifier_expression
+                (qualified_identifier
+                  (type_identifier)))
+              (parenthesized_expression
+                (conjunction_expression
+                  (atomic_application_expression
+                    (identifier_expression
+                      (qualified_identifier
+                        (type_identifier))))
+                  (atomic_application_expression
+                    (identifier_expression
+                      (qualified_identifier
+                        (type_identifier)))))))))))))

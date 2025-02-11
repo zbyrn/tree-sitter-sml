@@ -12,7 +12,8 @@ val _ = 3
       (lhs
         (wildcard))
       (rhs
-        (integer_literal)))))
+        (atomic_application_expression
+          (integer_literal))))))
 
 ===================
 Unit
@@ -28,7 +29,8 @@ val () = 3
       (lhs
         (unit_pattern))
       (rhs
-        (integer_literal)))))
+        (atomic_application_expression
+          (integer_literal))))))
 
 ===================
 Literal pattern (int)
@@ -45,7 +47,8 @@ val 3 = 3
         (literal_pattern
           (integer_literal)))
       (rhs
-        (integer_literal)))))
+        (atomic_application_expression
+          (integer_literal))))))
 
 ===================
 Literal pattern (string)
@@ -62,7 +65,8 @@ val "string" = 3
         (literal_pattern
           (string_literal)))
       (rhs
-        (integer_literal)))))
+        (atomic_application_expression
+          (integer_literal))))))
 
 ===================
 Literal pattern (char)
@@ -79,7 +83,8 @@ val #"s" = 3
         (literal_pattern
           (char_literal)))
       (rhs
-        (integer_literal)))))
+        (atomic_application_expression
+          (integer_literal))))))
 
 ===================
 Literal pattern (char)
@@ -96,7 +101,8 @@ val #"s" = 3
         (literal_pattern
           (char_literal)))
       (rhs
-        (integer_literal)))))
+        (atomic_application_expression
+          (integer_literal))))))
 
 ===================
 Identifier pattern 1
@@ -114,7 +120,8 @@ val x = 3
           (qualified_identifier
             (type_identifier))))
       (rhs
-        (integer_literal)))))
+        (atomic_application_expression
+          (integer_literal))))))
 
 ===================
 Identifier pattern 2
@@ -132,7 +139,8 @@ val op x = 3
           (qualified_identifier
             (type_identifier))))
       (rhs
-        (integer_literal)))))
+        (atomic_application_expression
+          (integer_literal))))))
 
 ===================
 Identifier pattern 3
@@ -153,7 +161,8 @@ val A.B.C.x = 3
             (structure_name)
             (type_identifier))))
       (rhs
-        (integer_literal)))))
+        (atomic_application_expression
+          (integer_literal))))))
 
 ===================
 Identifier pattern 4
@@ -174,7 +183,8 @@ val A.B.C.>> = 3
             (structure_name)
             (type_identifier))))
       (rhs
-        (integer_literal)))))
+        (atomic_application_expression
+          (integer_literal))))))
 
 ===================
 Identifier pattern 5
@@ -192,7 +202,8 @@ val op = = 3
           (qualified_identifier
             (type_identifier))))
       (rhs
-        (integer_literal)))))
+        (atomic_application_expression
+          (integer_literal))))))
 
 ===================
 Identifier pattern 6
@@ -210,7 +221,8 @@ val * = 3
           (qualified_identifier
             (type_identifier))))
       (rhs
-        (integer_literal)))))
+        (atomic_application_expression
+          (integer_literal))))))
 
 ===================
 Identifier pattern 7
@@ -229,7 +241,8 @@ val A.= = 3
             (structure_name)
             (type_identifier))))
       (rhs
-        (integer_literal)))))
+        (atomic_application_expression
+          (integer_literal))))))
 
 ===================
 Identifier pattern 8
@@ -248,7 +261,8 @@ val op A.= = 3
             (structure_name)
             (type_identifier))))
       (rhs
-        (integer_literal)))))
+        (atomic_application_expression
+          (integer_literal))))))
 
 ===================
 List pattern nil
@@ -264,7 +278,8 @@ val [] = 3
       (lhs
         (list_pattern))
       (rhs
-        (integer_literal)))))
+        (atomic_application_expression
+          (integer_literal))))))
 
 ===================
 List pattern one
@@ -283,7 +298,8 @@ val [x] = 3
             (qualified_identifier
               (type_identifier)))))
       (rhs
-        (integer_literal)))))
+        (atomic_application_expression
+          (integer_literal))))))
 
 ===================
 List pattern two
@@ -305,7 +321,8 @@ val [x, y] = 3
             (qualified_identifier
               (type_identifier)))))
       (rhs
-        (integer_literal)))))
+        (atomic_application_expression
+          (integer_literal))))))
 
 ===================
 Record pattern empty
@@ -321,7 +338,8 @@ val {} = 3
       (lhs
         (record_pattern))
       (rhs
-        (integer_literal)))))
+        (atomic_application_expression
+          (integer_literal))))))
 
 ===================
 Record pattern ident
@@ -343,7 +361,8 @@ val {x, y} = 3
             (identifier_label
               (identifier)))))
       (rhs
-        (integer_literal)))))
+        (atomic_application_expression
+          (integer_literal))))))
 
 ===================
 Record pattern ident bind
@@ -371,7 +390,8 @@ val {x=z, y=x} = 3
               (qualified_identifier
                 (type_identifier))))))
       (rhs
-        (integer_literal)))))
+        (atomic_application_expression
+          (integer_literal))))))
 
 ===================
 Vector pattern ident bind
@@ -396,7 +416,8 @@ val #[x, A.x, 6] = 3
           (literal_pattern
             (integer_literal))))
       (rhs
-        (integer_literal)))))
+        (atomic_application_expression
+          (integer_literal))))))
 
 ===================
 Compound pattern 1
@@ -418,7 +439,8 @@ val SOME x = 3
             (qualified_identifier
               (type_identifier)))))
       (rhs
-        (integer_literal)))))
+        (atomic_application_expression
+          (integer_literal))))))
 
 ===================
 Compound pattern 1.5 (infix)
@@ -447,7 +469,8 @@ val (x, y) + z = 3
             (qualified_identifier
               (type_identifier)))))
       (rhs
-        (integer_literal)))))
+        (atomic_application_expression
+          (integer_literal))))))
 
 ===================
 Compound pattern 2
@@ -472,7 +495,8 @@ val x as y : int = 3
           (qualified_identifier
             (type_identifier))))
       (rhs
-        (integer_literal)))))
+        (atomic_application_expression
+          (integer_literal))))))
 
 ===================
 Compound pattern 3
@@ -500,7 +524,8 @@ val x : int as y : int = 3
           (qualified_identifier
             (type_identifier))))
       (rhs
-        (integer_literal)))))
+        (atomic_application_expression
+          (integer_literal))))))
 
 ===================
 Tuple pattern 1
@@ -519,7 +544,8 @@ val (x) = 3
             (qualified_identifier
               (type_identifier)))))
       (rhs
-        (integer_literal)))))
+        (atomic_application_expression
+          (integer_literal))))))
 
 ===================
 Tuple pattern 2
@@ -545,7 +571,8 @@ val (x, x as y) = 3
               (qualified_identifier
                 (type_identifier))))))
       (rhs
-        (integer_literal)))))
+        (atomic_application_expression
+          (integer_literal))))))
 
 ===================
 Or pattern 1
@@ -567,7 +594,8 @@ val (x | y) = 3
             (qualified_identifier
               (type_identifier)))))
       (rhs
-        (integer_literal)))))
+        (atomic_application_expression
+          (integer_literal))))))
 
 ===================
 Record dot dot dot
@@ -600,6 +628,7 @@ val {sourceStream, errConsumer, interactive, sourceMap, anyErrors, ...} = source
           (pattern_row
             (wildcard_row))))
       (rhs
-        (identifier_expression
-          (qualified_identifier
-            (type_identifier)))))))
+        (atomic_application_expression
+          (identifier_expression
+            (qualified_identifier
+              (type_identifier))))))))

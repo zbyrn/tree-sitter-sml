@@ -17,7 +17,8 @@ val x : int = 3
           (qualified_identifier
             (type_identifier))))
       (rhs
-        (integer_literal)))))
+        (atomic_application_expression
+          (integer_literal))))))
 
 ===================
 Type Var
@@ -37,7 +38,8 @@ val x : 'a = 3
               (type_identifier)))
           (tyvar)))
       (rhs
-        (integer_literal)))))
+        (atomic_application_expression
+          (integer_literal))))))
 
 ===================
 Type Var 2
@@ -57,7 +59,8 @@ val x : 'abc = 3
               (type_identifier)))
           (tyvar)))
       (rhs
-        (integer_literal)))))
+        (atomic_application_expression
+          (integer_literal))))))
 
 ===================
 Type app
@@ -82,7 +85,8 @@ val x : (a, 'b) t = 3
             (qualified_identifier
               (type_identifier)))))
       (rhs
-        (integer_literal)))))
+        (atomic_application_expression
+          (integer_literal))))))
 
 ===================
 Type app 2
@@ -108,7 +112,8 @@ val x : ('a t2) t = 3
             (qualified_identifier
               (type_identifier)))))
       (rhs
-        (integer_literal)))))
+        (atomic_application_expression
+          (integer_literal))))))
 
 ===================
 Type app 3
@@ -131,7 +136,8 @@ val x : 'a t = 3
             (qualified_identifier
               (type_identifier)))))
       (rhs
-        (integer_literal)))))
+        (atomic_application_expression
+          (integer_literal))))))
 
 ===================
 Type arrow
@@ -155,7 +161,8 @@ val x : a -> b = 3
             (qualified_identifier
               (type_identifier)))))
       (rhs
-        (integer_literal)))))
+        (atomic_application_expression
+          (integer_literal))))))
 
 ===================
 Type arrow 2
@@ -182,7 +189,8 @@ val x : a -> b -> c = 3
               (qualified_identifier
                 (type_identifier))))))
       (rhs
-        (integer_literal)))))
+        (atomic_application_expression
+          (integer_literal))))))
 
 ===================
 Type arrow 3
@@ -209,7 +217,8 @@ val x : (a -> b) -> c = 3
             (qualified_identifier
               (type_identifier)))))
       (rhs
-        (integer_literal)))))
+        (atomic_application_expression
+          (integer_literal))))))
 
 ===================
 Tuple type
@@ -233,7 +242,8 @@ val x : (a * b) = 3
             (qualified_identifier
               (type_identifier)))))
       (rhs
-        (integer_literal)))))
+        (atomic_application_expression
+          (integer_literal))))))
 
 ===================
 Tuple type 2
@@ -257,7 +267,8 @@ val x : a * b = 3
             (qualified_identifier
               (type_identifier)))))
       (rhs
-        (integer_literal)))))
+        (atomic_application_expression
+          (integer_literal))))))
 
 ===================
 Record type
@@ -282,7 +293,8 @@ val x : {x: int} = 3
               (qualified_identifier
                 (type_identifier))))))
       (rhs
-        (integer_literal)))))
+        (atomic_application_expression
+          (integer_literal))))))
 
 ===================
 Record type num
@@ -307,4 +319,5 @@ val x : {1: int} = 3
               (qualified_identifier
                 (type_identifier))))))
       (rhs
-        (integer_literal)))))
+        (atomic_application_expression
+          (integer_literal))))))

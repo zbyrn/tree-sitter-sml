@@ -23,31 +23,35 @@ fun annotation a =
               (type_identifier))))
         (rhs
           (case_expression
-            (identifier_expression
-              (qualified_identifier
-                (type_identifier)))
+            (atomic_application_expression
+              (identifier_expression
+                (qualified_identifier
+                  (type_identifier))))
             (match
               (rule
                 (identifier_pattern
                   (qualified_identifier
                     (type_identifier)))
-                (identifier_expression
-                  (qualified_identifier
-                    (type_identifier))))
+                (atomic_application_expression
+                  (identifier_expression
+                    (qualified_identifier
+                      (type_identifier)))))
               (rule
                 (identifier_pattern
                   (qualified_identifier
                     (type_identifier)))
-                (identifier_expression
-                  (qualified_identifier
-                    (type_identifier))))
+                (atomic_application_expression
+                  (identifier_expression
+                    (qualified_identifier
+                      (type_identifier)))))
               (rule
                 (identifier_pattern
                   (qualified_identifier
                     (type_identifier)))
-                (identifier_expression
-                  (qualified_identifier
-                    (type_identifier)))))))))))
+                (atomic_application_expression
+                  (identifier_expression
+                    (qualified_identifier
+                      (type_identifier))))))))))))
 
 =====================
 Local declaration
@@ -73,9 +77,10 @@ end
               (qualified_identifier
                 (type_identifier))))
           (rhs
-            (identifier_expression
-              (qualified_identifier
-                (type_identifier))))))
+            (atomic_application_expression
+              (identifier_expression
+                (qualified_identifier
+                  (type_identifier)))))))
       (value_declaration
         (valbind
           (lhs
@@ -83,9 +88,10 @@ end
               (qualified_identifier
                 (type_identifier))))
           (rhs
-            (identifier_expression
-              (qualified_identifier
-                (type_identifier))))))
+            (atomic_application_expression
+              (identifier_expression
+                (qualified_identifier
+                  (type_identifier)))))))
       (structure_declaration
         (strbind
           (structure_identifier)
@@ -99,9 +105,10 @@ end
               (qualified_identifier
                 (type_identifier))))
           (rhs
-            (identifier_expression
-              (qualified_identifier
-                (type_identifier)))))))))
+            (atomic_application_expression
+              (identifier_expression
+                (qualified_identifier
+                  (type_identifier))))))))))
 
 =====================
 Confusing symbols 1
@@ -126,20 +133,22 @@ fun ''`x:''=(x=x;x);
               (type_identifier))))
         (tyvar)
         (rhs
-          (sequence_expression
-            (application_expression
-              (identifier_expression
-                (qualified_identifier
-                  (type_identifier)))
-              (identifier_expression
-                (qualified_identifier
-                  (type_identifier)))
-              (identifier_expression
-                (qualified_identifier
-                  (type_identifier))))
-            (identifier_expression
-              (qualified_identifier
-                (type_identifier)))))))))
+          (atomic_application_expression
+            (sequence_expression
+              (atomic_application_expression
+                (identifier_expression
+                  (qualified_identifier
+                    (type_identifier)))
+                (identifier_expression
+                  (qualified_identifier
+                    (type_identifier)))
+                (identifier_expression
+                  (qualified_identifier
+                    (type_identifier))))
+              (atomic_application_expression
+                (identifier_expression
+                  (qualified_identifier
+                    (type_identifier)))))))))))
 
 =====================
 Confusing symbols 1
@@ -367,3 +376,14 @@ functor MapFn = RedBlackMapFn
       (struct_identifier_expression
         (qualified_structure_identifier
           (structure_identifier))))))
+
+====================
+Loop
+:error
+====================
+
+#(o.rrrri=rx=r.
+
+-------
+
+

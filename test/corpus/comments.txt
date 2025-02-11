@@ -20,7 +20,8 @@ val _ = 3
       (lhs
         (wildcard))
       (rhs
-        (integer_literal)))))
+        (atomic_application_expression
+          (integer_literal))))))
 
 ==============================
 Comment in string
@@ -36,7 +37,8 @@ val _ = "(* *)"
       (lhs
         (wildcard))
       (rhs
-        (string_literal)))))
+        (atomic_application_expression
+          (string_literal))))))
 
 ==============================
 String in comment
@@ -54,7 +56,8 @@ val _ = 3
       (lhs
         (wildcard))
       (rhs
-        (integer_literal)))))
+        (atomic_application_expression
+          (integer_literal))))))
 
 ==============================
 Weird stuff in comment
@@ -90,7 +93,8 @@ val _ = 3
       (lhs
         (wildcard))
       (rhs
-        (integer_literal)))))
+        (atomic_application_expression
+          (integer_literal))))))
 
 ==============================
 Comment in comment
@@ -110,7 +114,8 @@ val _ = 3
       (lhs
         (wildcard))
       (rhs
-        (integer_literal)))))
+        (atomic_application_expression
+          (integer_literal))))))
 
 ==============================
 Not a comment
@@ -126,7 +131,9 @@ val _ = (op *)
       (lhs
         (wildcard))
       (rhs
-        (parenthesized_expression
-          (identifier_expression
-            (qualified_identifier
-              (type_identifier))))))))
+        (atomic_application_expression
+          (parenthesized_expression
+            (atomic_application_expression
+              (identifier_expression
+                (qualified_identifier
+                  (type_identifier))))))))))
