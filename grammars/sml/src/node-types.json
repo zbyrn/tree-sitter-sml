@@ -372,6 +372,10 @@
         "named": true
       },
       {
+        "type": "functor_declaration",
+        "named": true
+      },
+      {
         "type": "infixl_declaration",
         "named": true
       },
@@ -388,7 +392,7 @@
         "named": true
       },
       {
-        "type": "overload_declaration",
+        "type": "signature_declaration",
         "named": true
       },
       {
@@ -415,14 +419,6 @@
     "subtypes": [
       {
         "type": "_structure_level_declaration",
-        "named": true
-      },
-      {
-        "type": "functor_declaration",
-        "named": true
-      },
-      {
-        "type": "signature_declaration",
         "named": true
       }
     ]

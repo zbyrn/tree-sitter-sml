@@ -104,33 +104,6 @@ end
                 (identifier)))))))))
 
 =====================
-Overload declaration
-=====================
-
-_overload ~ :   ('a -> 'a)
-as  Int.~
-and IntInf.~
-and Real.~
-
-------
-
-(source_file
-  (overload_declaration
-    (identifier)
-    (arrow_type
-      (tyvar)
-      (tyvar))
-    (qualified_identifier
-      (structure_identifier)
-      (identifier))
-    (qualified_identifier
-      (structure_identifier)
-      (identifier))
-    (qualified_identifier
-      (structure_identifier)
-      (identifier))))
-
-=====================
 Confusing symbols 1
 =====================
 
@@ -380,3 +353,19 @@ functor LexMLYACC(structure Tokens : Mlyacc_TOKENS
       (signature_identifier_expression
         (signature_identifier))
       (struct_expression))))
+
+====================
+Functor rename
+====================
+
+functor MapFn = RedBlackMapFn
+
+-------
+
+(source_file
+  (functor_declaration
+    (funbind
+      (functor_identifier)
+      (struct_identifier_expression
+        (qualified_structure_identifier
+          (structure_identifier))))))

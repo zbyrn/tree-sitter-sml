@@ -650,8 +650,10 @@ module.exports = grammar({
       $.infixl_declaration,
       $.infixr_declaration,
       $.nonfix_declaration,
-      $.overload_declaration,
+      // $.overload_declaration,
       $.structure_declaration,
+      $.functor_declaration,
+      $.signature_declaration,
       $.structure_local_declaration,
     ),
     _structure_level_declarations: $ => repeat1(
@@ -802,12 +804,12 @@ module.exports = grammar({
     functor_identifier: $ => $._alphanum_identifier,
     funbind: $ => seq(
       $.functor_identifier,
-      "(",
-      choice(
-        seq($.structure_identifier, $._kw_colon, $._signature_expression),
-        optional($._specs),
-      ),
-      ")",
+      optional(seq("(",
+        choice(
+          seq($.structure_identifier, $._kw_colon, $._signature_expression),
+          optional($._specs),
+        ),
+      ")")),
       optional(seq(
         choice($._kw_colon, ":>"),
         $._signature_expression
@@ -821,8 +823,8 @@ module.exports = grammar({
 
     _top_level_declaration: $ => choice(
       $._structure_level_declaration,
-      $.signature_declaration,
-      $.functor_declaration,
+      // $.signature_declaration,
+      // $.functor_declaration,
       // $.expression_declaration
     ),
 

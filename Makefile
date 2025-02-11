@@ -5,6 +5,8 @@ all install uninstall clean:
 
 test:
 	$(TS) test
+	$(TS) parse --quiet --stat --paths examples/mlton.txt
+	$(TS) parse --quiet --stat --paths examples/smlnj.txt
 
 generate:
 	cd grammars/sml && $(TS) generate

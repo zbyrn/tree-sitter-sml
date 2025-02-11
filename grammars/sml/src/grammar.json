@@ -3339,11 +3339,15 @@
         },
         {
           "type": "SYMBOL",
-          "name": "overload_declaration"
+          "name": "structure_declaration"
         },
         {
           "type": "SYMBOL",
-          "name": "structure_declaration"
+          "name": "functor_declaration"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "signature_declaration"
         },
         {
           "type": "SYMBOL",
@@ -4183,46 +4187,59 @@
           "name": "functor_identifier"
         },
         {
-          "type": "STRING",
-          "value": "("
-        },
-        {
           "type": "CHOICE",
           "members": [
             {
               "type": "SEQ",
               "members": [
                 {
-                  "type": "SYMBOL",
-                  "name": "structure_identifier"
+                  "type": "STRING",
+                  "value": "("
                 },
                 {
-                  "type": "SYMBOL",
-                  "name": "_kw_colon"
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SEQ",
+                      "members": [
+                        {
+                          "type": "SYMBOL",
+                          "name": "structure_identifier"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "_kw_colon"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "_signature_expression"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "CHOICE",
+                      "members": [
+                        {
+                          "type": "SYMBOL",
+                          "name": "_specs"
+                        },
+                        {
+                          "type": "BLANK"
+                        }
+                      ]
+                    }
+                  ]
                 },
                 {
-                  "type": "SYMBOL",
-                  "name": "_signature_expression"
+                  "type": "STRING",
+                  "value": ")"
                 }
               ]
             },
             {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "_specs"
-                },
-                {
-                  "type": "BLANK"
-                }
-              ]
+              "type": "BLANK"
             }
           ]
-        },
-        {
-          "type": "STRING",
-          "value": ")"
         },
         {
           "type": "CHOICE",
@@ -4299,14 +4316,6 @@
         {
           "type": "SYMBOL",
           "name": "_structure_level_declaration"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "signature_declaration"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "functor_declaration"
         }
       ]
     },
