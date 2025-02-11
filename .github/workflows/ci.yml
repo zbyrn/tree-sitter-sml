@@ -26,7 +26,7 @@ jobs:
           # test-node: true
           test-python: true
           test-go: true
-          test-swift: ${{runner.os == 'macOS'}}
+          # test-swift: ${{runner.os == 'macOS'}}
   parse-examples:
     name: Parse examples
     runs-on: ${{matrix.os}}

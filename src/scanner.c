@@ -118,6 +118,7 @@ static inline bool scan(StateT s, TSLexer *lexer, const bool *valid_symbols)
 }
 
 /********************** Entry Points ************************/
+
 void *tree_sitter_sml_external_scanner_create()
 {
     return create();
