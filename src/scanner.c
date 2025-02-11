@@ -48,7 +48,7 @@ static inline unsigned serialize(StateT s, char *buffer)
     return 0;
 }
 
-static inline void deserialize(StateT s, char *buffer, unsigned length)
+static inline void deserialize(StateT s, const char *buffer, unsigned length)
 {
     (void) s, (void) buffer, (void) length;
 }
@@ -135,7 +135,7 @@ unsigned tree_sitter_sml_external_scanner_serialize(void *payload, char *buffer)
 
 void tree_sitter_sml_external_scanner_deserialize(
         void *payload,
-        char *buffer,
+        const char *buffer,
         unsigned length
 ) {
     deserialize(payload, buffer, length);
