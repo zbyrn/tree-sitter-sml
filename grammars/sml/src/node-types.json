@@ -226,10 +226,6 @@
         "named": true
       },
       {
-        "type": "overload_declaration",
-        "named": true
-      },
-      {
         "type": "type_declaration",
         "named": true
       },
@@ -489,7 +485,7 @@
           "named": true
         },
         {
-          "type": "qualified_tycon",
+          "type": "qualified_identifier",
           "named": true
         },
         {
@@ -551,7 +547,7 @@
             "named": true
           },
           {
-            "type": "qualified_tycon",
+            "type": "qualified_identifier",
             "named": true
           },
           {
@@ -605,7 +601,7 @@
           "named": true
         },
         {
-          "type": "qualified_tycon",
+          "type": "qualified_identifier",
           "named": true
         },
         {
@@ -695,7 +691,7 @@
           "named": true
         },
         {
-          "type": "qualified_tycon",
+          "type": "qualified_identifier",
           "named": true
         },
         {
@@ -734,7 +730,7 @@
           "named": true
         },
         {
-          "type": "qualified_tycon",
+          "type": "qualified_identifier",
           "named": true
         },
         {
@@ -891,10 +887,6 @@
           "named": true
         },
         {
-          "type": "qualified_tycon",
-          "named": true
-        },
-        {
           "type": "record_type",
           "named": true
         },
@@ -960,7 +952,7 @@
           "named": true
         },
         {
-          "type": "qualified_tycon",
+          "type": "qualified_identifier",
           "named": true
         },
         {
@@ -1342,14 +1334,10 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "_atomic_pattern",
-          "named": true
-        },
-        {
-          "type": "type_identifier",
           "named": true
         }
       ]
@@ -1518,49 +1506,6 @@
     }
   },
   {
-    "type": "overload_declaration",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "arrow_type",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "qualified_identifier",
-          "named": true
-        },
-        {
-          "type": "qualified_tycon",
-          "named": true
-        },
-        {
-          "type": "record_type",
-          "named": true
-        },
-        {
-          "type": "tuple_type",
-          "named": true
-        },
-        {
-          "type": "tyapp",
-          "named": true
-        },
-        {
-          "type": "tyvar",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "parenthesized_expression",
     "named": true,
     "fields": {},
@@ -1611,7 +1556,7 @@
           "named": true
         },
         {
-          "type": "qualified_tycon",
+          "type": "qualified_identifier",
           "named": true
         },
         {
@@ -1646,11 +1591,11 @@
       "required": true,
       "types": [
         {
-          "type": "identifier",
+          "type": "structure_name",
           "named": true
         },
         {
-          "type": "structure_identifier",
+          "type": "type_identifier",
           "named": true
         }
       ]
@@ -1666,25 +1611,6 @@
       "types": [
         {
           "type": "structure_identifier",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "qualified_tycon",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "structure_name",
-          "named": true
-        },
-        {
-          "type": "type_identifier",
           "named": true
         }
       ]
@@ -1793,7 +1719,7 @@
       "required": true,
       "types": [
         {
-          "type": "qualified_tycon",
+          "type": "qualified_identifier",
           "named": true
         }
       ]
@@ -1808,7 +1734,7 @@
       "required": true,
       "types": [
         {
-          "type": "qualified_tycon",
+          "type": "qualified_identifier",
           "named": true
         },
         {
@@ -1831,7 +1757,7 @@
           "named": true
         },
         {
-          "type": "qualified_tycon",
+          "type": "qualified_identifier",
           "named": true
         },
         {
@@ -1900,11 +1826,11 @@
           "named": true
         },
         {
-          "type": "qualified_structure_identifier",
+          "type": "qualified_identifier",
           "named": true
         },
         {
-          "type": "qualified_tycon",
+          "type": "qualified_structure_identifier",
           "named": true
         }
       ]
@@ -2206,7 +2132,7 @@
           "named": true
         },
         {
-          "type": "qualified_tycon",
+          "type": "qualified_identifier",
           "named": true
         },
         {
@@ -2241,7 +2167,7 @@
           "named": true
         },
         {
-          "type": "qualified_tycon",
+          "type": "qualified_identifier",
           "named": true
         },
         {
@@ -2361,7 +2287,7 @@
           "named": true
         },
         {
-          "type": "qualified_tycon",
+          "type": "qualified_identifier",
           "named": true
         },
         {
@@ -2419,7 +2345,7 @@
           "named": true
         },
         {
-          "type": "qualified_tycon",
+          "type": "qualified_identifier",
           "named": true
         },
         {
@@ -2506,7 +2432,7 @@
           "named": true
         },
         {
-          "type": "qualified_tycon",
+          "type": "qualified_identifier",
           "named": true
         },
         {
@@ -2605,11 +2531,11 @@
           "named": true
         },
         {
-          "type": "qualified_structure_identifier",
+          "type": "qualified_identifier",
           "named": true
         },
         {
-          "type": "qualified_tycon",
+          "type": "qualified_structure_identifier",
           "named": true
         },
         {
@@ -2708,10 +2634,6 @@
   },
   {
     "type": "]",
-    "named": false
-  },
-  {
-    "type": "_overload",
     "named": false
   },
   {

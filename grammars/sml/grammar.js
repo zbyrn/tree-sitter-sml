@@ -91,22 +91,52 @@ module.exports = grammar({
   ],
 
   supertypes: $ => [
-    $._expression,
     $._atomic_expression,
-    $._local_level_declaration,
-    $._top_level_declaration,
-    $._literal,
-    $._label,
     $._atomic_pattern,
+    $._expression,
+    $._label,
+    $._literal,
+    $._local_level_declaration,
     $._pattern,
-    $._structure_expression,
-    $._structure_level_declaration,
     $._signature_expression,
     $._spec,
+    $._structure_expression,
+    $._structure_level_declaration,
     $._top_level_declaration,
   ],
 
+  inline: $ => [
+    $._identifier,
+    $._label,
+    $._valbinds,
+    $._fvalbinds,
+    $._tybinds,
+    $._datbinds,
+    $._exbinds,
+    $._strbinds,
+    $._sigbinds,
+    $._funbinds,
+  ],
+
   conflicts: $ => [
+    // The `where` expressions as specified is not in LR(1) because we have
+    //   structure ... and ...
+    // as well as
+    //   where type ... and type ...
+    //
+    // So, if the parser state reaches something like following:
+    //   structure A : S where type t = int (·) and
+    // peaking at one token is not able to determine if the last `and` should
+    // attach to `where type` or `structure`.
+    //
+    // Examples:
+    //     structure A : S where type t = int and type u = bool
+    //     and       B : S where type t = int and type u = bool
+    // vs
+    //     structure A : S
+    //       where type t1 = t2
+    //         and type t3 = t4
+    //         and type t5 = t6
     [$._where_equations]
   ],
 
@@ -122,29 +152,31 @@ module.exports = grammar({
       ))
     ),
 
-    /************************ IDENTIFIERS ********************************/
+    /**************************************************************************/
+    /*                                CORE                                    */
+    /**************************************************************************/
+
+    /** IDENTIFIERS */
     _alphanum_identifier: $ => token(IDA),
     _symbolic_identifier: $ => token(IDS),
 
+    /* This is vid in the Definition. */
     _identifier: $ => choice(
       $._alphanum_identifier,
       $._symbolic_identifier,
     ),
-    // _identifier: $ => token(choice(IDA, IDS)),
     identifier: $ => $._identifier,
+
+    /* Indices are positive integers */
     index: $ => token(INT),
 
+    /* Longvid */
     qualified_identifier: $ => seq(
       repeat(seq($.structure_identifier, ".")),
       $.identifier
     ),
 
-    // _id: $ => $.identifier,
-    // _qualified_id: $ => seq(
-    //   field("path", repeat(seq($._alphanum_identifier, "."))),
-    //   $._id
-    // ),
-
+    /** LITERAL VALUES */
     real_literal: $ => token(seq(
       optional("~"),
       choice(
@@ -153,7 +185,6 @@ module.exports = grammar({
       )
     )),
 
-    /************************ LITERAL VALUES ****************************/
     integer_literal: $ => token(choice(
       NUM,
       seq("~", NUM),
@@ -187,23 +218,62 @@ module.exports = grammar({
       $.char_literal
     ),
 
-    /************************ ATOMIC EXPRESSIONS ****************************/
+    /** ATOMIC EXPRESSIONS (p.77, fig. 20, atexp) */
 
-    /*  Records */
+    // value identifier
+    identifier_expression: $ => seq(
+      optional("op"),
+      $.qualified_identifier
+    ),
+
+    // record
     identifier_expression: $ => seq(optional("op"), $.qualified_identifier),
     int_label: $ => $.index,
     identifier_label: $ => $.identifier,
     _label: $ => choice($.int_label, $.identifier_label),
-
     record_row: $ => seq(
       $._label,
       $._kw_equal,
       $._expression
     ),
-
     record_expression: $ => seq("{", sep(",", $.record_row), "}"),
 
-    /************************ EXPRESSIONS ****************************/
+    // record selector
+    record_selector_expression: $ => seq(
+      "#",
+      $._label,
+    ),
+
+    // 0-tuple
+    unit_expression: $ => seq(
+      "(", ")"
+    ),
+
+    // n-tuple, n >= 2
+    tuple_expression: $ => parenthesize(
+      sep2(",", $._expression)
+    ),
+
+    // list, n >= 0
+    list_expression: $ => seq(
+      "[",
+      sep(",", $._expression),
+      "]"
+    ),
+
+    // vector, n >= 0 (SML/NJ extension)
+    vector_expression: $ => seq(
+      "#[",
+      sep(",", $._expression),
+      "]"
+    ),
+
+    // sequence, n >= 2
+    sequence_expression: $ => parenthesize(
+      sep2(";", $._expression)
+    ),
+
+    // local declaration, n >= 1
     let_expression: $ => seq(
       "let",
       optional($._local_level_declarations),
@@ -212,44 +282,12 @@ module.exports = grammar({
       "end"
     ),
 
-    identifier_expression: $ => seq(
-      optional("op"),
-      $.qualified_identifier
-    ),
-
-    record_selector_expression: $ => seq(
-      "#",
-      $._label,
-    ),
-
-    unit_expression: $ => seq(
-      "(", ")"
-    ),
-
-    tuple_expression: $ => parenthesize(
-      sep2(",", $._expression)
-    ),
-
-    list_expression: $ => seq(
-      "[",
-      sep(",", $._expression),
-      "]"
-    ),
-
-    vector_expression: $ => seq(
-      "#[",
-      sep(",", $._expression),
-      "]"
-    ),
-
-    sequence_expression: $ => parenthesize(
-      sep2(";", $._expression)
-    ),
-
+    // expression, making parentheses visible for highlighting
     parenthesized_expression: $ => parenthesize(
       $._expression
     ),
 
+    // atexp
     _atomic_expression: $ => choice(
       $._literal,
       $.record_expression,
@@ -264,37 +302,47 @@ module.exports = grammar({
       $.parenthesized_expression,
     ),
 
+    /** EXPRESSIONS (p. 77, fig. 20) */
+
+    // application expression
+    // This is just a list of atexps with no special care about the fixities.
     application_expression: $ => prec.left(11, repeat2($._atomic_expression)),
 
+    // typed
     typed_expression: $ => prec.left(10, seq(
       $._expression,
       $._kw_colon,
       $._type
     )),
 
+    // conjunction
     conjunction_expression: $ => prec.left(9, seq(
       $._expression,
       "andalso",
       $._expression
     )),
 
+    // disjunction
     disjunction_expression: $ => prec.left(8, seq(
       $._expression,
       "orelse",
       $._expression
     )),
 
+    // handle exception
     handle_expression: $ => prec(7, seq(
       $._expression,
       "handle",
       $.match,
     )),
 
+    // raise exception
     raise_expression: $ => prec(6, seq(
       "raise",
       $._expression
     )),
 
+    // conditional
     conditional_expression: $ => prec(5, seq(
       "if",
       field("if", $._expression),
@@ -304,6 +352,7 @@ module.exports = grammar({
       field("else", $._expression)
     )),
 
+    // iteration
     iteration_expression: $ => prec(4, seq(
       "while",
       field("while", $._expression),
@@ -311,6 +360,7 @@ module.exports = grammar({
       field("do", $._expression),
     )),
 
+    // case analysis
     case_expression: $ => prec(2, seq(
       "case",
       $._expression,
@@ -318,19 +368,23 @@ module.exports = grammar({
       $.match
     )),
 
+    // function
     function_expression: $ => prec(1, seq(
       "fn",
       $.match
     )),
 
+    // mrule
     rule: $ => seq(
       $._pattern,
       $._kw_darrow,
       prec.right($._expression),
     ),
 
+    // match
     match: $ => prec.right(seq($.rule, repeat(seq($._kw_bar, $.rule)))),
 
+    // exp
     _expression: $ => choice(
       $._atomic_expression,
       $.application_expression,
@@ -345,28 +399,52 @@ module.exports = grammar({
       $.function_expression
     ),
 
-    /************************ PATTERNS ****************************/
+    /** patterns (p. 79, fig. 22) */
+
+    // wildcard
     wildcard: _ => token("_"),
+
+    // special constant
     literal_pattern: $ => $._literal,
-    identifier_pattern: $ => choice(
-      seq("op", $.qualified_identifier),
-      seq($.qualified_identifier),
+
+    // value identifier
+    identifier_pattern: $ => seq(
+      optional("op"),
+      $.qualified_identifier
     ),
+
+    // 0-tuple
+    unit_pattern: $ => seq("(", ")"),
+
+    // n-tuple, n >= 2
+    tuple_pattern: $ => parenthesize(sep2(",", $._pattern)),
+
+    // list pattern, n >= 0
     list_pattern: $ => seq("[", sep(",", $._pattern), "]"),
+
+    // record
     record_pattern: $ => seq("{", sep(",", $.pattern_row), "}"),
+
+    // vector (SMLNJ extension)
     vector_pattern: $ => seq("#[", sep(",", $._pattern), "]"),
 
+    // patrow
     pattern_row: $ => choice(
       alias("...", $.wildcard_row),
       seq($._label, $._kw_equal, $._pattern),
-      seq($.identifier_label, optional(seq($._kw_colon, $._type)), optional(seq("as", $._pattern)))
+      seq(
+        $.identifier_label,
+        optional(seq($._kw_colon, $._type)),
+        optional(seq("as", $._pattern))
+      )
     ),
 
-    unit_pattern: $ => seq("(", ")"),
     parenthesized_pattern: $ => parenthesize($._pattern),
-    or_pattern: $ => parenthesize(sep2($._kw_bar, $._pattern)),
-    tuple_pattern: $ => parenthesize(sep2(",", $._pattern)),
 
+    // or pattern (SML/NJ extension)
+    or_pattern: $ => parenthesize(sep2($._kw_bar, $._pattern)),
+
+    // atpat
     _atomic_pattern: $ => choice(
       $.wildcard,
       $.literal_pattern,
@@ -380,9 +458,20 @@ module.exports = grammar({
       $.parenthesized_pattern,
     ),
 
+    // constructed value
+    // Same as application expression, this does not care about fixity.
     application_pattern: $ => repeat2($._atomic_pattern),
+
+    // NOTE:  pat : type  as pat  : type is parsed as:
+    //      ((pat : type) as pat) : type
+
+    // typed
     constraint_pattern: $ => prec(1, seq($._pattern, $._kw_colon, $._type)),
+
+    // layered
     layered_pattern: $ => prec.right(2, seq($._pattern, "as", $._pattern)),
+
+    // pat
     _pattern: $ => choice(
       $.constraint_pattern,
       $.layered_pattern,
@@ -390,45 +479,65 @@ module.exports = grammar({
       $.application_pattern,
     ),
 
-    /************************ TYPES ****************************/
+    /** TYPES (p. 79, fig. 23) */
 
+    // tycon
     type_identifier: $ => $._identifier,
-    _tycon: $ => $.type_identifier,
-    qualified_tycon: $ => seq(
+
+    // longtycon
+    qualified_identifier: $ => seq(
       repeat(seq(alias($._alphanum_identifier, $.structure_name), ".")),
-      $._tycon
+      $.type_identifier
     ),
+
+    // tyvar
     tyvar: _ => token(seq("'", /[A-Za-z'_0-9]*/)),
+
+    // non-empty tyvarseq
     tyvarseq: $ => choice($.tyvar, parenthesize(sep2(",", $.tyvar))),
-    type_row: $ => seq($._label, $._kw_colon, $._type),
+
+    // record type expression
     record_type: $ => seq("{", sep(",", $.type_row), "}"),
+
+    // tyrow
+    type_row: $ => seq($._label, $._kw_colon, $._type),
+
+    // tuple type, n >= 2
     tuple_type: $ => sep2("*", $._type0),
+
+    // type construction
     tyapp: $ => seq(
       choice($._type0, parenthesize(sep2(",", $._type))),
-      $.qualified_tycon
+      $.qualified_identifier
     ),
+
+    // function type expression
     arrow_type: $ => prec.right(1, seq($._type, $._kw_arrow, $._type)),
+
+    // _type0 are the atomic types
     _type0: $ => choice(
       $.tyvar,
       $.record_type,
       $.tyapp,
-      $.qualified_tycon,
+      $.qualified_identifier,
       parenthesize($._type)
     ),
+
+    // ty
     _type: $ => choice(
       $.tuple_type,
       $.arrow_type,
       $._type0
     ),
 
-    /************************ DECL ****************************/
+    /** local level declarations (p. 78, fig. 21) */
+
     value_declaration: $ => seq("val", optional($.tyvarseq), $._valbinds),
     _valbind: $ => choice(
       seq(optional("lazy"), alias($._pattern, $.lhs), $._kw_equal, alias($._expression, $.rhs)),
       seq(alias("rec", $.rec), $._valbind)
     ),
     _valbinds: $ => sep1("and", alias($._valbind, $.valbind)),
-
 
     function_declaration: $ => seq("fun", optional($.tyvarseq), $._fvalbinds),
     _clause_arguments: $ => repeat1($._atomic_pattern),
@@ -444,16 +553,14 @@ module.exports = grammar({
     )),
     _fvalbinds: $ => sep1("and", $.fvalbind),
 
-
     type_declaration: $ => seq("type", $._tybinds),
     tybind: $ => seq(
       optional($.tyvarseq),
-      alias($._tycon, $.lhs),
+      alias($.type_identifier, $.lhs),
       $._kw_equal,
       alias($._type, $.rhs)
     ),
     _tybinds: $ => sep1("and", $.tybind),
-
 
     datatype_declaration: $ => seq(
       "datatype",
@@ -462,7 +569,7 @@ module.exports = grammar({
     ),
     datbind: $ => seq(
       optional($.tyvarseq),
-      $._tycon,
+      $.type_identifier,
       $._kw_equal,
       sep1($._kw_bar, $._con_or_replication_bind)
     ),
@@ -474,7 +581,7 @@ module.exports = grammar({
     ),
     _replication_bind: $ => seq(
       "datatype",
-      $.qualified_tycon
+      $.qualified_identifier
     ),
     _con_or_replication_bind: $ => choice(
       alias($._conbind, $.constructor),
@@ -504,13 +611,10 @@ module.exports = grammar({
     ),
     _exbinds: $ => sep1("and", $.exbind),
 
-
-
     open_declaration: $ => seq(
       "open",
       prec.left(repeat1($.qualified_structure_identifier)),
     ),
-
 
     infixl_declaration: $ => seq(
       "infix",
@@ -537,16 +641,7 @@ module.exports = grammar({
       "end"
     ),
 
-    overload_declaration: $ => seq(
-      "_overload",
-      optional(/[0-9]/),
-      $.identifier,
-      $._kw_colon,
-      $._type,
-      "as",
-      sep1("and", $.qualified_identifier)
-    ),
-
+    // dec
     _local_level_declaration: $ => choice(
       $.value_declaration,
       $.function_declaration,
@@ -559,7 +654,6 @@ module.exports = grammar({
       $.infixl_declaration,
       $.infixr_declaration,
       $.nonfix_declaration,
-      $.overload_declaration,
     ),
     _local_level_declarations: $ => repeat1(
       choice(
@@ -568,11 +662,20 @@ module.exports = grammar({
       )
     ),
 
+    /**************************************************************************/
+    /*                              MODULES                                   */
+    /**************************************************************************/
+
+    // strid
     structure_identifier: $ => $._alphanum_identifier,
+
+    // longstrid
     qualified_structure_identifier: $ => seq(
       repeat(seq($.structure_identifier, ".")),
       $.structure_identifier
     ),
+
+    /** STRUCTURE EXPRESSIONS (p. 14, fig. 6) */
 
     struct_expression: $ => seq(
       "struct",
@@ -612,6 +715,7 @@ module.exports = grammar({
       "end"
     ),
 
+    // strexp
     _structure_expression: $ => choice(
       $.struct_expression,
       $.struct_identifier_expression,
@@ -620,6 +724,8 @@ module.exports = grammar({
       $.functor_application_expression,
       $.structure_local_expression
     ),
+
+    /** STRUCTURE DECLARATIONS (p. 14, fig. 6) */
 
     structure_declaration: $ => seq(
       "structure",
@@ -639,6 +745,10 @@ module.exports = grammar({
       alias(optional($._structure_level_declarations), $.exposed),
       "end"
     ),
+
+    // strdec
+    // _local_level_declaration is inlined here except for $.local_declaration
+    // to avoid conflict with $.structure_local_declaration.
     _structure_level_declaration: $ => choice(
       $.value_declaration,
       $.function_declaration,
@@ -650,7 +760,6 @@ module.exports = grammar({
       $.infixl_declaration,
       $.infixr_declaration,
       $.nonfix_declaration,
-      // $.overload_declaration,
       $.structure_declaration,
       $.functor_declaration,
       $.signature_declaration,
@@ -659,6 +768,8 @@ module.exports = grammar({
     _structure_level_declarations: $ => repeat1(
       choice($._structure_level_declaration, ";")
     ),
+
+    /** SIGNATURES (p. 14, fig. 6) */
 
     sig_expression: $ => seq(
       "sig",
@@ -673,11 +784,12 @@ module.exports = grammar({
       $._where_equations,
     ),
     where_equation: $ => choice(
-      seq("type", optional($.tyvarseq), $.qualified_tycon, $._kw_equal, $._type),
+      seq("type", optional($.tyvarseq), $.qualified_identifier, $._kw_equal, $._type),
       seq($.qualified_structure_identifier, $._kw_equal, $.qualified_structure_identifier)
     ),
     _where_equations: $ => sep1("and", $.where_equation),
 
+    // sigexp
     _signature_expression: $ => choice(
       $.sig_expression,
       $.signature_identifier_expression,
@@ -690,10 +802,14 @@ module.exports = grammar({
       $._signature_expression,
     ),
     _sigbinds: $ => sep1("and", $.sigbind),
+
+    // sigdec
     signature_declaration: $ => seq(
       "signature",
       $._sigbinds,
     ),
+
+    /** SPEC (p. 15, fig. 7) */
 
     value_spec: $ => seq(
       "val", $._valdescs
@@ -740,7 +856,7 @@ module.exports = grammar({
       $.type_identifier,
       $._kw_equal,
       "datatype",
-      $.qualified_tycon
+      $.qualified_identifier
     ),
 
     exception_spec: $ => seq(
@@ -777,11 +893,12 @@ module.exports = grammar({
       optional($._specs),
       "sharing",
       choice(
-        seq("type", sep2($._kw_equal, $.qualified_tycon)),
+        seq("type", sep2($._kw_equal, $.qualified_identifier)),
         sep2($._kw_equal, $.qualified_structure_identifier)
       ),
     )),
 
+    // spec
     _spec: $ => choice(
       $.value_spec,
       $.type_spec,
@@ -796,6 +913,8 @@ module.exports = grammar({
     _specs: $ => prec.left(1, repeat1(
       prec.left(1, choice($._spec, ";"))
     )),
+
+    /** FUNCTORS (p. 15, fig. 8) */
 
     functor_declaration: $ => seq(
       "functor",
@@ -819,21 +938,16 @@ module.exports = grammar({
     ),
     _funbinds: $ => sep1("and", $.funbind),
 
+    /** TOP LEVEL */
     expression_declaration: $ => $._expression,
 
-    _top_level_declaration: $ => choice(
-      $._structure_level_declaration,
-      // $.signature_declaration,
-      // $.functor_declaration,
-      // $.expression_declaration
-    ),
+    _top_level_declaration: $ => $._structure_level_declaration,
 
     _kw_colon: $ => ":",
     _kw_bar: $ => "|",
     _kw_equal: $ => "=",
     _kw_darrow: $ => "=>",
     _kw_arrow: $ => "->",
-    // _kw_hash: $ => "#",
   },
 
   /* See PR: https://github.com/tree-sitter/tree-sitter/pull/3896 */
