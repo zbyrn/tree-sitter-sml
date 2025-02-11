@@ -233,7 +233,7 @@ module.exports = grammar({
     _label: $ => choice($.int_label, $.identifier_label),
     record_row: $ => seq(
       $._label,
-      $._kw_equal,
+      "=",
       $._expression
     ),
     record_expression: $ => seq("{", sep(",", $.record_row), "}"),
@@ -431,7 +431,7 @@ module.exports = grammar({
     // patrow
     pattern_row: $ => choice(
       alias("...", $.wildcard_row),
-      seq($._label, $._kw_equal, $._pattern),
+      seq($._label, "=", $._pattern),
       seq(
         $.identifier_label,
         optional(seq($._kw_colon, $._type)),
@@ -534,7 +534,7 @@ module.exports = grammar({
 
     value_declaration: $ => seq("val", optional($.tyvarseq), $._valbinds),
     _valbind: $ => choice(
-      seq(optional("lazy"), alias($._pattern, $.lhs), $._kw_equal, alias($._expression, $.rhs)),
+      seq(optional("lazy"), alias($._pattern, $.lhs), "=", alias($._expression, $.rhs)),
       seq(alias("rec", $.rec), $._valbind)
     ),
     _valbinds: $ => sep1("and", alias($._valbind, $.valbind)),
@@ -544,7 +544,7 @@ module.exports = grammar({
     clause: $ => prec.right(0, seq(
       alias($._clause_arguments, $.lhs),
       optional(seq($._kw_colon, field("return_type", $._type))),
-      $._kw_equal,
+      "=",
       alias(prec.right($._expression), $.rhs)
     )),
     fvalbind: $ => prec.right(0, seq(
@@ -557,7 +557,7 @@ module.exports = grammar({
     tybind: $ => seq(
       optional($.tyvarseq),
       alias($.type_identifier, $.lhs),
-      $._kw_equal,
+      "=",
       alias($._type, $.rhs)
     ),
     _tybinds: $ => sep1("and", $.tybind),
@@ -570,7 +570,7 @@ module.exports = grammar({
     datbind: $ => seq(
       optional($.tyvarseq),
       $.type_identifier,
-      $._kw_equal,
+      "=",
       sep1($._kw_bar, $._con_or_replication_bind)
     ),
     _datbinds: $ => sep1("and", $.datbind),
@@ -607,7 +607,7 @@ module.exports = grammar({
     ),
     exbind: $ => choice(
       seq(optional("op"), $.identifier, optional(seq("of", $._type))),
-      seq(optional("op"), $.identifier, $._kw_equal, optional("op"), $.qualified_identifier)
+      seq(optional("op"), $.identifier, "=", optional("op"), $.qualified_identifier)
     ),
     _exbinds: $ => sep1("and", $.exbind),
 
@@ -732,9 +732,9 @@ module.exports = grammar({
       $._strbinds
     ),
     strbind: $ => choice(
-      seq($.structure_identifier, $._kw_equal, $._structure_expression),
-      seq($.structure_identifier, $._kw_colon, $._signature_expression, $._kw_equal, $._structure_expression),
-      seq($.structure_identifier, ":>", $._signature_expression, $._kw_equal, $._structure_expression),
+      seq($.structure_identifier, "=", $._structure_expression),
+      seq($.structure_identifier, $._kw_colon, $._signature_expression, "=", $._structure_expression),
+      seq($.structure_identifier, ":>", $._signature_expression, "=", $._structure_expression),
     ),
     _strbinds: $ => sep1("and", $.strbind),
 
@@ -784,8 +784,8 @@ module.exports = grammar({
       $._where_equations,
     ),
     where_equation: $ => choice(
-      seq("type", optional($.tyvarseq), $.qualified_identifier, $._kw_equal, $._type),
-      seq($.qualified_structure_identifier, $._kw_equal, $.qualified_structure_identifier)
+      seq("type", optional($.tyvarseq), $.qualified_identifier, "=", $._type),
+      seq($.qualified_structure_identifier, "=", $.qualified_structure_identifier)
     ),
     _where_equations: $ => sep1("and", $.where_equation),
 
@@ -798,7 +798,7 @@ module.exports = grammar({
 
     sigbind: $ => seq(
       $.signature_identifier,
-      $._kw_equal,
+      "=",
       $._signature_expression,
     ),
     _sigbinds: $ => sep1("and", $.sigbind),
@@ -841,7 +841,7 @@ module.exports = grammar({
     datdesc: $ => seq(
       optional($.tyvarseq),
       $.type_identifier,
-      $._kw_equal,
+      "=",
       $._condescs
     ),
     _datdescs: $ => sep1("and", $.datdesc),
@@ -854,7 +854,7 @@ module.exports = grammar({
     replication_spec: $ => seq(
       "datatype",
       $.type_identifier,
-      $._kw_equal,
+      "=",
       "datatype",
       $.qualified_identifier
     ),
@@ -893,8 +893,8 @@ module.exports = grammar({
       optional($._specs),
       "sharing",
       choice(
-        seq("type", sep2($._kw_equal, $.qualified_identifier)),
-        sep2($._kw_equal, $.qualified_structure_identifier)
+        seq("type", sep2("=", $.qualified_identifier)),
+        sep2("=", $.qualified_structure_identifier)
       ),
     )),
 
@@ -933,7 +933,7 @@ module.exports = grammar({
         choice($._kw_colon, ":>"),
         $._signature_expression
       )),
-      $._kw_equal,
+      "=",
       $._structure_expression
     ),
     _funbinds: $ => sep1("and", $.funbind),
@@ -945,7 +945,7 @@ module.exports = grammar({
 
     _kw_colon: $ => ":",
     _kw_bar: $ => "|",
-    _kw_equal: $ => "=",
+    // _kw_equal: $ => "=",
     _kw_darrow: $ => "=>",
     _kw_arrow: $ => "->",
   },
@@ -985,11 +985,11 @@ module.exports = grammar({
       "with",
       "withtype",
       "while",
-      "(", ")",
-      "[", "]",
-      "{", "}",
-      ",", ":", ";", "...", "_",
-      "|", "=", "=>", "->", "#",
+      // "(", ")",
+      // "[", "]",
+      // "{", "}",
+      // ",", ":", ";", "...", "_",
+      // "|", "=", "=>", "->", "#",
 
       "eqtype",
       "functor",
