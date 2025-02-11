@@ -998,6 +998,21 @@
     }
   },
   {
+    "type": "expression_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "funbind",
     "named": true,
     "fields": {},
@@ -1971,6 +1986,10 @@
       "types": [
         {
           "type": "_top_level_declaration",
+          "named": true
+        },
+        {
+          "type": "expression_declaration",
           "named": true
         }
       ]

@@ -95,10 +95,14 @@ module.exports = grammar({
   word: $ => $._alphanum_identifier,
 
   rules: {
-    source_file: $ => repeat(choice(
-      $._top_level_declaration,
-      ";"
-    )),
+    source_file: $ => seq(
+      optional($.expression_declaration),
+      repeat(choice(
+        $._top_level_declaration,
+        ";",
+        seq(";", $.expression_declaration),
+      ))
+    ),
 
     /************************ IDENTIFIERS ********************************/
     _alphanum_identifier: $ => token(IDA),
@@ -239,7 +243,7 @@ module.exports = grammar({
       $.parenthesized_expression,
     ),
 
-    application_expression: $ => repeat2($._atomic_expression),
+    application_expression: $ => prec.left(11, repeat2($._atomic_expression)),
 
     typed_expression: $ => prec.left(10, seq(
       $._expression,
@@ -373,7 +377,7 @@ module.exports = grammar({
       repeat(seq(alias($._alphanum_identifier, $.structure_name), ".")),
       $._tycon
     ),
-    tyvar: _ => token(seq("'", IDA)),
+    tyvar: _ => token(seq("'", /[A-Za-z'_0-9]+/)),
     tyvarseq: $ => choice($.tyvar, parenthesize(sep2(",", $.tyvar))),
     type_row: $ => seq($._label, ":", $._type),
     record_type: $ => seq("{", sep(",", $.type_row), "}"),
@@ -474,25 +478,25 @@ module.exports = grammar({
 
     open_declaration: $ => seq(
       "open",
-      repeat1($.qualified_structure_identifier)
+      prec.left(repeat1($.qualified_structure_identifier)),
     ),
 
 
     infixl_declaration: $ => seq(
       "infix",
       optional(/[0-9]/),
-      repeat1($.identifier)
+      prec.left(repeat1($.identifier))
     ),
 
     infixr_declaration: $ => seq(
       "infixr",
       optional(/[0-9]/),
-      repeat1($.identifier)
+      prec.left(repeat1($.identifier))
     ),
 
     nonfix_declaration: $ => seq(
       "nonfix",
-      repeat1($.identifier)
+      prec.left(repeat1($.identifier))
     ),
 
     local_declaration: $ => seq(
