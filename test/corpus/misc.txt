@@ -283,3 +283,100 @@ end
                   (type_identifier))
                 (qualified_tycon
                   (type_identifier))))))))))
+
+======================
+Where and 3
+======================
+
+signature V =
+sig
+    structure A : S where type t = int and type u = bool
+    and       B : S where type t = int and type u = bool
+end
+
+-------
+
+(source_file
+  (signature_declaration
+    (sigbind
+      (signature_identifier)
+      (sig_expression
+        (structure_spec
+          (strdesc
+            (structure_identifier)
+            (type_realization_expression
+              (signature_identifier_expression
+                (signature_identifier))
+              (where_equation
+                (qualified_tycon
+                  (type_identifier))
+                (qualified_tycon
+                  (type_identifier)))
+              (where_equation
+                (qualified_tycon
+                  (type_identifier))
+                (qualified_tycon
+                  (type_identifier)))))
+          (strdesc
+            (structure_identifier)
+            (type_realization_expression
+              (signature_identifier_expression
+                (signature_identifier))
+              (where_equation
+                (qualified_tycon
+                  (type_identifier))
+                (qualified_tycon
+                  (type_identifier)))
+              (where_equation
+                (qualified_tycon
+                  (type_identifier))
+                (qualified_tycon
+                  (type_identifier))))))))))
+
+======================
+Where and 4
+======================
+functor LexMLYACC(structure Tokens : Mlyacc_TOKENS
+                  structure Hdr : HEADER
+                                  where type prec = Header.prec
+                                  and type inputSource = Header.inputSource
+                                  and type pos = int)
+                  : ARG_LEXER = struct end
+
+-------
+
+(source_file
+  (functor_declaration
+    (funbind
+      (functor_identifier)
+      (structure_spec
+        (strdesc
+          (structure_identifier)
+          (signature_identifier_expression
+            (signature_identifier))))
+      (structure_spec
+        (strdesc
+          (structure_identifier)
+          (type_realization_expression
+            (signature_identifier_expression
+              (signature_identifier))
+            (where_equation
+              (qualified_tycon
+                (type_identifier))
+              (qualified_tycon
+                (structure_name)
+                (type_identifier)))
+            (where_equation
+              (qualified_tycon
+                (type_identifier))
+              (qualified_tycon
+                (structure_name)
+                (type_identifier)))
+            (where_equation
+              (qualified_tycon
+                (type_identifier))
+              (qualified_tycon
+                (type_identifier))))))
+      (signature_identifier_expression
+        (signature_identifier))
+      (struct_expression))))

@@ -106,6 +106,10 @@ module.exports = grammar({
     $._top_level_declaration,
   ],
 
+  conflicts: $ => [
+    [$._where_equations]
+  ],
+
   word: $ => $._alphanum_identifier,
 
   rules: {
@@ -670,7 +674,7 @@ module.exports = grammar({
       seq("type", optional($.tyvarseq), $.qualified_tycon, $._kw_equal, $._type),
       seq($.qualified_structure_identifier, $._kw_equal, $.qualified_structure_identifier)
     ),
-    _where_equations: $ => prec.right(1, sep1("and", $.where_equation)),
+    _where_equations: $ => sep1("and", $.where_equation),
 
     _signature_expression: $ => choice(
       $.sig_expression,
@@ -756,7 +760,7 @@ module.exports = grammar({
       $._kw_colon,
       $._signature_expression
     ),
-    _strdescs: $ => prec.right(2, sep1("and", $.strdesc)),
+    _strdescs: $ => sep1("and", $.strdesc),
 
     include_spec: $ => seq(
       "include",
