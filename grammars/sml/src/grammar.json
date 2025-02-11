@@ -292,7 +292,7 @@
                 },
                 {
                   "type": "PATTERN",
-                  "value": "\\\\(a|b|t|n|v|f|r|\"|\\\\|\\^[\\x40-\\x5F]|[0-9]{3}|u[0-9A-Fa-f]{4})"
+                  "value": "\\\\(a|b|t|n|v|f|r|\"|\\\\|\\^[\\x40-\\x5F]|[0-9]{3}|u[0-9A-Fa-f]{4}|U[0-9A-Fa-f]{8})"
                 },
                 {
                   "type": "PATTERN",
@@ -333,7 +333,7 @@
             "members": [
               {
                 "type": "PATTERN",
-                "value": "\\\\(a|b|t|n|v|f|r|\"|\\\\|\\^[\\x40-\\x5F]|[0-9]{3}|u[0-9A-Fa-f]{4})"
+                "value": "\\\\(a|b|t|n|v|f|r|\"|\\\\|\\^[\\x40-\\x5F]|[0-9]{3}|u[0-9A-Fa-f]{4}|U[0-9A-Fa-f]{8})"
               },
               {
                 "type": "PATTERN",
@@ -543,8 +543,8 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "SYMBOL",
-          "name": "_kw_hash"
+          "type": "STRING",
+          "value": "#"
         },
         {
           "type": "SYMBOL",
@@ -2096,20 +2096,11 @@
       ]
     },
     "_clause_arguments": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "_atomic_pattern"
-        },
-        {
-          "type": "REPEAT1",
-          "content": {
-            "type": "SYMBOL",
-            "name": "_atomic_pattern"
-          }
-        }
-      ]
+      "type": "REPEAT1",
+      "content": {
+        "type": "SYMBOL",
+        "name": "_atomic_pattern"
+      }
     },
     "clause": {
       "type": "PREC_RIGHT",
@@ -4346,10 +4337,6 @@
     "_kw_arrow": {
       "type": "STRING",
       "value": "->"
-    },
-    "_kw_hash": {
-      "type": "STRING",
-      "value": "#"
     }
   },
   "extras": [

@@ -54,15 +54,29 @@ const IGNORED_SEQ = /\\[ \t\n\r\f]+\\/;
 //    \^@ .. \^_  (ASCII 64..95 after '^')
 //    \ddd (NOTE: Allow out-of-range sequence?)
 //    \uxxxx
+//    \Uxxxxxxxx
 //    \"  \\
 const ESCAPE_CHAR =
-  /\\(a|b|t|n|v|f|r|"|\\|\^[\x40-\x5F]|[0-9]{3}|u[0-9A-Fa-f]{4})/;
+  /\\(a|b|t|n|v|f|r|"|\\|\^[\x40-\x5F]|[0-9]{3}|u[0-9A-Fa-f]{4}|U[0-9A-Fa-f]{8})/;
 
 // 3) Ordinary characters: anything except backslash, quote, or newline.
 //    NOTE: The standard said the ordinary characters can only be
 //    ASCII 33..126, but SML/NJ seems to allow any unicode code points
 //    except newlines.
 const ORD_CHAR = /[^"\\\n\r]/;
+
+// Additional identifiers that MLton uses, which should be lexed as identifiers.
+// const MLTON_BUILTINS = [
+//   "_address",
+//   "_build_const",
+//   "_command_line_const",
+//   "_const",
+//   "_export",
+//   "_import",
+//   // "_overload",
+//   "_prim",
+//   "_symbol"
+// ];
 
 module.exports = grammar({
   name: "sml",
@@ -108,7 +122,10 @@ module.exports = grammar({
     _alphanum_identifier: $ => token(IDA),
     _symbolic_identifier: $ => token(IDS),
 
-    _identifier: $ => choice($._alphanum_identifier, $._symbolic_identifier),
+    _identifier: $ => choice(
+      $._alphanum_identifier,
+      $._symbolic_identifier,
+    ),
     // _identifier: $ => token(choice(IDA, IDS)),
     identifier: $ => $._identifier,
     index: $ => token(INT),
@@ -197,7 +214,7 @@ module.exports = grammar({
     ),
 
     record_selector_expression: $ => seq(
-      $._kw_hash,
+      "#",
       $._label,
     ),
 
@@ -410,7 +427,7 @@ module.exports = grammar({
 
 
     function_declaration: $ => seq("fun", optional($.tyvarseq), $._fvalbinds),
-    _clause_arguments: $ => repeat2($._atomic_pattern),
+    _clause_arguments: $ => repeat1($._atomic_pattern),
     clause: $ => prec.right(0, seq(
       alias($._clause_arguments, $.lhs),
       optional(seq($._kw_colon, field("return_type", $._type))),
@@ -810,7 +827,7 @@ module.exports = grammar({
     _kw_equal: $ => "=",
     _kw_darrow: $ => "=>",
     _kw_arrow: $ => "->",
-    _kw_hash: $ => "#",
+    // _kw_hash: $ => "#",
   },
 
   /* See PR: https://github.com/tree-sitter/tree-sitter/pull/3896 */
