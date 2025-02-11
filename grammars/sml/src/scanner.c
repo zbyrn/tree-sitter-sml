@@ -55,6 +55,7 @@ static inline void deserialize(StateT s, char *buffer, unsigned length)
 
 static inline bool scan_comment(StateT s, TSLexer *lexer)
 {
+    (void) s;
     while (iswspace(lexer->lookahead)) {
         skip(lexer);
     }
