@@ -2,14 +2,14 @@ cmake_minimum_required(VERSION 3.13)
 
 project(tree-sitter-sml
         VERSION "0.1.0"
-        DESCRIPTION "Tree-sitter parser for Standard ML"
-        HOMEPAGE_URL "https://github.com/tree-sitter/tree-sitter-sml"
+        DESCRIPTION "Standard ML grammar for tree-sitter"
+        HOMEPAGE_URL "https://github.com/zbyrn/tree-sitter-sml"
         LANGUAGES C)
 
 option(BUILD_SHARED_LIBS "Build using shared libraries" ON)
 option(TREE_SITTER_REUSE_ALLOCATOR "Reuse the library allocator" OFF)
 
-set(TREE_SITTER_ABI_VERSION 14 CACHE STRING "Tree-sitter ABI version")
+set(TREE_SITTER_ABI_VERSION 15 CACHE STRING "Tree-sitter ABI version")
 if(NOT ${TREE_SITTER_ABI_VERSION} MATCHES "^[0-9]+$")
     unset(TREE_SITTER_ABI_VERSION CACHE)
     message(FATAL_ERROR "TREE_SITTER_ABI_VERSION must be an integer")
@@ -32,7 +32,6 @@ target_include_directories(tree-sitter-sml
                            PRIVATE src
                            INTERFACE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/bindings/c>
                                      $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
-
 
 target_compile_definitions(tree-sitter-sml PRIVATE
                            $<$<BOOL:${TREE_SITTER_REUSE_ALLOCATOR}>:TREE_SITTER_REUSE_ALLOCATOR>
@@ -57,6 +56,10 @@ install(FILES "${CMAKE_CURRENT_BINARY_DIR}/tree-sitter-sml.pc"
         DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/pkgconfig")
 install(TARGETS tree-sitter-sml
         LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}")
+
+file(GLOB QUERIES queries/*.scm)
+install(FILES ${QUERIES}
+        DESTINATION "${CMAKE_INSTALL_DATADIR}/tree-sitter/queries/sml")
 
 add_custom_target(ts-test "${TREE_SITTER_CLI}" test
                   WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"

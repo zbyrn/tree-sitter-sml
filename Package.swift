@@ -1,23 +1,29 @@
 // swift-tools-version:5.3
+
+import Foundation
 import PackageDescription
 
+var sources = ["src/parser.c"]
+if FileManager.default.fileExists(atPath: "src/scanner.c") {
+    sources.append("src/scanner.c")
+}
+
 let package = Package(
-    name: "TreeSitterSML",
+    name: "TreeSitterSml",
     products: [
-        .library(name: "TreeSitterSML", targets: ["TreeSitterSML"]),
+        .library(name: "TreeSitterSml", targets: ["TreeSitterSml"]),
     ],
     dependencies: [
         .package(url: "https://github.com/tree-sitter/swift-tree-sitter", from: "0.8.0"),
     ],
     targets: [
         .target(
-            name: "TreeSitterSML",
-            dependencies: [],
-            path: ".",
-            sources: [
-                "src/parser.c",
-                "src/scanner.c",
+            name: "TreeSitterSml",
+            dependencies: [
+                .product(name: "SwiftTreeSitter", package: "swift-tree-sitter")
             ],
+            path: ".",
+            sources: sources,
             resources: [
                 .copy("queries")
             ],
@@ -25,13 +31,14 @@ let package = Package(
             cSettings: [.headerSearchPath("src")]
         ),
         .testTarget(
-            name: "TreeSitterSMLTests",
+            name: "TreeSitterSmlTests",
             dependencies: [
-                "SwiftTreeSitter",
-                "TreeSitterSML",
+                // "SwiftTreeSitter",
+                "TreeSitterSml",
+                .product(name: "SwiftTreeSitter", package: "swift-tree-sitter")
             ],
-            path: "bindings/swift/TreeSitterSMLTests"
-        )
+            path: "bindings/swift/TreeSitterSmlTests"
+        ),
     ],
     cLanguageStandard: .c11
 )
