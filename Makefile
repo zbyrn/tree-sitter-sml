@@ -8,6 +8,9 @@ test:
 	$(TS) parse --quiet --stat --paths examples/mlton.txt
 	$(TS) parse --quiet --stat --paths examples/smlnj.txt
 
+files: examples/mlton.txt examples/smlnj.txt
+	cat $^ > test/files.txt
+
 generate:
 	cd grammars/sml && $(TS) generate
 
