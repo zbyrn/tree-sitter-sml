@@ -5,11 +5,9 @@ on:
     branches: [main]
     paths:
       - src/scanner.c
-      - src/parser.c
   pull_request:
     paths:
       - src/scanner.c
-      - src/parser.c
 
 jobs:
   fuzz:
@@ -17,7 +15,5 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Fuzz ${{matrix.language}} parser
+      - name: Fuzz parser
         uses: tree-sitter/fuzz-action@v4
-        with:
-          directory: ${{matrix.language}}
