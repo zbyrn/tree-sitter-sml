@@ -13,9 +13,10 @@ val x : int = 3
         (constraint_pattern
           (identifier_pattern
             (qualified_identifier
-              (type_identifier)))
-          (qualified_identifier
-            (type_identifier))))
+              (alphanum_identifier)))
+          (qualified_type_identifier
+            (type_identifier
+              (alphanum_identifier)))))
       (rhs
         (atomic_application_expression
           (integer_literal))))))
@@ -35,7 +36,7 @@ val x : 'a = 3
         (constraint_pattern
           (identifier_pattern
             (qualified_identifier
-              (type_identifier)))
+              (alphanum_identifier)))
           (tyvar)))
       (rhs
         (atomic_application_expression
@@ -56,7 +57,7 @@ val x : 'abc = 3
         (constraint_pattern
           (identifier_pattern
             (qualified_identifier
-              (type_identifier)))
+              (alphanum_identifier)))
           (tyvar)))
       (rhs
         (atomic_application_expression
@@ -77,13 +78,15 @@ val x : (a, 'b) t = 3
         (constraint_pattern
           (identifier_pattern
             (qualified_identifier
-              (type_identifier)))
+              (alphanum_identifier)))
           (tyapp
-            (qualified_identifier
-              (type_identifier))
+            (qualified_type_identifier
+              (type_identifier
+                (alphanum_identifier)))
             (tyvar)
-            (qualified_identifier
-              (type_identifier)))))
+            (qualified_type_identifier
+              (type_identifier
+                (alphanum_identifier))))))
       (rhs
         (atomic_application_expression
           (integer_literal))))))
@@ -103,14 +106,16 @@ val x : ('a t2) t = 3
         (constraint_pattern
           (identifier_pattern
             (qualified_identifier
-              (type_identifier)))
+              (alphanum_identifier)))
           (tyapp
             (tyapp
               (tyvar)
-              (qualified_identifier
-                (type_identifier)))
-            (qualified_identifier
-              (type_identifier)))))
+              (qualified_type_identifier
+                (type_identifier
+                  (alphanum_identifier))))
+            (qualified_type_identifier
+              (type_identifier
+                (alphanum_identifier))))))
       (rhs
         (atomic_application_expression
           (integer_literal))))))
@@ -130,11 +135,12 @@ val x : 'a t = 3
         (constraint_pattern
           (identifier_pattern
             (qualified_identifier
-              (type_identifier)))
+              (alphanum_identifier)))
           (tyapp
             (tyvar)
-            (qualified_identifier
-              (type_identifier)))))
+            (qualified_type_identifier
+              (type_identifier
+                (alphanum_identifier))))))
       (rhs
         (atomic_application_expression
           (integer_literal))))))
@@ -154,12 +160,14 @@ val x : a -> b = 3
         (constraint_pattern
           (identifier_pattern
             (qualified_identifier
-              (type_identifier)))
+              (alphanum_identifier)))
           (arrow_type
-            (qualified_identifier
-              (type_identifier))
-            (qualified_identifier
-              (type_identifier)))))
+            (qualified_type_identifier
+              (type_identifier
+                (alphanum_identifier)))
+            (qualified_type_identifier
+              (type_identifier
+                (alphanum_identifier))))))
       (rhs
         (atomic_application_expression
           (integer_literal))))))
@@ -179,15 +187,18 @@ val x : a -> b -> c = 3
         (constraint_pattern
           (identifier_pattern
             (qualified_identifier
-              (type_identifier)))
+              (alphanum_identifier)))
           (arrow_type
-            (qualified_identifier
-              (type_identifier))
+            (qualified_type_identifier
+              (type_identifier
+                (alphanum_identifier)))
             (arrow_type
-              (qualified_identifier
-                (type_identifier))
-              (qualified_identifier
-                (type_identifier))))))
+              (qualified_type_identifier
+                (type_identifier
+                  (alphanum_identifier)))
+              (qualified_type_identifier
+                (type_identifier
+                  (alphanum_identifier)))))))
       (rhs
         (atomic_application_expression
           (integer_literal))))))
@@ -207,15 +218,18 @@ val x : (a -> b) -> c = 3
         (constraint_pattern
           (identifier_pattern
             (qualified_identifier
-              (type_identifier)))
+              (alphanum_identifier)))
           (arrow_type
             (arrow_type
-              (qualified_identifier
-                (type_identifier))
-              (qualified_identifier
-                (type_identifier)))
-            (qualified_identifier
-              (type_identifier)))))
+              (qualified_type_identifier
+                (type_identifier
+                  (alphanum_identifier)))
+              (qualified_type_identifier
+                (type_identifier
+                  (alphanum_identifier))))
+            (qualified_type_identifier
+              (type_identifier
+                (alphanum_identifier))))))
       (rhs
         (atomic_application_expression
           (integer_literal))))))
@@ -235,12 +249,14 @@ val x : (a * b) = 3
         (constraint_pattern
           (identifier_pattern
             (qualified_identifier
-              (type_identifier)))
+              (alphanum_identifier)))
           (tuple_type
-            (qualified_identifier
-              (type_identifier))
-            (qualified_identifier
-              (type_identifier)))))
+            (qualified_type_identifier
+              (type_identifier
+                (alphanum_identifier)))
+            (qualified_type_identifier
+              (type_identifier
+                (alphanum_identifier))))))
       (rhs
         (atomic_application_expression
           (integer_literal))))))
@@ -260,12 +276,14 @@ val x : a * b = 3
         (constraint_pattern
           (identifier_pattern
             (qualified_identifier
-              (type_identifier)))
+              (alphanum_identifier)))
           (tuple_type
-            (qualified_identifier
-              (type_identifier))
-            (qualified_identifier
-              (type_identifier)))))
+            (qualified_type_identifier
+              (type_identifier
+                (alphanum_identifier)))
+            (qualified_type_identifier
+              (type_identifier
+                (alphanum_identifier))))))
       (rhs
         (atomic_application_expression
           (integer_literal))))))
@@ -285,13 +303,14 @@ val x : {x: int} = 3
         (constraint_pattern
           (identifier_pattern
             (qualified_identifier
-              (type_identifier)))
+              (alphanum_identifier)))
           (record_type
             (type_row
               (identifier_label
-                (identifier))
-              (qualified_identifier
-                (type_identifier))))))
+                (alphanum_identifier))
+              (qualified_type_identifier
+                (type_identifier
+                  (alphanum_identifier)))))))
       (rhs
         (atomic_application_expression
           (integer_literal))))))
@@ -311,13 +330,14 @@ val x : {1: int} = 3
         (constraint_pattern
           (identifier_pattern
             (qualified_identifier
-              (type_identifier)))
+              (alphanum_identifier)))
           (record_type
             (type_row
               (int_label
                 (index))
-              (qualified_identifier
-                (type_identifier))))))
+              (qualified_type_identifier
+                (type_identifier
+                  (alphanum_identifier)))))))
       (rhs
         (atomic_application_expression
           (integer_literal))))))

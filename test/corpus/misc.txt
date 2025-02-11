@@ -17,41 +17,41 @@ fun annotation a =
         (lhs
           (identifier_pattern
             (qualified_identifier
-              (type_identifier)))
+              (alphanum_identifier)))
           (identifier_pattern
             (qualified_identifier
-              (type_identifier))))
+              (alphanum_identifier))))
         (rhs
           (case_expression
             (atomic_application_expression
               (identifier_expression
                 (qualified_identifier
-                  (type_identifier))))
+                  (alphanum_identifier))))
             (match
               (rule
                 (identifier_pattern
                   (qualified_identifier
-                    (type_identifier)))
+                    (alphanum_identifier)))
                 (atomic_application_expression
                   (identifier_expression
                     (qualified_identifier
-                      (type_identifier)))))
+                      (alphanum_identifier)))))
               (rule
                 (identifier_pattern
                   (qualified_identifier
-                    (type_identifier)))
+                    (alphanum_identifier)))
                 (atomic_application_expression
                   (identifier_expression
                     (qualified_identifier
-                      (type_identifier)))))
+                      (alphanum_identifier)))))
               (rule
                 (identifier_pattern
                   (qualified_identifier
-                    (type_identifier)))
+                    (alphanum_identifier)))
                 (atomic_application_expression
                   (identifier_expression
                     (qualified_identifier
-                      (type_identifier))))))))))))
+                      (alphanum_identifier))))))))))))
 
 =====================
 Local declaration
@@ -75,23 +75,23 @@ end
           (lhs
             (identifier_pattern
               (qualified_identifier
-                (type_identifier))))
+                (alphanum_identifier))))
           (rhs
             (atomic_application_expression
               (identifier_expression
                 (qualified_identifier
-                  (type_identifier)))))))
+                  (alphanum_identifier)))))))
       (value_declaration
         (valbind
           (lhs
             (identifier_pattern
               (qualified_identifier
-                (type_identifier))))
+                (alphanum_identifier))))
           (rhs
             (atomic_application_expression
               (identifier_expression
                 (qualified_identifier
-                  (type_identifier)))))))
+                  (alphanum_identifier)))))))
       (structure_declaration
         (strbind
           (structure_identifier)
@@ -103,12 +103,12 @@ end
           (lhs
             (identifier_pattern
               (qualified_identifier
-                (type_identifier))))
+                (alphanum_identifier))))
           (rhs
             (atomic_application_expression
               (identifier_expression
                 (qualified_identifier
-                  (type_identifier))))))))))
+                  (alphanum_identifier))))))))))
 
 =====================
 Confusing symbols 1
@@ -127,10 +127,10 @@ fun ''`x:''=(x=x;x);
         (lhs
           (identifier_pattern
             (qualified_identifier
-              (type_identifier)))
+              (symbolic_identifier)))
           (identifier_pattern
             (qualified_identifier
-              (type_identifier))))
+              (alphanum_identifier))))
         (tyvar)
         (rhs
           (atomic_application_expression
@@ -138,17 +138,17 @@ fun ''`x:''=(x=x;x);
               (atomic_application_expression
                 (identifier_expression
                   (qualified_identifier
-                    (type_identifier)))
+                    (alphanum_identifier)))
                 (identifier_expression
                   (qualified_identifier
-                    (type_identifier)))
+                    (symbolic_identifier)))
                 (identifier_expression
                   (qualified_identifier
-                    (type_identifier))))
+                    (alphanum_identifier))))
               (atomic_application_expression
                 (identifier_expression
                   (qualified_identifier
-                    (type_identifier)))))))))))
+                    (alphanum_identifier)))))))))))
 
 =====================
 Confusing symbols 1
@@ -163,12 +163,14 @@ type '& = ' list
     (tybind
       (tyvarseq
         (tyvar))
-      (lhs)
+      (lhs
+        (symbolic_identifier))
       (rhs
         (tyapp
           (tyvar)
-          (qualified_identifier
-            (type_identifier)))))))
+          (qualified_type_identifier
+            (type_identifier
+              (alphanum_identifier))))))))
 
 ======================
 Where and 1
@@ -191,29 +193,36 @@ structure FuncBinIO =
           (functor_identifier)
           (type_declaration
             (tybind
-              (lhs)
+              (lhs
+                (alphanum_identifier))
               (rhs
-                (qualified_identifier
-                  (structure_name)
-                  (type_identifier))))))
+                (qualified_type_identifier
+                  (structure_identifier)
+                  (type_identifier
+                    (alphanum_identifier)))))))
         (type_realization_expression
           (signature_identifier_expression
             (signature_identifier))
           (where_equation
-            (qualified_identifier
-              (type_identifier))
+            (qualified_type_identifier
+              (type_identifier
+                (alphanum_identifier)))
             (tyapp
-              (qualified_identifier
-                (structure_name)
-                (type_identifier))
-              (qualified_identifier
-                (type_identifier))))
+              (qualified_type_identifier
+                (structure_identifier)
+                (type_identifier
+                  (alphanum_identifier)))
+              (qualified_type_identifier
+                (type_identifier
+                  (alphanum_identifier)))))
           (where_equation
-            (qualified_identifier
-              (type_identifier))
-            (qualified_identifier
-              (structure_name)
-              (type_identifier))))))))
+            (qualified_type_identifier
+              (type_identifier
+                (alphanum_identifier)))
+            (qualified_type_identifier
+              (structure_identifier)
+              (type_identifier
+                (alphanum_identifier)))))))))
 
 ======================
 Where and 2
@@ -239,30 +248,38 @@ end
               (signature_identifier_expression
                 (signature_identifier))
               (where_equation
-                (qualified_identifier
-                  (type_identifier))
-                (qualified_identifier
-                  (type_identifier)))
+                (qualified_type_identifier
+                  (type_identifier
+                    (alphanum_identifier)))
+                (qualified_type_identifier
+                  (type_identifier
+                    (alphanum_identifier))))
               (where_equation
-                (qualified_identifier
-                  (type_identifier))
-                (qualified_identifier
-                  (type_identifier)))))
+                (qualified_type_identifier
+                  (type_identifier
+                    (alphanum_identifier)))
+                (qualified_type_identifier
+                  (type_identifier
+                    (alphanum_identifier))))))
           (strdesc
             (structure_identifier)
             (type_realization_expression
               (signature_identifier_expression
                 (signature_identifier))
               (where_equation
-                (qualified_identifier
-                  (type_identifier))
-                (qualified_identifier
-                  (type_identifier)))
+                (qualified_type_identifier
+                  (type_identifier
+                    (alphanum_identifier)))
+                (qualified_type_identifier
+                  (type_identifier
+                    (alphanum_identifier))))
               (where_equation
-                (qualified_identifier
-                  (type_identifier))
-                (qualified_identifier
-                  (type_identifier))))))))))
+                (qualified_type_identifier
+                  (type_identifier
+                    (alphanum_identifier)))
+                (qualified_type_identifier
+                  (type_identifier
+                    (alphanum_identifier)))))))))))
 
 ======================
 Where and 3
@@ -288,30 +305,38 @@ end
               (signature_identifier_expression
                 (signature_identifier))
               (where_equation
-                (qualified_identifier
-                  (type_identifier))
-                (qualified_identifier
-                  (type_identifier)))
+                (qualified_type_identifier
+                  (type_identifier
+                    (alphanum_identifier)))
+                (qualified_type_identifier
+                  (type_identifier
+                    (alphanum_identifier))))
               (where_equation
-                (qualified_identifier
-                  (type_identifier))
-                (qualified_identifier
-                  (type_identifier)))))
+                (qualified_type_identifier
+                  (type_identifier
+                    (alphanum_identifier)))
+                (qualified_type_identifier
+                  (type_identifier
+                    (alphanum_identifier))))))
           (strdesc
             (structure_identifier)
             (type_realization_expression
               (signature_identifier_expression
                 (signature_identifier))
               (where_equation
-                (qualified_identifier
-                  (type_identifier))
-                (qualified_identifier
-                  (type_identifier)))
+                (qualified_type_identifier
+                  (type_identifier
+                    (alphanum_identifier)))
+                (qualified_type_identifier
+                  (type_identifier
+                    (alphanum_identifier))))
               (where_equation
-                (qualified_identifier
-                  (type_identifier))
-                (qualified_identifier
-                  (type_identifier))))))))))
+                (qualified_type_identifier
+                  (type_identifier
+                    (alphanum_identifier)))
+                (qualified_type_identifier
+                  (type_identifier
+                    (alphanum_identifier)))))))))))
 
 ======================
 Where and 4
@@ -341,22 +366,28 @@ functor LexMLYACC(structure Tokens : Mlyacc_TOKENS
             (signature_identifier_expression
               (signature_identifier))
             (where_equation
-              (qualified_identifier
-                (type_identifier))
-              (qualified_identifier
-                (structure_name)
-                (type_identifier)))
+              (qualified_type_identifier
+                (type_identifier
+                  (alphanum_identifier)))
+              (qualified_type_identifier
+                (structure_identifier)
+                (type_identifier
+                  (alphanum_identifier))))
             (where_equation
-              (qualified_identifier
-                (type_identifier))
-              (qualified_identifier
-                (structure_name)
-                (type_identifier)))
+              (qualified_type_identifier
+                (type_identifier
+                  (alphanum_identifier)))
+              (qualified_type_identifier
+                (structure_identifier)
+                (type_identifier
+                  (alphanum_identifier))))
             (where_equation
-              (qualified_identifier
-                (type_identifier))
-              (qualified_identifier
-                (type_identifier))))))
+              (qualified_type_identifier
+                (type_identifier
+                  (alphanum_identifier)))
+              (qualified_type_identifier
+                (type_identifier
+                  (alphanum_identifier)))))))
       (signature_identifier_expression
         (signature_identifier))
       (struct_expression))))

@@ -118,7 +118,7 @@ val x = 3
       (lhs
         (identifier_pattern
           (qualified_identifier
-            (type_identifier))))
+            (alphanum_identifier))))
       (rhs
         (atomic_application_expression
           (integer_literal))))))
@@ -137,7 +137,7 @@ val op x = 3
       (lhs
         (identifier_pattern
           (qualified_identifier
-            (type_identifier))))
+            (alphanum_identifier))))
       (rhs
         (atomic_application_expression
           (integer_literal))))))
@@ -156,10 +156,10 @@ val A.B.C.x = 3
       (lhs
         (identifier_pattern
           (qualified_identifier
-            (structure_name)
-            (structure_name)
-            (structure_name)
-            (type_identifier))))
+            (structure_identifier)
+            (structure_identifier)
+            (structure_identifier)
+            (alphanum_identifier))))
       (rhs
         (atomic_application_expression
           (integer_literal))))))
@@ -178,10 +178,10 @@ val A.B.C.>> = 3
       (lhs
         (identifier_pattern
           (qualified_identifier
-            (structure_name)
-            (structure_name)
-            (structure_name)
-            (type_identifier))))
+            (structure_identifier)
+            (structure_identifier)
+            (structure_identifier)
+            (symbolic_identifier))))
       (rhs
         (atomic_application_expression
           (integer_literal))))))
@@ -200,7 +200,7 @@ val op = = 3
       (lhs
         (identifier_pattern
           (qualified_identifier
-            (type_identifier))))
+            (symbolic_identifier))))
       (rhs
         (atomic_application_expression
           (integer_literal))))))
@@ -219,7 +219,7 @@ val * = 3
       (lhs
         (identifier_pattern
           (qualified_identifier
-            (type_identifier))))
+            (symbolic_identifier))))
       (rhs
         (atomic_application_expression
           (integer_literal))))))
@@ -238,8 +238,8 @@ val A.= = 3
       (lhs
         (identifier_pattern
           (qualified_identifier
-            (structure_name)
-            (type_identifier))))
+            (structure_identifier)
+            (symbolic_identifier))))
       (rhs
         (atomic_application_expression
           (integer_literal))))))
@@ -258,8 +258,8 @@ val op A.= = 3
       (lhs
         (identifier_pattern
           (qualified_identifier
-            (structure_name)
-            (type_identifier))))
+            (structure_identifier)
+            (symbolic_identifier))))
       (rhs
         (atomic_application_expression
           (integer_literal))))))
@@ -296,7 +296,7 @@ val [x] = 3
         (list_pattern
           (identifier_pattern
             (qualified_identifier
-              (type_identifier)))))
+              (alphanum_identifier)))))
       (rhs
         (atomic_application_expression
           (integer_literal))))))
@@ -316,10 +316,10 @@ val [x, y] = 3
         (list_pattern
           (identifier_pattern
             (qualified_identifier
-              (type_identifier)))
+              (alphanum_identifier)))
           (identifier_pattern
             (qualified_identifier
-              (type_identifier)))))
+              (alphanum_identifier)))))
       (rhs
         (atomic_application_expression
           (integer_literal))))))
@@ -356,10 +356,10 @@ val {x, y} = 3
         (record_pattern
           (pattern_row
             (identifier_label
-              (identifier)))
+              (alphanum_identifier)))
           (pattern_row
             (identifier_label
-              (identifier)))))
+              (alphanum_identifier)))))
       (rhs
         (atomic_application_expression
           (integer_literal))))))
@@ -379,16 +379,16 @@ val {x=z, y=x} = 3
         (record_pattern
           (pattern_row
             (identifier_label
-              (identifier))
+              (alphanum_identifier))
             (identifier_pattern
               (qualified_identifier
-                (type_identifier))))
+                (alphanum_identifier))))
           (pattern_row
             (identifier_label
-              (identifier))
+              (alphanum_identifier))
             (identifier_pattern
               (qualified_identifier
-                (type_identifier))))))
+                (alphanum_identifier))))))
       (rhs
         (atomic_application_expression
           (integer_literal))))))
@@ -408,11 +408,11 @@ val #[x, A.x, 6] = 3
         (vector_pattern
           (identifier_pattern
             (qualified_identifier
-              (type_identifier)))
+              (alphanum_identifier)))
           (identifier_pattern
             (qualified_identifier
-              (structure_name)
-              (type_identifier)))
+              (structure_identifier)
+              (alphanum_identifier)))
           (literal_pattern
             (integer_literal))))
       (rhs
@@ -434,10 +434,10 @@ val SOME x = 3
         (application_pattern
           (identifier_pattern
             (qualified_identifier
-              (type_identifier)))
+              (alphanum_identifier)))
           (identifier_pattern
             (qualified_identifier
-              (type_identifier)))))
+              (alphanum_identifier)))))
       (rhs
         (atomic_application_expression
           (integer_literal))))))
@@ -458,16 +458,16 @@ val (x, y) + z = 3
           (tuple_pattern
             (identifier_pattern
               (qualified_identifier
-                (type_identifier)))
+                (alphanum_identifier)))
             (identifier_pattern
               (qualified_identifier
-                (type_identifier))))
+                (alphanum_identifier))))
           (identifier_pattern
             (qualified_identifier
-              (type_identifier)))
+              (symbolic_identifier)))
           (identifier_pattern
             (qualified_identifier
-              (type_identifier)))))
+              (alphanum_identifier)))))
       (rhs
         (atomic_application_expression
           (integer_literal))))))
@@ -488,12 +488,13 @@ val x as y : int = 3
           (layered_pattern
             (identifier_pattern
               (qualified_identifier
-                (type_identifier)))
+                (alphanum_identifier)))
             (identifier_pattern
               (qualified_identifier
-                (type_identifier))))
-          (qualified_identifier
-            (type_identifier))))
+                (alphanum_identifier))))
+          (qualified_type_identifier
+            (type_identifier
+              (alphanum_identifier)))))
       (rhs
         (atomic_application_expression
           (integer_literal))))))
@@ -515,14 +516,16 @@ val x : int as y : int = 3
             (constraint_pattern
               (identifier_pattern
                 (qualified_identifier
-                  (type_identifier)))
-              (qualified_identifier
-                (type_identifier)))
+                  (alphanum_identifier)))
+              (qualified_type_identifier
+                (type_identifier
+                  (alphanum_identifier))))
             (identifier_pattern
               (qualified_identifier
-                (type_identifier))))
-          (qualified_identifier
-            (type_identifier))))
+                (alphanum_identifier))))
+          (qualified_type_identifier
+            (type_identifier
+              (alphanum_identifier)))))
       (rhs
         (atomic_application_expression
           (integer_literal))))))
@@ -542,7 +545,7 @@ val (x) = 3
         (parenthesized_pattern
           (identifier_pattern
             (qualified_identifier
-              (type_identifier)))))
+              (alphanum_identifier)))))
       (rhs
         (atomic_application_expression
           (integer_literal))))))
@@ -562,14 +565,14 @@ val (x, x as y) = 3
         (tuple_pattern
           (identifier_pattern
             (qualified_identifier
-              (type_identifier)))
+              (alphanum_identifier)))
           (layered_pattern
             (identifier_pattern
               (qualified_identifier
-                (type_identifier)))
+                (alphanum_identifier)))
             (identifier_pattern
               (qualified_identifier
-                (type_identifier))))))
+                (alphanum_identifier))))))
       (rhs
         (atomic_application_expression
           (integer_literal))))))
@@ -589,10 +592,10 @@ val (x | y) = 3
         (or_pattern
           (identifier_pattern
             (qualified_identifier
-              (type_identifier)))
+              (alphanum_identifier)))
           (identifier_pattern
             (qualified_identifier
-              (type_identifier)))))
+              (alphanum_identifier)))))
       (rhs
         (atomic_application_expression
           (integer_literal))))))
@@ -612,23 +615,23 @@ val {sourceStream, errConsumer, interactive, sourceMap, anyErrors, ...} = source
         (record_pattern
           (pattern_row
             (identifier_label
-              (identifier)))
+              (alphanum_identifier)))
           (pattern_row
             (identifier_label
-              (identifier)))
+              (alphanum_identifier)))
           (pattern_row
             (identifier_label
-              (identifier)))
+              (alphanum_identifier)))
           (pattern_row
             (identifier_label
-              (identifier)))
+              (alphanum_identifier)))
           (pattern_row
             (identifier_label
-              (identifier)))
+              (alphanum_identifier)))
           (pattern_row
             (wildcard_row))))
       (rhs
         (atomic_application_expression
           (identifier_expression
             (qualified_identifier
-              (type_identifier))))))))
+              (alphanum_identifier))))))))

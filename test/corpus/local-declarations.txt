@@ -12,7 +12,7 @@ val x = 3
       (lhs
         (identifier_pattern
           (qualified_identifier
-            (type_identifier))))
+            (alphanum_identifier))))
       (rhs
         (atomic_application_expression
           (integer_literal))))))
@@ -34,7 +34,7 @@ val ('a, 'b) x = 3
       (lhs
         (identifier_pattern
           (qualified_identifier
-            (type_identifier))))
+            (alphanum_identifier))))
       (rhs
         (atomic_application_expression
           (integer_literal))))))
@@ -54,7 +54,7 @@ val rec x = 3
       (lhs
         (identifier_pattern
           (qualified_identifier
-            (type_identifier))))
+            (alphanum_identifier))))
       (rhs
         (atomic_application_expression
           (integer_literal))))))
@@ -76,7 +76,7 @@ val 'a rec x = 3
       (lhs
         (identifier_pattern
           (qualified_identifier
-            (type_identifier))))
+            (alphanum_identifier))))
       (rhs
         (atomic_application_expression
           (integer_literal))))))
@@ -98,7 +98,7 @@ val 'a rec x = 3 and y = 3
       (lhs
         (identifier_pattern
           (qualified_identifier
-            (type_identifier))))
+            (alphanum_identifier))))
       (rhs
         (atomic_application_expression
           (integer_literal))))
@@ -106,7 +106,7 @@ val 'a rec x = 3 and y = 3
       (lhs
         (identifier_pattern
           (qualified_identifier
-            (type_identifier))))
+            (alphanum_identifier))))
       (rhs
         (atomic_application_expression
           (integer_literal))))))
@@ -128,7 +128,7 @@ val 'a rec x = 3 and rec y = 3
       (lhs
         (identifier_pattern
           (qualified_identifier
-            (type_identifier))))
+            (alphanum_identifier))))
       (rhs
         (atomic_application_expression
           (integer_literal))))
@@ -137,7 +137,7 @@ val 'a rec x = 3 and rec y = 3
       (lhs
         (identifier_pattern
           (qualified_identifier
-            (type_identifier))))
+            (alphanum_identifier))))
       (rhs
         (atomic_application_expression
           (integer_literal))))))
@@ -157,10 +157,10 @@ fun f x = 3
         (lhs
           (identifier_pattern
             (qualified_identifier
-              (type_identifier)))
+              (alphanum_identifier)))
           (identifier_pattern
             (qualified_identifier
-              (type_identifier))))
+              (alphanum_identifier))))
         (rhs
           (atomic_application_expression
             (integer_literal)))))))
@@ -180,13 +180,13 @@ fun f x y = 3
         (lhs
           (identifier_pattern
             (qualified_identifier
-              (type_identifier)))
+              (alphanum_identifier)))
           (identifier_pattern
             (qualified_identifier
-              (type_identifier)))
+              (alphanum_identifier)))
           (identifier_pattern
             (qualified_identifier
-              (type_identifier))))
+              (alphanum_identifier))))
         (rhs
           (atomic_application_expression
             (integer_literal)))))))
@@ -206,13 +206,13 @@ fun f x y = 3 | f z = 3
         (lhs
           (identifier_pattern
             (qualified_identifier
-              (type_identifier)))
+              (alphanum_identifier)))
           (identifier_pattern
             (qualified_identifier
-              (type_identifier)))
+              (alphanum_identifier)))
           (identifier_pattern
             (qualified_identifier
-              (type_identifier))))
+              (alphanum_identifier))))
         (rhs
           (atomic_application_expression
             (integer_literal))))
@@ -220,10 +220,10 @@ fun f x y = 3 | f z = 3
         (lhs
           (identifier_pattern
             (qualified_identifier
-              (type_identifier)))
+              (alphanum_identifier)))
           (identifier_pattern
             (qualified_identifier
-              (type_identifier))))
+              (alphanum_identifier))))
         (rhs
           (atomic_application_expression
             (integer_literal)))))))
@@ -243,13 +243,13 @@ fun f x y = 3 | f z = 3 and g x = 5
         (lhs
           (identifier_pattern
             (qualified_identifier
-              (type_identifier)))
+              (alphanum_identifier)))
           (identifier_pattern
             (qualified_identifier
-              (type_identifier)))
+              (alphanum_identifier)))
           (identifier_pattern
             (qualified_identifier
-              (type_identifier))))
+              (alphanum_identifier))))
         (rhs
           (atomic_application_expression
             (integer_literal))))
@@ -257,10 +257,10 @@ fun f x y = 3 | f z = 3 and g x = 5
         (lhs
           (identifier_pattern
             (qualified_identifier
-              (type_identifier)))
+              (alphanum_identifier)))
           (identifier_pattern
             (qualified_identifier
-              (type_identifier))))
+              (alphanum_identifier))))
         (rhs
           (atomic_application_expression
             (integer_literal)))))
@@ -269,10 +269,10 @@ fun f x y = 3 | f z = 3 and g x = 5
         (lhs
           (identifier_pattern
             (qualified_identifier
-              (type_identifier)))
+              (alphanum_identifier)))
           (identifier_pattern
             (qualified_identifier
-              (type_identifier))))
+              (alphanum_identifier))))
         (rhs
           (atomic_application_expression
             (integer_literal)))))))
@@ -293,10 +293,10 @@ fun _ f y = 3
           (wildcard)
           (identifier_pattern
             (qualified_identifier
-              (type_identifier)))
+              (alphanum_identifier)))
           (identifier_pattern
             (qualified_identifier
-              (type_identifier))))
+              (alphanum_identifier))))
         (rhs
           (atomic_application_expression
             (integer_literal)))))))
@@ -319,10 +319,10 @@ fun (_ f y) 10 = 3
               (wildcard)
               (identifier_pattern
                 (qualified_identifier
-                  (type_identifier)))
+                  (alphanum_identifier)))
               (identifier_pattern
                 (qualified_identifier
-                  (type_identifier)))))
+                  (alphanum_identifier)))))
           (literal_pattern
             (integer_literal)))
         (rhs
@@ -344,12 +344,12 @@ fun op f (_, y) 10 = 3
         (lhs
           (identifier_pattern
             (qualified_identifier
-              (type_identifier)))
+              (alphanum_identifier)))
           (tuple_pattern
             (wildcard)
             (identifier_pattern
               (qualified_identifier
-                (type_identifier))))
+                (alphanum_identifier))))
           (literal_pattern
             (integer_literal)))
         (rhs
@@ -367,10 +367,12 @@ type t = int
 (source_file
   (type_declaration
     (tybind
-      (lhs)
+      (lhs
+        (alphanum_identifier))
       (rhs
-        (qualified_identifier
-          (type_identifier))))))
+        (qualified_type_identifier
+          (type_identifier
+            (alphanum_identifier)))))))
 
 =================
 Type dec (tyvarseq)
@@ -385,10 +387,12 @@ type 'a t = int
     (tybind
       (tyvarseq
         (tyvar))
-      (lhs)
+      (lhs
+        (alphanum_identifier))
       (rhs
-        (qualified_identifier
-          (type_identifier))))))
+        (qualified_type_identifier
+          (type_identifier
+            (alphanum_identifier)))))))
 
 =================
 Type dec and
@@ -401,17 +405,21 @@ type t = A.x and t2 = B.x
 (source_file
   (type_declaration
     (tybind
-      (lhs)
+      (lhs
+        (alphanum_identifier))
       (rhs
-        (qualified_identifier
-          (structure_name)
-          (type_identifier))))
+        (qualified_type_identifier
+          (structure_identifier)
+          (type_identifier
+            (alphanum_identifier)))))
     (tybind
-      (lhs)
+      (lhs
+        (alphanum_identifier))
       (rhs
-        (qualified_identifier
-          (structure_name)
-          (type_identifier))))))
+        (qualified_type_identifier
+          (structure_identifier)
+          (type_identifier
+            (alphanum_identifier)))))))
 
 =================
 Type dec and (tyvarseq)
@@ -426,17 +434,21 @@ type 'a t = x and 'b t2 = x
     (tybind
       (tyvarseq
         (tyvar))
-      (lhs)
+      (lhs
+        (alphanum_identifier))
       (rhs
-        (qualified_identifier
-          (type_identifier))))
+        (qualified_type_identifier
+          (type_identifier
+            (alphanum_identifier)))))
     (tybind
       (tyvarseq
         (tyvar))
-      (lhs)
+      (lhs
+        (alphanum_identifier))
       (rhs
-        (qualified_identifier
-          (type_identifier))))))
+        (qualified_type_identifier
+          (type_identifier
+            (alphanum_identifier)))))))
 
 =================
 Type dec symbolic
@@ -449,10 +461,12 @@ type -- = x
 (source_file
   (type_declaration
     (tybind
-      (lhs)
+      (lhs
+        (symbolic_identifier))
       (rhs
-        (qualified_identifier
-          (type_identifier))))))
+        (qualified_type_identifier
+          (type_identifier
+            (alphanum_identifier)))))))
 
 =================
 Datatype dec (bool)
@@ -465,11 +479,12 @@ datatype bool = true | false
 (source_file
   (datatype_declaration
     (datbind
-      (type_identifier)
+      (type_identifier
+        (alphanum_identifier))
       (constructor
-        (identifier))
+        (alphanum_identifier))
       (constructor
-        (identifier)))))
+        (alphanum_identifier)))))
 
 =================
 Datatype dec (list)
@@ -484,17 +499,19 @@ datatype 'a list = nil | op:: of 'a * 'a list
     (datbind
       (tyvarseq
         (tyvar))
-      (type_identifier)
+      (type_identifier
+        (alphanum_identifier))
       (constructor
-        (identifier))
+        (alphanum_identifier))
       (constructor
-        (identifier)
+        (symbolic_identifier)
         (tuple_type
           (tyvar)
           (tyapp
             (tyvar)
-            (qualified_identifier
-              (type_identifier))))))))
+            (qualified_type_identifier
+              (type_identifier
+                (alphanum_identifier)))))))))
 
 =================
 Datatype dec rec
@@ -507,17 +524,19 @@ datatype t1 = A | B and t2 = C | D
 (source_file
   (datatype_declaration
     (datbind
-      (type_identifier)
+      (type_identifier
+        (alphanum_identifier))
       (constructor
-        (identifier))
+        (alphanum_identifier))
       (constructor
-        (identifier)))
+        (alphanum_identifier)))
     (datbind
-      (type_identifier)
+      (type_identifier
+        (alphanum_identifier))
       (constructor
-        (identifier))
+        (alphanum_identifier))
       (constructor
-        (identifier)))))
+        (alphanum_identifier)))))
 
 =================
 Abstype dec
@@ -530,15 +549,16 @@ abstype t1 = A with val x = 3 end
 (source_file
   (abstype_declaration
     (datbind
-      (type_identifier)
+      (type_identifier
+        (alphanum_identifier))
       (constructor
-        (identifier)))
+        (alphanum_identifier)))
     (value_declaration
       (valbind
         (lhs
           (identifier_pattern
             (qualified_identifier
-              (type_identifier))))
+              (alphanum_identifier))))
         (rhs
           (atomic_application_expression
             (integer_literal)))))))
@@ -554,7 +574,7 @@ exception A
 (source_file
   (exception_declaration
     (exbind
-      (identifier))))
+      (alphanum_identifier))))
 
 =================
 Exception dec 2
@@ -567,9 +587,10 @@ exception op == of int
 (source_file
   (exception_declaration
     (exbind
-      (identifier)
-      (qualified_identifier
-        (type_identifier)))))
+      (symbolic_identifier)
+      (qualified_type_identifier
+        (type_identifier
+          (alphanum_identifier))))))
 
 =================
 Exception dec 3
@@ -582,9 +603,9 @@ exception ** and //
 (source_file
   (exception_declaration
     (exbind
-      (identifier))
+      (symbolic_identifier))
     (exbind
-      (identifier))))
+      (symbolic_identifier))))
 
 =================
 Exception dec 4
@@ -597,9 +618,9 @@ exception ** = //
 (source_file
   (exception_declaration
     (exbind
-      (identifier)
+      (symbolic_identifier)
       (qualified_identifier
-        (type_identifier)))))
+        (symbolic_identifier)))))
 
 =================
 Local dec
@@ -617,7 +638,7 @@ local val x = 3 in val z = 4 end
           (lhs
             (identifier_pattern
               (qualified_identifier
-                (type_identifier))))
+                (alphanum_identifier))))
           (rhs
             (atomic_application_expression
               (integer_literal))))))
@@ -627,7 +648,7 @@ local val x = 3 in val z = 4 end
           (lhs
             (identifier_pattern
               (qualified_identifier
-                (type_identifier))))
+                (alphanum_identifier))))
           (rhs
             (atomic_application_expression
               (integer_literal))))))))
@@ -648,7 +669,7 @@ local ;;;; val x = 3 ; val y = 4 ;;;;; in val z = 4 val a = 5 end
           (lhs
             (identifier_pattern
               (qualified_identifier
-                (type_identifier))))
+                (alphanum_identifier))))
           (rhs
             (atomic_application_expression
               (integer_literal)))))
@@ -657,7 +678,7 @@ local ;;;; val x = 3 ; val y = 4 ;;;;; in val z = 4 val a = 5 end
           (lhs
             (identifier_pattern
               (qualified_identifier
-                (type_identifier))))
+                (alphanum_identifier))))
           (rhs
             (atomic_application_expression
               (integer_literal))))))
@@ -667,7 +688,7 @@ local ;;;; val x = 3 ; val y = 4 ;;;;; in val z = 4 val a = 5 end
           (lhs
             (identifier_pattern
               (qualified_identifier
-                (type_identifier))))
+                (alphanum_identifier))))
           (rhs
             (atomic_application_expression
               (integer_literal)))))
@@ -676,7 +697,7 @@ local ;;;; val x = 3 ; val y = 4 ;;;;; in val z = 4 val a = 5 end
           (lhs
             (identifier_pattern
               (qualified_identifier
-                (type_identifier))))
+                (alphanum_identifier))))
           (rhs
             (atomic_application_expression
               (integer_literal))))))))
@@ -710,8 +731,8 @@ infix ++ --
 
 (source_file
   (infixl_declaration
-    (identifier)
-    (identifier)))
+    (symbolic_identifier)
+    (symbolic_identifier)))
 
 =================
 infixr
@@ -723,8 +744,8 @@ infixr 9 ++ --
 
 (source_file
   (infixr_declaration
-    (identifier)
-    (identifier)))
+    (symbolic_identifier)
+    (symbolic_identifier)))
 
 =================
 Sequential (infix)
@@ -740,16 +761,16 @@ infix b
       (lhs
         (identifier_pattern
           (qualified_identifier
-            (type_identifier))))
+            (alphanum_identifier))))
       (rhs
         (atomic_application_expression
           (identifier_expression
             (qualified_identifier
-              (type_identifier)))))))
+              (alphanum_identifier)))))))
   (infixl_declaration
-    (identifier))
+    (alphanum_identifier))
   (infixl_declaration
-    (identifier)))
+    (alphanum_identifier)))
 
 =================
 Sequential (fun)
@@ -765,42 +786,42 @@ fun f x = x
       (lhs
         (identifier_pattern
           (qualified_identifier
-            (type_identifier))))
+            (alphanum_identifier))))
       (rhs
         (atomic_application_expression
           (identifier_expression
             (qualified_identifier
-              (type_identifier)))))))
+              (alphanum_identifier)))))))
   (function_declaration
     (fvalbind
       (clause
         (lhs
           (identifier_pattern
             (qualified_identifier
-              (type_identifier)))
+              (alphanum_identifier)))
           (identifier_pattern
             (qualified_identifier
-              (type_identifier))))
+              (alphanum_identifier))))
         (rhs
           (atomic_application_expression
             (identifier_expression
               (qualified_identifier
-                (type_identifier))))))))
+                (alphanum_identifier))))))))
   (function_declaration
     (fvalbind
       (clause
         (lhs
           (identifier_pattern
             (qualified_identifier
-              (type_identifier)))
+              (alphanum_identifier)))
           (identifier_pattern
             (qualified_identifier
-              (type_identifier))))
+              (alphanum_identifier))))
         (rhs
           (atomic_application_expression
             (identifier_expression
               (qualified_identifier
-                (type_identifier)))))))))
+                (alphanum_identifier)))))))))
 
 =================
 Sequential (datatype)
@@ -816,17 +837,18 @@ datatype x = x
       (lhs
         (identifier_pattern
           (qualified_identifier
-            (type_identifier))))
+            (alphanum_identifier))))
       (rhs
         (atomic_application_expression
           (identifier_expression
             (qualified_identifier
-              (type_identifier)))))))
+              (alphanum_identifier)))))))
   (datatype_declaration
     (datbind
-      (type_identifier)
+      (type_identifier
+        (alphanum_identifier))
       (constructor
-        (identifier)))))
+        (alphanum_identifier)))))
 
 =================
 Sequential (abstype)
@@ -841,39 +863,40 @@ abstype x = x with val x = y val x = y end
       (lhs
         (identifier_pattern
           (qualified_identifier
-            (type_identifier))))
+            (alphanum_identifier))))
       (rhs
         (atomic_application_expression
           (identifier_expression
             (qualified_identifier
-              (type_identifier)))))))
+              (alphanum_identifier)))))))
   (abstype_declaration
     (datbind
-      (type_identifier)
+      (type_identifier
+        (alphanum_identifier))
       (constructor
-        (identifier)))
+        (alphanum_identifier)))
     (value_declaration
       (valbind
         (lhs
           (identifier_pattern
             (qualified_identifier
-              (type_identifier))))
+              (alphanum_identifier))))
         (rhs
           (atomic_application_expression
             (identifier_expression
               (qualified_identifier
-                (type_identifier)))))))
+                (alphanum_identifier)))))))
     (value_declaration
       (valbind
         (lhs
           (identifier_pattern
             (qualified_identifier
-              (type_identifier))))
+              (alphanum_identifier))))
         (rhs
           (atomic_application_expression
             (identifier_expression
               (qualified_identifier
-                (type_identifier)))))))))
+                (alphanum_identifier)))))))))
 
 =================
 Sequential (abstype)
@@ -889,18 +912,18 @@ exception B
       (lhs
         (identifier_pattern
           (qualified_identifier
-            (type_identifier))))
+            (alphanum_identifier))))
       (rhs
         (atomic_application_expression
           (identifier_expression
             (qualified_identifier
-              (type_identifier)))))))
+              (alphanum_identifier)))))))
   (exception_declaration
     (exbind
-      (identifier)))
+      (alphanum_identifier)))
   (exception_declaration
     (exbind
-      (identifier))))
+      (alphanum_identifier))))
 
 =================
 Sequential (abstype)
@@ -915,12 +938,12 @@ local in end
       (lhs
         (identifier_pattern
           (qualified_identifier
-            (type_identifier))))
+            (alphanum_identifier))))
       (rhs
         (atomic_application_expression
           (identifier_expression
             (qualified_identifier
-              (type_identifier)))))))
+              (alphanum_identifier)))))))
   (structure_local_declaration))
 
 =================
@@ -936,12 +959,12 @@ local in end
       (lhs
         (identifier_pattern
           (qualified_identifier
-            (type_identifier))))
+            (alphanum_identifier))))
       (rhs
         (atomic_application_expression
           (identifier_expression
             (qualified_identifier
-              (type_identifier)))))))
+              (alphanum_identifier)))))))
   (structure_local_declaration))
 
 =================
@@ -958,12 +981,12 @@ open y
       (lhs
         (identifier_pattern
           (qualified_identifier
-            (type_identifier))))
+            (alphanum_identifier))))
       (rhs
         (atomic_application_expression
           (identifier_expression
             (qualified_identifier
-              (type_identifier)))))))
+              (alphanum_identifier)))))))
   (open_declaration
     (qualified_structure_identifier
       (structure_identifier)))
@@ -985,16 +1008,16 @@ infixr y
       (lhs
         (identifier_pattern
           (qualified_identifier
-            (type_identifier))))
+            (alphanum_identifier))))
       (rhs
         (atomic_application_expression
           (identifier_expression
             (qualified_identifier
-              (type_identifier)))))))
+              (alphanum_identifier)))))))
   (infixr_declaration
-    (identifier))
+    (alphanum_identifier))
   (infixr_declaration
-    (identifier)))
+    (alphanum_identifier)))
 
 =================
 Sequential (nonfix)
@@ -1010,13 +1033,13 @@ nonfix y
       (lhs
         (identifier_pattern
           (qualified_identifier
-            (type_identifier))))
+            (alphanum_identifier))))
       (rhs
         (atomic_application_expression
           (identifier_expression
             (qualified_identifier
-              (type_identifier)))))))
+              (alphanum_identifier)))))))
   (nonfix_declaration
-    (identifier))
+    (alphanum_identifier))
   (nonfix_declaration
-    (identifier)))
+    (alphanum_identifier)))

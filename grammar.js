@@ -60,6 +60,7 @@ module.exports = grammar({
     $._atomic_expression,
     $._atomic_pattern,
     $._expression,
+    $._identifier,
     $._label,
     $._literal,
     $._local_level_declaration,
@@ -128,10 +129,9 @@ module.exports = grammar({
 
     /* This is vid in the Definition. */
     _identifier: $ => choice(
-      $._alphanum_identifier,
-      $._symbolic_identifier,
+      alias($._alphanum_identifier, $.alphanum_identifier),
+      alias($._symbolic_identifier, $.symbolic_identifier),
     ),
-    identifier: $ => $._identifier,
 
     /* Indices are positive integers */
     index: $ => token(INT),
@@ -139,7 +139,7 @@ module.exports = grammar({
     /* Longvid */
     qualified_identifier: $ => seq(
       repeat(seq($.structure_identifier, ".")),
-      $.identifier
+      $._identifier
     ),
 
     /** LITERAL VALUES */
@@ -195,7 +195,7 @@ module.exports = grammar({
     // record
     identifier_expression: $ => seq(optional("op"), $.qualified_identifier),
     int_label: $ => $.index,
-    identifier_label: $ => $.identifier,
+    identifier_label: $ => $._identifier,
     _label: $ => choice($.int_label, $.identifier_label),
     record_row: $ => seq(
       $._label,
@@ -452,8 +452,8 @@ module.exports = grammar({
     type_identifier: $ => $._identifier,
 
     // longtycon
-    qualified_identifier: $ => seq(
-      repeat(seq(alias($._alphanum_identifier, $.structure_name), ".")),
+    qualified_type_identifier: $ => seq(
+      repeat(seq(alias($._alphanum_identifier, $.structure_identifier), ".")),
       $.type_identifier
     ),
 
@@ -475,7 +475,7 @@ module.exports = grammar({
     // type construction
     tyapp: $ => seq(
       choice($._type0, parenthesize(sep2(",", $._type))),
-      $.qualified_identifier
+      $.qualified_type_identifier
     ),
 
     // function type expression
@@ -486,7 +486,7 @@ module.exports = grammar({
       $.tyvar,
       $.record_type,
       $.tyapp,
-      $.qualified_identifier,
+      $.qualified_type_identifier,
       parenthesize($._type)
     ),
 
@@ -543,12 +543,12 @@ module.exports = grammar({
     _datbinds: $ => sep1("and", $.datbind),
     _conbind: $ => seq(
       optional("op"),
-      $.identifier,
+      $._identifier,
       optional(seq("of", $._type))
     ),
     _replication_bind: $ => seq(
       "datatype",
-      $.qualified_identifier
+      $.qualified_type_identifier
     ),
     _con_or_replication_bind: $ => choice(
       alias($._conbind, $.constructor),
@@ -573,8 +573,8 @@ module.exports = grammar({
       $._exbinds
     ),
     exbind: $ => choice(
-      seq(optional("op"), $.identifier, optional(seq("of", $._type))),
-      seq(optional("op"), $.identifier, "=", optional("op"), $.qualified_identifier)
+      seq(optional("op"), $._identifier, optional(seq("of", $._type))),
+      seq(optional("op"), $._identifier, "=", optional("op"), $.qualified_identifier)
     ),
     _exbinds: $ => sep1("and", $.exbind),
 
@@ -586,18 +586,18 @@ module.exports = grammar({
     infixl_declaration: $ => seq(
       "infix",
       optional(/[0-9]/),
-      prec.left(repeat1($.identifier))
+      prec.left(repeat1($._identifier))
     ),
 
     infixr_declaration: $ => seq(
       "infixr",
       optional(/[0-9]/),
-      prec.left(repeat1($.identifier))
+      prec.left(repeat1($._identifier))
     ),
 
     nonfix_declaration: $ => seq(
       "nonfix",
-      prec.left(repeat1($.identifier))
+      prec.left(repeat1($._identifier))
     ),
 
     local_declaration: $ => seq(
@@ -751,7 +751,7 @@ module.exports = grammar({
       $._where_equations,
     ),
     where_equation: $ => choice(
-      seq("type", optional($.tyvarseq), $.qualified_identifier, "=", $._type),
+      seq("type", optional($.tyvarseq), $.qualified_type_identifier, "=", $._type),
       seq($.qualified_structure_identifier, "=", $.qualified_structure_identifier)
     ),
     _where_equations: $ => sep1("and", $.where_equation),
@@ -782,7 +782,7 @@ module.exports = grammar({
       "val", $._valdescs
     ),
     valdesc: $ => seq(
-      $.identifier, $._kw_colon, $._type
+      $._identifier, $._kw_colon, $._type
     ),
     _valdescs: $ => sep1("and", $.valdesc),
 
@@ -813,7 +813,7 @@ module.exports = grammar({
     ),
     _datdescs: $ => sep1("and", $.datdesc),
     condesc: $ => seq(
-      $.identifier,
+      $._identifier,
       optional(seq("of", $._type))
     ),
     _condescs: $ => sep1($._kw_bar, $.condesc),
@@ -823,7 +823,7 @@ module.exports = grammar({
       $.type_identifier,
       "=",
       "datatype",
-      $.qualified_identifier
+      $.qualified_type_identifier
     ),
 
     exception_spec: $ => seq(
@@ -831,7 +831,7 @@ module.exports = grammar({
       $._exdescs
     ),
     exdesc: $ => seq(
-      $.identifier,
+      $._identifier,
       optional(seq("of", $._type)),
     ),
     _exdescs: $ => sep1("and", $.exdesc),
@@ -860,7 +860,7 @@ module.exports = grammar({
       optional($._specs),
       "sharing",
       choice(
-        seq("type", sep2("=", $.qualified_identifier)),
+        seq("type", sep2("=", $.qualified_type_identifier)),
         sep2("=", $.qualified_structure_identifier)
       ),
     )),

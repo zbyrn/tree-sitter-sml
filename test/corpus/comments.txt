@@ -136,4 +136,4 @@ val _ = (op *)
             (atomic_application_expression
               (identifier_expression
                 (qualified_identifier
-                  (type_identifier))))))))))
+                  (symbolic_identifier))))))))))

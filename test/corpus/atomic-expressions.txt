@@ -34,7 +34,7 @@ val _ = #x
         (atomic_application_expression
           (record_selector_expression
             (identifier_label
-              (identifier))))))))
+              (alphanum_identifier))))))))
 
 =================
 Not record selector expression 1
@@ -53,7 +53,7 @@ val _ = #**
         (atomic_application_expression
           (identifier_expression
             (qualified_identifier
-              (type_identifier))))))))
+              (symbolic_identifier))))))))
 
 =================
 Not record selector expression 2
@@ -72,7 +72,7 @@ val _ = ###
         (atomic_application_expression
           (identifier_expression
             (qualified_identifier
-              (type_identifier))))))))
+              (symbolic_identifier))))))))
 
 =================
 Unit 1
@@ -145,11 +145,11 @@ val _ = (x, y)
             (atomic_application_expression
               (identifier_expression
                 (qualified_identifier
-                  (type_identifier))))
+                  (alphanum_identifier))))
             (atomic_application_expression
               (identifier_expression
                 (qualified_identifier
-                  (type_identifier))))))))))
+                  (alphanum_identifier))))))))))
 
 =================
 List
@@ -193,11 +193,11 @@ val _ = (a;b)
             (atomic_application_expression
               (identifier_expression
                 (qualified_identifier
-                  (type_identifier))))
+                  (alphanum_identifier))))
             (atomic_application_expression
               (identifier_expression
                 (qualified_identifier
-                  (type_identifier))))))))))
+                  (alphanum_identifier))))))))))
 
 =================
 Invalid sequence
@@ -234,14 +234,14 @@ val _ = (a (b andalso c))
             (atomic_application_expression
               (identifier_expression
                 (qualified_identifier
-                  (type_identifier)))
+                  (alphanum_identifier)))
               (parenthesized_expression
                 (conjunction_expression
                   (atomic_application_expression
                     (identifier_expression
                       (qualified_identifier
-                        (type_identifier))))
+                        (alphanum_identifier))))
                   (atomic_application_expression
                     (identifier_expression
                       (qualified_identifier
-                        (type_identifier)))))))))))))
+                        (alphanum_identifier)))))))))))))

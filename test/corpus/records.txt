@@ -29,7 +29,7 @@ val _ = {x=1}
           (record_expression
             (record_row
               (identifier_label
-                (identifier))
+                (alphanum_identifier))
               (atomic_application_expression
                 (integer_literal)))))))))
 
@@ -70,12 +70,12 @@ val _ = { x = 1, y = 2 }
           (record_expression
             (record_row
               (identifier_label
-                (identifier))
+                (alphanum_identifier))
               (atomic_application_expression
                 (integer_literal)))
             (record_row
               (identifier_label
-                (identifier))
+                (alphanum_identifier))
               (atomic_application_expression
                 (integer_literal)))))))))
 
@@ -96,6 +96,6 @@ val _ = { * = 1 }
           (record_expression
             (record_row
               (identifier_label
-                (identifier))
+                (symbolic_identifier))
               (atomic_application_expression
                 (integer_literal)))))))))
