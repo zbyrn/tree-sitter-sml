@@ -13,8 +13,8 @@ val x : int = 3
         (constraint_pattern
           (identifier_pattern
             (qualified_identifier
-              (identifier)))
-          (qualified_tycon
+              (type_identifier)))
+          (qualified_identifier
             (type_identifier))))
       (rhs
         (integer_literal)))))
@@ -34,7 +34,7 @@ val x : 'a = 3
         (constraint_pattern
           (identifier_pattern
             (qualified_identifier
-              (identifier)))
+              (type_identifier)))
           (tyvar)))
       (rhs
         (integer_literal)))))
@@ -54,7 +54,7 @@ val x : 'abc = 3
         (constraint_pattern
           (identifier_pattern
             (qualified_identifier
-              (identifier)))
+              (type_identifier)))
           (tyvar)))
       (rhs
         (integer_literal)))))
@@ -74,12 +74,12 @@ val x : (a, 'b) t = 3
         (constraint_pattern
           (identifier_pattern
             (qualified_identifier
-              (identifier)))
+              (type_identifier)))
           (tyapp
-            (qualified_tycon
+            (qualified_identifier
               (type_identifier))
             (tyvar)
-            (qualified_tycon
+            (qualified_identifier
               (type_identifier)))))
       (rhs
         (integer_literal)))))
@@ -99,13 +99,13 @@ val x : ('a t2) t = 3
         (constraint_pattern
           (identifier_pattern
             (qualified_identifier
-              (identifier)))
+              (type_identifier)))
           (tyapp
             (tyapp
               (tyvar)
-              (qualified_tycon
+              (qualified_identifier
                 (type_identifier)))
-            (qualified_tycon
+            (qualified_identifier
               (type_identifier)))))
       (rhs
         (integer_literal)))))
@@ -125,10 +125,10 @@ val x : 'a t = 3
         (constraint_pattern
           (identifier_pattern
             (qualified_identifier
-              (identifier)))
+              (type_identifier)))
           (tyapp
             (tyvar)
-            (qualified_tycon
+            (qualified_identifier
               (type_identifier)))))
       (rhs
         (integer_literal)))))
@@ -148,11 +148,11 @@ val x : a -> b = 3
         (constraint_pattern
           (identifier_pattern
             (qualified_identifier
-              (identifier)))
+              (type_identifier)))
           (arrow_type
-            (qualified_tycon
+            (qualified_identifier
               (type_identifier))
-            (qualified_tycon
+            (qualified_identifier
               (type_identifier)))))
       (rhs
         (integer_literal)))))
@@ -172,14 +172,14 @@ val x : a -> b -> c = 3
         (constraint_pattern
           (identifier_pattern
             (qualified_identifier
-              (identifier)))
+              (type_identifier)))
           (arrow_type
-            (qualified_tycon
+            (qualified_identifier
               (type_identifier))
             (arrow_type
-              (qualified_tycon
+              (qualified_identifier
                 (type_identifier))
-              (qualified_tycon
+              (qualified_identifier
                 (type_identifier))))))
       (rhs
         (integer_literal)))))
@@ -199,14 +199,14 @@ val x : (a -> b) -> c = 3
         (constraint_pattern
           (identifier_pattern
             (qualified_identifier
-              (identifier)))
+              (type_identifier)))
           (arrow_type
             (arrow_type
-              (qualified_tycon
+              (qualified_identifier
                 (type_identifier))
-              (qualified_tycon
+              (qualified_identifier
                 (type_identifier)))
-            (qualified_tycon
+            (qualified_identifier
               (type_identifier)))))
       (rhs
         (integer_literal)))))
@@ -226,11 +226,11 @@ val x : (a * b) = 3
         (constraint_pattern
           (identifier_pattern
             (qualified_identifier
-              (identifier)))
+              (type_identifier)))
           (tuple_type
-            (qualified_tycon
+            (qualified_identifier
               (type_identifier))
-            (qualified_tycon
+            (qualified_identifier
               (type_identifier)))))
       (rhs
         (integer_literal)))))
@@ -250,11 +250,11 @@ val x : a * b = 3
         (constraint_pattern
           (identifier_pattern
             (qualified_identifier
-              (identifier)))
+              (type_identifier)))
           (tuple_type
-            (qualified_tycon
+            (qualified_identifier
               (type_identifier))
-            (qualified_tycon
+            (qualified_identifier
               (type_identifier)))))
       (rhs
         (integer_literal)))))
@@ -274,12 +274,12 @@ val x : {x: int} = 3
         (constraint_pattern
           (identifier_pattern
             (qualified_identifier
-              (identifier)))
+              (type_identifier)))
           (record_type
             (type_row
               (identifier_label
                 (identifier))
-              (qualified_tycon
+              (qualified_identifier
                 (type_identifier))))))
       (rhs
         (integer_literal)))))
@@ -299,12 +299,12 @@ val x : {1: int} = 3
         (constraint_pattern
           (identifier_pattern
             (qualified_identifier
-              (identifier)))
+              (type_identifier)))
           (record_type
             (type_row
               (int_label
                 (index))
-              (qualified_tycon
+              (qualified_identifier
                 (type_identifier))))))
       (rhs
         (integer_literal)))))

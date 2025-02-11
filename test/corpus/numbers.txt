@@ -127,7 +127,7 @@ val _ = 4a2
           (integer_literal)
           (identifier_expression
             (qualified_identifier
-              (identifier))))))))
+              (type_identifier))))))))
 
 ================
 Word simple
@@ -188,7 +188,7 @@ val _ = 0w
           (integer_literal)
           (identifier_expression
             (qualified_identifier
-              (identifier))))))))
+              (type_identifier))))))))
 
 ================
 real_simple
@@ -287,4 +287,4 @@ val _ = 4.2e
           (real_literal)
           (identifier_expression
             (qualified_identifier
-              (identifier))))))))
+              (type_identifier))))))))

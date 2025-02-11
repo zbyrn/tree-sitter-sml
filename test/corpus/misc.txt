@@ -17,37 +17,37 @@ fun annotation a =
         (lhs
           (identifier_pattern
             (qualified_identifier
-              (identifier)))
+              (type_identifier)))
           (identifier_pattern
             (qualified_identifier
-              (identifier))))
+              (type_identifier))))
         (rhs
           (case_expression
             (identifier_expression
               (qualified_identifier
-                (identifier)))
+                (type_identifier)))
             (match
               (rule
                 (identifier_pattern
                   (qualified_identifier
-                    (identifier)))
+                    (type_identifier)))
                 (identifier_expression
                   (qualified_identifier
-                    (identifier))))
+                    (type_identifier))))
               (rule
                 (identifier_pattern
                   (qualified_identifier
-                    (identifier)))
+                    (type_identifier)))
                 (identifier_expression
                   (qualified_identifier
-                    (identifier))))
+                    (type_identifier))))
               (rule
                 (identifier_pattern
                   (qualified_identifier
-                    (identifier)))
+                    (type_identifier)))
                 (identifier_expression
                   (qualified_identifier
-                    (identifier)))))))))))
+                    (type_identifier)))))))))))
 
 =====================
 Local declaration
@@ -71,21 +71,21 @@ end
           (lhs
             (identifier_pattern
               (qualified_identifier
-                (identifier))))
+                (type_identifier))))
           (rhs
             (identifier_expression
               (qualified_identifier
-                (identifier))))))
+                (type_identifier))))))
       (value_declaration
         (valbind
           (lhs
             (identifier_pattern
               (qualified_identifier
-                (identifier))))
+                (type_identifier))))
           (rhs
             (identifier_expression
               (qualified_identifier
-                (identifier))))))
+                (type_identifier))))))
       (structure_declaration
         (strbind
           (structure_identifier)
@@ -97,11 +97,11 @@ end
           (lhs
             (identifier_pattern
               (qualified_identifier
-                (identifier))))
+                (type_identifier))))
           (rhs
             (identifier_expression
               (qualified_identifier
-                (identifier)))))))))
+                (type_identifier)))))))))
 
 =====================
 Confusing symbols 1
@@ -120,26 +120,26 @@ fun ''`x:''=(x=x;x);
         (lhs
           (identifier_pattern
             (qualified_identifier
-              (identifier)))
+              (type_identifier)))
           (identifier_pattern
             (qualified_identifier
-              (identifier))))
+              (type_identifier))))
         (tyvar)
         (rhs
           (sequence_expression
             (application_expression
               (identifier_expression
                 (qualified_identifier
-                  (identifier)))
+                  (type_identifier)))
               (identifier_expression
                 (qualified_identifier
-                  (identifier)))
+                  (type_identifier)))
               (identifier_expression
                 (qualified_identifier
-                  (identifier))))
+                  (type_identifier))))
             (identifier_expression
               (qualified_identifier
-                (identifier)))))))))
+                (type_identifier)))))))))
 
 =====================
 Confusing symbols 1
@@ -154,12 +154,11 @@ type '& = ' list
     (tybind
       (tyvarseq
         (tyvar))
-      (lhs
-        (type_identifier))
+      (lhs)
       (rhs
         (tyapp
           (tyvar)
-          (qualified_tycon
+          (qualified_identifier
             (type_identifier)))))))
 
 ======================
@@ -183,28 +182,27 @@ structure FuncBinIO =
           (functor_identifier)
           (type_declaration
             (tybind
-              (lhs
-                (type_identifier))
+              (lhs)
               (rhs
-                (qualified_tycon
+                (qualified_identifier
                   (structure_name)
                   (type_identifier))))))
         (type_realization_expression
           (signature_identifier_expression
             (signature_identifier))
           (where_equation
-            (qualified_tycon
+            (qualified_identifier
               (type_identifier))
             (tyapp
-              (qualified_tycon
+              (qualified_identifier
                 (structure_name)
                 (type_identifier))
-              (qualified_tycon
+              (qualified_identifier
                 (type_identifier))))
           (where_equation
-            (qualified_tycon
+            (qualified_identifier
               (type_identifier))
-            (qualified_tycon
+            (qualified_identifier
               (structure_name)
               (type_identifier))))))))
 
@@ -232,14 +230,14 @@ end
               (signature_identifier_expression
                 (signature_identifier))
               (where_equation
-                (qualified_tycon
+                (qualified_identifier
                   (type_identifier))
-                (qualified_tycon
+                (qualified_identifier
                   (type_identifier)))
               (where_equation
-                (qualified_tycon
+                (qualified_identifier
                   (type_identifier))
-                (qualified_tycon
+                (qualified_identifier
                   (type_identifier)))))
           (strdesc
             (structure_identifier)
@@ -247,14 +245,14 @@ end
               (signature_identifier_expression
                 (signature_identifier))
               (where_equation
-                (qualified_tycon
+                (qualified_identifier
                   (type_identifier))
-                (qualified_tycon
+                (qualified_identifier
                   (type_identifier)))
               (where_equation
-                (qualified_tycon
+                (qualified_identifier
                   (type_identifier))
-                (qualified_tycon
+                (qualified_identifier
                   (type_identifier))))))))))
 
 ======================
@@ -281,14 +279,14 @@ end
               (signature_identifier_expression
                 (signature_identifier))
               (where_equation
-                (qualified_tycon
+                (qualified_identifier
                   (type_identifier))
-                (qualified_tycon
+                (qualified_identifier
                   (type_identifier)))
               (where_equation
-                (qualified_tycon
+                (qualified_identifier
                   (type_identifier))
-                (qualified_tycon
+                (qualified_identifier
                   (type_identifier)))))
           (strdesc
             (structure_identifier)
@@ -296,14 +294,14 @@ end
               (signature_identifier_expression
                 (signature_identifier))
               (where_equation
-                (qualified_tycon
+                (qualified_identifier
                   (type_identifier))
-                (qualified_tycon
+                (qualified_identifier
                   (type_identifier)))
               (where_equation
-                (qualified_tycon
+                (qualified_identifier
                   (type_identifier))
-                (qualified_tycon
+                (qualified_identifier
                   (type_identifier))))))))))
 
 ======================
@@ -334,21 +332,21 @@ functor LexMLYACC(structure Tokens : Mlyacc_TOKENS
             (signature_identifier_expression
               (signature_identifier))
             (where_equation
-              (qualified_tycon
+              (qualified_identifier
                 (type_identifier))
-              (qualified_tycon
+              (qualified_identifier
                 (structure_name)
                 (type_identifier)))
             (where_equation
-              (qualified_tycon
+              (qualified_identifier
                 (type_identifier))
-              (qualified_tycon
+              (qualified_identifier
                 (structure_name)
                 (type_identifier)))
             (where_equation
-              (qualified_tycon
+              (qualified_identifier
                 (type_identifier))
-              (qualified_tycon
+              (qualified_identifier
                 (type_identifier))))))
       (signature_identifier_expression
         (signature_identifier))

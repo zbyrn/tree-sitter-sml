@@ -12,7 +12,7 @@ val x = 3
       (lhs
         (identifier_pattern
           (qualified_identifier
-            (identifier))))
+            (type_identifier))))
       (rhs
         (integer_literal)))))
 
@@ -33,7 +33,7 @@ val ('a, 'b) x = 3
       (lhs
         (identifier_pattern
           (qualified_identifier
-            (identifier))))
+            (type_identifier))))
       (rhs
         (integer_literal)))))
 
@@ -52,7 +52,7 @@ val rec x = 3
       (lhs
         (identifier_pattern
           (qualified_identifier
-            (identifier))))
+            (type_identifier))))
       (rhs
         (integer_literal)))))
 
@@ -73,7 +73,7 @@ val 'a rec x = 3
       (lhs
         (identifier_pattern
           (qualified_identifier
-            (identifier))))
+            (type_identifier))))
       (rhs
         (integer_literal)))))
 
@@ -94,14 +94,14 @@ val 'a rec x = 3 and y = 3
       (lhs
         (identifier_pattern
           (qualified_identifier
-            (identifier))))
+            (type_identifier))))
       (rhs
         (integer_literal)))
     (valbind
       (lhs
         (identifier_pattern
           (qualified_identifier
-            (identifier))))
+            (type_identifier))))
       (rhs
         (integer_literal)))))
 
@@ -122,7 +122,7 @@ val 'a rec x = 3 and rec y = 3
       (lhs
         (identifier_pattern
           (qualified_identifier
-            (identifier))))
+            (type_identifier))))
       (rhs
         (integer_literal)))
     (valbind
@@ -130,7 +130,7 @@ val 'a rec x = 3 and rec y = 3
       (lhs
         (identifier_pattern
           (qualified_identifier
-            (identifier))))
+            (type_identifier))))
       (rhs
         (integer_literal)))))
 
@@ -149,10 +149,10 @@ fun f x = 3
         (lhs
           (identifier_pattern
             (qualified_identifier
-              (identifier)))
+              (type_identifier)))
           (identifier_pattern
             (qualified_identifier
-              (identifier))))
+              (type_identifier))))
         (rhs
           (integer_literal))))))
 
@@ -171,13 +171,13 @@ fun f x y = 3
         (lhs
           (identifier_pattern
             (qualified_identifier
-              (identifier)))
+              (type_identifier)))
           (identifier_pattern
             (qualified_identifier
-              (identifier)))
+              (type_identifier)))
           (identifier_pattern
             (qualified_identifier
-              (identifier))))
+              (type_identifier))))
         (rhs
           (integer_literal))))))
 
@@ -196,23 +196,23 @@ fun f x y = 3 | f z = 3
         (lhs
           (identifier_pattern
             (qualified_identifier
-              (identifier)))
+              (type_identifier)))
           (identifier_pattern
             (qualified_identifier
-              (identifier)))
+              (type_identifier)))
           (identifier_pattern
             (qualified_identifier
-              (identifier))))
+              (type_identifier))))
         (rhs
           (integer_literal)))
       (clause
         (lhs
           (identifier_pattern
             (qualified_identifier
-              (identifier)))
+              (type_identifier)))
           (identifier_pattern
             (qualified_identifier
-              (identifier))))
+              (type_identifier))))
         (rhs
           (integer_literal))))))
 
@@ -231,23 +231,23 @@ fun f x y = 3 | f z = 3 and g x = 5
         (lhs
           (identifier_pattern
             (qualified_identifier
-              (identifier)))
+              (type_identifier)))
           (identifier_pattern
             (qualified_identifier
-              (identifier)))
+              (type_identifier)))
           (identifier_pattern
             (qualified_identifier
-              (identifier))))
+              (type_identifier))))
         (rhs
           (integer_literal)))
       (clause
         (lhs
           (identifier_pattern
             (qualified_identifier
-              (identifier)))
+              (type_identifier)))
           (identifier_pattern
             (qualified_identifier
-              (identifier))))
+              (type_identifier))))
         (rhs
           (integer_literal))))
     (fvalbind
@@ -255,10 +255,10 @@ fun f x y = 3 | f z = 3 and g x = 5
         (lhs
           (identifier_pattern
             (qualified_identifier
-              (identifier)))
+              (type_identifier)))
           (identifier_pattern
             (qualified_identifier
-              (identifier))))
+              (type_identifier))))
         (rhs
           (integer_literal))))))
 
@@ -278,10 +278,10 @@ fun _ f y = 3
           (wildcard)
           (identifier_pattern
             (qualified_identifier
-              (identifier)))
+              (type_identifier)))
           (identifier_pattern
             (qualified_identifier
-              (identifier))))
+              (type_identifier))))
         (rhs
           (integer_literal))))))
 
@@ -303,10 +303,10 @@ fun (_ f y) 10 = 3
               (wildcard)
               (identifier_pattern
                 (qualified_identifier
-                  (identifier)))
+                  (type_identifier)))
               (identifier_pattern
                 (qualified_identifier
-                  (identifier)))))
+                  (type_identifier)))))
           (literal_pattern
             (integer_literal)))
         (rhs
@@ -327,12 +327,12 @@ fun op f (_, y) 10 = 3
         (lhs
           (identifier_pattern
             (qualified_identifier
-              (identifier)))
+              (type_identifier)))
           (tuple_pattern
             (wildcard)
             (identifier_pattern
               (qualified_identifier
-                (identifier))))
+                (type_identifier))))
           (literal_pattern
             (integer_literal)))
         (rhs
@@ -349,10 +349,9 @@ type t = int
 (source_file
   (type_declaration
     (tybind
-      (lhs
-        (type_identifier))
+      (lhs)
       (rhs
-        (qualified_tycon
+        (qualified_identifier
           (type_identifier))))))
 
 =================
@@ -368,10 +367,9 @@ type 'a t = int
     (tybind
       (tyvarseq
         (tyvar))
-      (lhs
-        (type_identifier))
+      (lhs)
       (rhs
-        (qualified_tycon
+        (qualified_identifier
           (type_identifier))))))
 
 =================
@@ -385,17 +383,15 @@ type t = A.x and t2 = B.x
 (source_file
   (type_declaration
     (tybind
-      (lhs
-        (type_identifier))
+      (lhs)
       (rhs
-        (qualified_tycon
+        (qualified_identifier
           (structure_name)
           (type_identifier))))
     (tybind
-      (lhs
-        (type_identifier))
+      (lhs)
       (rhs
-        (qualified_tycon
+        (qualified_identifier
           (structure_name)
           (type_identifier))))))
 
@@ -412,18 +408,16 @@ type 'a t = x and 'b t2 = x
     (tybind
       (tyvarseq
         (tyvar))
-      (lhs
-        (type_identifier))
+      (lhs)
       (rhs
-        (qualified_tycon
+        (qualified_identifier
           (type_identifier))))
     (tybind
       (tyvarseq
         (tyvar))
-      (lhs
-        (type_identifier))
+      (lhs)
       (rhs
-        (qualified_tycon
+        (qualified_identifier
           (type_identifier))))))
 
 =================
@@ -437,10 +431,9 @@ type -- = x
 (source_file
   (type_declaration
     (tybind
-      (lhs
-        (type_identifier))
+      (lhs)
       (rhs
-        (qualified_tycon
+        (qualified_identifier
           (type_identifier))))))
 
 =================
@@ -482,7 +475,7 @@ datatype 'a list = nil | op:: of 'a * 'a list
           (tyvar)
           (tyapp
             (tyvar)
-            (qualified_tycon
+            (qualified_identifier
               (type_identifier))))))))
 
 =================
@@ -527,7 +520,7 @@ abstype t1 = A with val x = 3 end
         (lhs
           (identifier_pattern
             (qualified_identifier
-              (identifier))))
+              (type_identifier))))
         (rhs
           (integer_literal))))))
 
@@ -556,7 +549,7 @@ exception op == of int
   (exception_declaration
     (exbind
       (identifier)
-      (qualified_tycon
+      (qualified_identifier
         (type_identifier)))))
 
 =================
@@ -587,7 +580,7 @@ exception ** = //
     (exbind
       (identifier)
       (qualified_identifier
-        (identifier)))))
+        (type_identifier)))))
 
 =================
 Local dec
@@ -605,7 +598,7 @@ local val x = 3 in val z = 4 end
           (lhs
             (identifier_pattern
               (qualified_identifier
-                (identifier))))
+                (type_identifier))))
           (rhs
             (integer_literal)))))
     (exposed
@@ -614,7 +607,7 @@ local val x = 3 in val z = 4 end
           (lhs
             (identifier_pattern
               (qualified_identifier
-                (identifier))))
+                (type_identifier))))
           (rhs
             (integer_literal)))))))
 
@@ -634,7 +627,7 @@ local ;;;; val x = 3 ; val y = 4 ;;;;; in val z = 4 val a = 5 end
           (lhs
             (identifier_pattern
               (qualified_identifier
-                (identifier))))
+                (type_identifier))))
           (rhs
             (integer_literal))))
       (value_declaration
@@ -642,7 +635,7 @@ local ;;;; val x = 3 ; val y = 4 ;;;;; in val z = 4 val a = 5 end
           (lhs
             (identifier_pattern
               (qualified_identifier
-                (identifier))))
+                (type_identifier))))
           (rhs
             (integer_literal)))))
     (exposed
@@ -651,7 +644,7 @@ local ;;;; val x = 3 ; val y = 4 ;;;;; in val z = 4 val a = 5 end
           (lhs
             (identifier_pattern
               (qualified_identifier
-                (identifier))))
+                (type_identifier))))
           (rhs
             (integer_literal))))
       (value_declaration
@@ -659,7 +652,7 @@ local ;;;; val x = 3 ; val y = 4 ;;;;; in val z = 4 val a = 5 end
           (lhs
             (identifier_pattern
               (qualified_identifier
-                (identifier))))
+                (type_identifier))))
           (rhs
             (integer_literal)))))))
 
@@ -722,11 +715,11 @@ infix b
       (lhs
         (identifier_pattern
           (qualified_identifier
-            (identifier))))
+            (type_identifier))))
       (rhs
         (identifier_expression
           (qualified_identifier
-            (identifier))))))
+            (type_identifier))))))
   (infixl_declaration
     (identifier))
   (infixl_declaration
@@ -746,39 +739,39 @@ fun f x = x
       (lhs
         (identifier_pattern
           (qualified_identifier
-            (identifier))))
+            (type_identifier))))
       (rhs
         (identifier_expression
           (qualified_identifier
-            (identifier))))))
+            (type_identifier))))))
   (function_declaration
     (fvalbind
       (clause
         (lhs
           (identifier_pattern
             (qualified_identifier
-              (identifier)))
+              (type_identifier)))
           (identifier_pattern
             (qualified_identifier
-              (identifier))))
+              (type_identifier))))
         (rhs
           (identifier_expression
             (qualified_identifier
-              (identifier)))))))
+              (type_identifier)))))))
   (function_declaration
     (fvalbind
       (clause
         (lhs
           (identifier_pattern
             (qualified_identifier
-              (identifier)))
+              (type_identifier)))
           (identifier_pattern
             (qualified_identifier
-              (identifier))))
+              (type_identifier))))
         (rhs
           (identifier_expression
             (qualified_identifier
-              (identifier))))))))
+              (type_identifier))))))))
 
 =================
 Sequential (datatype)
@@ -794,11 +787,11 @@ datatype x = x
       (lhs
         (identifier_pattern
           (qualified_identifier
-            (identifier))))
+            (type_identifier))))
       (rhs
         (identifier_expression
           (qualified_identifier
-            (identifier))))))
+            (type_identifier))))))
   (datatype_declaration
     (datbind
       (type_identifier)
@@ -818,11 +811,11 @@ abstype x = x with val x = y val x = y end
       (lhs
         (identifier_pattern
           (qualified_identifier
-            (identifier))))
+            (type_identifier))))
       (rhs
         (identifier_expression
           (qualified_identifier
-            (identifier))))))
+            (type_identifier))))))
   (abstype_declaration
     (datbind
       (type_identifier)
@@ -833,21 +826,21 @@ abstype x = x with val x = y val x = y end
         (lhs
           (identifier_pattern
             (qualified_identifier
-              (identifier))))
+              (type_identifier))))
         (rhs
           (identifier_expression
             (qualified_identifier
-              (identifier))))))
+              (type_identifier))))))
     (value_declaration
       (valbind
         (lhs
           (identifier_pattern
             (qualified_identifier
-              (identifier))))
+              (type_identifier))))
         (rhs
           (identifier_expression
             (qualified_identifier
-              (identifier))))))))
+              (type_identifier))))))))
 
 =================
 Sequential (abstype)
@@ -863,11 +856,11 @@ exception B
       (lhs
         (identifier_pattern
           (qualified_identifier
-            (identifier))))
+            (type_identifier))))
       (rhs
         (identifier_expression
           (qualified_identifier
-            (identifier))))))
+            (type_identifier))))))
   (exception_declaration
     (exbind
       (identifier)))
@@ -888,11 +881,11 @@ local in end
       (lhs
         (identifier_pattern
           (qualified_identifier
-            (identifier))))
+            (type_identifier))))
       (rhs
         (identifier_expression
           (qualified_identifier
-            (identifier))))))
+            (type_identifier))))))
   (structure_local_declaration))
 
 =================
@@ -908,11 +901,11 @@ local in end
       (lhs
         (identifier_pattern
           (qualified_identifier
-            (identifier))))
+            (type_identifier))))
       (rhs
         (identifier_expression
           (qualified_identifier
-            (identifier))))))
+            (type_identifier))))))
   (structure_local_declaration))
 
 =================
@@ -929,11 +922,11 @@ open y
       (lhs
         (identifier_pattern
           (qualified_identifier
-            (identifier))))
+            (type_identifier))))
       (rhs
         (identifier_expression
           (qualified_identifier
-            (identifier))))))
+            (type_identifier))))))
   (open_declaration
     (qualified_structure_identifier
       (structure_identifier)))
@@ -955,11 +948,11 @@ infixr y
       (lhs
         (identifier_pattern
           (qualified_identifier
-            (identifier))))
+            (type_identifier))))
       (rhs
         (identifier_expression
           (qualified_identifier
-            (identifier))))))
+            (type_identifier))))))
   (infixr_declaration
     (identifier))
   (infixr_declaration
@@ -979,11 +972,11 @@ nonfix y
       (lhs
         (identifier_pattern
           (qualified_identifier
-            (identifier))))
+            (type_identifier))))
       (rhs
         (identifier_expression
           (qualified_identifier
-            (identifier))))))
+            (type_identifier))))))
   (nonfix_declaration
     (identifier))
   (nonfix_declaration

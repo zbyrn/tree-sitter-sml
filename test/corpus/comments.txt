@@ -129,4 +129,4 @@ val _ = (op *)
         (parenthesized_expression
           (identifier_expression
             (qualified_identifier
-              (identifier))))))))
+              (type_identifier))))))))

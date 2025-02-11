@@ -50,7 +50,7 @@ val _ = #**
       (rhs
         (identifier_expression
           (qualified_identifier
-            (identifier)))))))
+            (type_identifier)))))))
 
 =================
 Not record selector expression 2
@@ -68,7 +68,7 @@ val _ = ###
       (rhs
         (identifier_expression
           (qualified_identifier
-            (identifier)))))))
+            (type_identifier)))))))
 
 =================
 Unit 1
@@ -136,10 +136,10 @@ val _ = (x, y)
         (tuple_expression
           (identifier_expression
             (qualified_identifier
-              (identifier)))
+              (type_identifier)))
           (identifier_expression
             (qualified_identifier
-              (identifier))))))))
+              (type_identifier))))))))
 
 =================
 List
@@ -177,10 +177,10 @@ val _ = (a;b)
         (sequence_expression
           (identifier_expression
             (qualified_identifier
-              (identifier)))
+              (type_identifier)))
           (identifier_expression
             (qualified_identifier
-              (identifier))))))))
+              (type_identifier))))))))
 
 =================
 Invalid sequence
@@ -216,12 +216,12 @@ val _ = (a (b andalso c))
           (application_expression
             (identifier_expression
               (qualified_identifier
-                (identifier)))
+                (type_identifier)))
             (parenthesized_expression
               (conjunction_expression
                 (identifier_expression
                   (qualified_identifier
-                    (identifier)))
+                    (type_identifier)))
                 (identifier_expression
                   (qualified_identifier
-                    (identifier)))))))))))
+                    (type_identifier)))))))))))
