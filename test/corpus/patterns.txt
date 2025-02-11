@@ -195,7 +195,7 @@ val op = = 3
         (integer_literal)))))
 
 ===================
-Identifier pattern 5
+Identifier pattern 6
 ===================
 
 val * = 3
@@ -213,7 +213,7 @@ val * = 3
         (integer_literal)))))
 
 ===================
-Identifier pattern 6
+Identifier pattern 7
 ===================
 
 val A.= = 3
@@ -232,7 +232,7 @@ val A.= = 3
         (integer_literal)))))
 
 ===================
-Identifier pattern 7
+Identifier pattern 8
 ===================
 
 val op A.= = 3
