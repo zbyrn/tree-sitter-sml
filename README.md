@@ -1,6 +1,6 @@
 # tree-sitter-sml
 
-[![CI][ci]](https://github.com/zbyrn/tree-sitter-sml/actions/workflows/ci.yml)
+![CI](https://github.com/zbyrn/tree-sitter-sml/actions/workflows/ci.yml/badge.svg)
 
 Standard ML grammar for [tree-sitter].
 
