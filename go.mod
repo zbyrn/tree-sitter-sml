@@ -1,4 +1,4 @@
-module github.com/zbyrn/tree-sitter-sml
+module github.com/tree-sitter/tree-sitter-sml
 
 go 1.22
 

@@ -15,8 +15,8 @@ let package = Package(
             dependencies: [],
             path: ".",
             sources: [
-                "grammars/sml/src/parser.c",
-                "grammars/sml/src/scanner.c",
+                "src/parser.c",
+                "src/scanner.c",
             ],
             resources: [
                 .copy("queries")

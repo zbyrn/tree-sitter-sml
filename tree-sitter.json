@@ -4,7 +4,7 @@
       "name": "sml",
       "camelcase": "SML",
       "scope": "source.sml",
-      "path": "grammars/sml",
+      "path": ".",
       "file-types": [
         "sml", "sig", "fun"
       ],

@@ -10,8 +10,8 @@
       ],
       "sources": [
         "bindings/node/binding.cc",
-        "grammars/sml/src/parser.c",
-        "grammars/sml/src/scanner.c",
+        "src/parser.c",
+        "src/scanner.c",
       ],
       "conditions": [
         ["OS!='win'", {

@@ -2,12 +2,14 @@ name: Fuzz Parser
 
 on:
   push:
-    branches: [master]
+    branches: [main]
     paths:
-      - grammars/sml/src/scanner.c
+      - src/scanner.c
+      - src/parser.c
   pull_request:
     paths:
-      - grammars/ocaml/src/scanner.c
+      - src/scanner.c
+      - src/parser.c
 
 jobs:
   fuzz:

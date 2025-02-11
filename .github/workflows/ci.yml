@@ -1,37 +1,6 @@
 name: CI
 
-on:
-  push:
-    branches: [main]
-    paths:
-      - grammars/**
-      - test/**
-      - bindings/**
-      - examples/**
-      - binding.gyp
-      - CMakeLists.txt
-      - Cargo.toml
-      - Package.swift
-      - go.mod
-      - package.json
-      - pyproject.toml
-      - setup.py
-      - tree-sitter.json
-  pull_request:
-    paths:
-      - grammars/**
-      - test/**
-      - bindings/**
-      - examples/**
-      - binding.gyp
-      - CMakeLists.txt
-      - Cargo.toml
-      - Package.swift
-      - go.mod
-      - package.json
-      - pyproject.toml
-      - setup.py
-      - tree-sitter.json
+on: [push, pull_request]
 
 concurrency:
   group: ${{github.workflow}}-${{github.ref}}
