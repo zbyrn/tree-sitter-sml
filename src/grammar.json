@@ -2320,8 +2320,13 @@
           ]
         },
         {
-          "type": "SYMBOL",
-          "name": "type_identifier"
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "type_identifier"
+          },
+          "named": true,
+          "value": "lhs"
         },
         {
           "type": "STRING",
@@ -3644,6 +3649,18 @@
         {
           "type": "SYMBOL",
           "name": "_datdescs"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "withtype"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },

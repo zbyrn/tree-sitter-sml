@@ -792,6 +792,10 @@
         {
           "type": "datdesc",
           "named": true
+        },
+        {
+          "type": "withtype",
+          "named": true
         }
       ]
     }
@@ -809,11 +813,11 @@
           "named": true
         },
         {
-          "type": "replication",
+          "type": "lhs",
           "named": true
         },
         {
-          "type": "type_identifier",
+          "type": "replication",
           "named": true
         },
         {

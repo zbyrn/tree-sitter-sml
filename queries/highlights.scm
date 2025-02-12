@@ -2,10 +2,17 @@
 ;--------------
 
 ; Generic variables
-(identifier_expression (qualified_identifier [(alphanum_identifier) (symbolic_identifier)] @variable))
+(
+ (identifier_expression (qualified_identifier [(alphanum_identifier) (symbolic_identifier)] @variable))
+ (#not-match? @variable "^[A-Z]")
+)
 
 ; Datatype constructors
 (constructor . [(alphanum_identifier) (symbolic_identifier)] @constructor)
+(condesc . [(alphanum_identifier) (symbolic_identifier)] @constructor)
+
+(exbind . [(alphanum_identifier) (symbolic_identifier)] @constructor)
+(exdesc [(alphanum_identifier) (symbolic_identifier)] @constructor)
 
 ; Probably datatype constructor
 (
@@ -59,14 +66,14 @@
 ; Types
 ;----------------
 
-(type_identifier) @type
+(type_identifier (alphanum_identifier) @type)
 
 (
- (type_identifier) @type.builtin
+ (type_identifier (alphanum_identifier) @type.builtin)
  (#match? @type.builtin "^(unit|int|word|real|char|string|substring|exn|array|vector|ref|bool|option|order|list)$")
 )
 
-(tyvar) @label
+(tyvar) @attribute
 
 ; Punctuation
 ;--------------
@@ -105,9 +112,8 @@
  (identifier_expression (qualified_identifier [(alphanum_identifier) (symbolic_identifier)] @function.builtin))
  (#match? @function.builtin
     "^(div|mod|before|\\*|\\+|^|::|\\@|\\=|<>|>|>=|<|<=|:=|o)$")
+ (#set! priority 101)
 )
-
-
 
 ; Constants
 ;--------------
@@ -130,7 +136,9 @@
 
 (char_literal) @character
 
-(unit_expression) @constant.builtin
+; Set priority over brackets
+((unit_expression) @constant.builtin (#set! priority 101))
+((unit_pattern) @constant.builtin (#set! priority 101))
 
 ; Comments
 ;--------------

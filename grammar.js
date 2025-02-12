@@ -533,7 +533,7 @@ module.exports = grammar({
     ),
     datbind: $ => seq(
       optional($.tyvarseq),
-      $.type_identifier,
+      alias($.type_identifier, $.lhs),
       "=",
       sep1($._kw_bar, $._con_or_replication_bind)
     ),
@@ -800,7 +800,9 @@ module.exports = grammar({
     ),
 
     datatype_spec: $ => seq(
-      "datatype", $._datdescs
+      "datatype",
+      $._datdescs,
+      optional($.withtype)
     ),
     datdesc: $ => seq(
       optional($.tyvarseq),

@@ -479,7 +479,7 @@ datatype bool = true | false
 (source_file
   (datatype_declaration
     (datbind
-      (type_identifier
+      (lhs
         (alphanum_identifier))
       (constructor
         (alphanum_identifier))
@@ -499,7 +499,7 @@ datatype 'a list = nil | op:: of 'a * 'a list
     (datbind
       (tyvarseq
         (tyvar))
-      (type_identifier
+      (lhs
         (alphanum_identifier))
       (constructor
         (alphanum_identifier))
@@ -524,14 +524,14 @@ datatype t1 = A | B and t2 = C | D
 (source_file
   (datatype_declaration
     (datbind
-      (type_identifier
+      (lhs
         (alphanum_identifier))
       (constructor
         (alphanum_identifier))
       (constructor
         (alphanum_identifier)))
     (datbind
-      (type_identifier
+      (lhs
         (alphanum_identifier))
       (constructor
         (alphanum_identifier))
@@ -549,7 +549,7 @@ abstype t1 = A with val x = 3 end
 (source_file
   (abstype_declaration
     (datbind
-      (type_identifier
+      (lhs
         (alphanum_identifier))
       (constructor
         (alphanum_identifier)))
@@ -846,7 +846,7 @@ datatype x = x
               (alphanum_identifier)))))))
   (datatype_declaration
     (datbind
-      (type_identifier
+      (lhs
         (alphanum_identifier))
       (constructor
         (alphanum_identifier)))))
@@ -872,7 +872,7 @@ abstype x = x with val x = y val x = y end
               (alphanum_identifier)))))))
   (abstype_declaration
     (datbind
-      (type_identifier
+      (lhs
         (alphanum_identifier))
       (constructor
         (alphanum_identifier)))
