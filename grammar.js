@@ -453,7 +453,7 @@ module.exports = grammar({
 
     // longtycon
     qualified_type_identifier: $ => seq(
-      repeat(seq(alias($._alphanum_identifier, $.structure_identifier), ".")),
+      repeat(seq($.structure_identifier, ".")),
       $.type_identifier
     ),
 

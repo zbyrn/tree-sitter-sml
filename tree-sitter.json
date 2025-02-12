@@ -8,6 +8,7 @@
       "file-types": [
         "sml", "sig", "fun"
       ],
+      "highlights": "queries/highlights.scm",
       "injection-regex": "^sml$"
     }
   ],
