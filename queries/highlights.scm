@@ -26,26 +26,26 @@
 [(structure_identifier) (functor_identifier) (signature_identifier)] @module
 
 ; Since the parser doesn't know about infix operators, this is only a heuristic.
-; Disable the following if the false positive rate is too high.
+; Disabled because the false positive rate is too high.
 
 ; Highlight the first, unqualified identifier.
-(fvalbind (clause (lhs .
-  (identifier_pattern (qualified_identifier [(alphanum_identifier) (symbolic_identifier)])) @function
-  (_))))
+;(fvalbind (clause (lhs .
+;  (identifier_pattern (qualified_identifier [(alphanum_identifier) (symbolic_identifier)])) @function
+;  (_))))
 
 ; If the first symbol is a application pattern, highlight the middle.
-(fvalbind (clause (lhs .
-  (parenthesized_pattern
-    (application_pattern .
-      (_) .
-      (identifier_pattern (qualified_identifier [(alphanum_identifier) (symbolic_identifier)])) @function .
-      (_)))
-  (_))))
+;(fvalbind (clause (lhs .
+;  (parenthesized_pattern
+;    (application_pattern .
+;      (_) .
+;      (identifier_pattern (qualified_identifier [(alphanum_identifier) (symbolic_identifier)])) @function .
+;      (_)))
+;  (_))))
 
 ; Highlight f in val f = fn => _ syntax
-(valbind
-  (lhs (identifier_pattern (qualified_identifier [(alphanum_identifier) (symbolic_identifier)]) @function))
-  (rhs (function_expression)))
+;(valbind
+;  (lhs (identifier_pattern (qualified_identifier [(alphanum_identifier) (symbolic_identifier)]) @function))
+;  (rhs (function_expression)))
 
 ; Highlight selectors
 (record_row [(int_label) (identifier_label)] @property)
@@ -71,7 +71,9 @@
 ; Punctuation
 ;--------------
 
-[ "." "," ":" ";" "|" "=" "=>" "->" ":>" (wildcard_row) ] @punctuation.delimiter
+[ "." "," ":" ";" "|" "=" "=>" "->" ":>" ] @punctuation.delimiter
+
+[(wildcard) (wildcard_row)] @variable.parameter.builtin
 
 [ "(" ")" "[" "#[" "]" "{" "}" ] @punctuation.bracket
 
@@ -79,11 +81,18 @@
 ; Keywords
 ;--------------
 
-[ "abstype" "and" "andalso" "as" "case" "datatype" "do" "end"
-  "exception" "fn" "fun" "handle" "in" "infix" "infixr" "let" "local"
-  "nonfix" "of" "op" "orelse" "raise" (rec) "type" "val" "with"
-  "withtype" "while" "eqtype" "functor" "sharing" "sig" "signature"
+[ "and" "as" "case" "do" "end"
+  "in" "infix" "infixr" "let" "local"
+  "nonfix" "of" "op" "val" "with"
+  "functor" "sharing" "sig" "signature"
   "struct" "structure" "where" ] @keyword
+
+[ "fn" "fun" ] @keyword.function
+[ "andalso" "orelse" ] @keyword.operator
+[ "abstype" "datatype" "type" "eqtype" "withtype" ] @keyword.type
+[ (rec) ] @keyword.modifier
+[ "while" "do" ] @keyword.repeat
+[ "exception" "raise" "handle" ] @keyword.exception
 
 [ "if" "then" "else" ] @keyword.conditional
 

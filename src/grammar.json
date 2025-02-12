@@ -696,8 +696,13 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "SYMBOL",
-              "name": "_local_level_declarations"
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "_local_level_declarations"
+              },
+              "named": true,
+              "value": "local"
             },
             {
               "type": "BLANK"
@@ -2496,8 +2501,13 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "SYMBOL",
-              "name": "_local_level_declarations"
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "_local_level_declarations"
+              },
+              "named": true,
+              "value": "local"
             },
             {
               "type": "BLANK"

@@ -242,7 +242,7 @@ module.exports = grammar({
     // local declaration, n >= 1
     let_expression: $ => seq(
       "let",
-      optional($._local_level_declarations),
+      optional(alias($._local_level_declarations, $.local)),
       "in",
       sep1(";", $._expression),
       "end"
@@ -561,7 +561,7 @@ module.exports = grammar({
       $._datbinds,
       optional($.withtype),
       "with",
-      optional($._local_level_declarations),
+      optional(alias($._local_level_declarations, $.local)),
       "end"
     ),
 

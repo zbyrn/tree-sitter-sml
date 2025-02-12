@@ -438,11 +438,11 @@
       "required": true,
       "types": [
         {
-          "type": "_local_level_declaration",
+          "type": "datbind",
           "named": true
         },
         {
-          "type": "datbind",
+          "type": "local",
           "named": true
         },
         {
@@ -1331,7 +1331,7 @@
           "named": true
         },
         {
-          "type": "_local_level_declaration",
+          "type": "local",
           "named": true
         }
       ]

@@ -553,15 +553,16 @@ abstype t1 = A with val x = 3 end
         (alphanum_identifier))
       (constructor
         (alphanum_identifier)))
-    (value_declaration
-      (valbind
-        (lhs
-          (identifier_pattern
-            (qualified_identifier
-              (alphanum_identifier))))
-        (rhs
-          (atomic_application_expression
-            (integer_literal)))))))
+    (local
+      (value_declaration
+        (valbind
+          (lhs
+            (identifier_pattern
+              (qualified_identifier
+                (alphanum_identifier))))
+          (rhs
+            (atomic_application_expression
+              (integer_literal))))))))
 
 =================
 Exception dec
@@ -875,28 +876,29 @@ abstype x = x with val x = y val x = y end
         (alphanum_identifier))
       (constructor
         (alphanum_identifier)))
-    (value_declaration
-      (valbind
-        (lhs
-          (identifier_pattern
-            (qualified_identifier
-              (alphanum_identifier))))
-        (rhs
-          (atomic_application_expression
-            (identifier_expression
+    (local
+      (value_declaration
+        (valbind
+          (lhs
+            (identifier_pattern
               (qualified_identifier
-                (alphanum_identifier)))))))
-    (value_declaration
-      (valbind
-        (lhs
-          (identifier_pattern
-            (qualified_identifier
-              (alphanum_identifier))))
-        (rhs
-          (atomic_application_expression
-            (identifier_expression
+                (alphanum_identifier))))
+          (rhs
+            (atomic_application_expression
+              (identifier_expression
+                (qualified_identifier
+                  (alphanum_identifier)))))))
+      (value_declaration
+        (valbind
+          (lhs
+            (identifier_pattern
               (qualified_identifier
-                (alphanum_identifier)))))))))
+                (alphanum_identifier))))
+          (rhs
+            (atomic_application_expression
+              (identifier_expression
+                (qualified_identifier
+                  (alphanum_identifier))))))))))
 
 =================
 Sequential (abstype)
