@@ -47,7 +47,12 @@
   (lhs (identifier_pattern (qualified_identifier [(alphanum_identifier) (symbolic_identifier)]) @function))
   (rhs (function_expression)))
 
-[(int_label) (identifier_label)] @property
+; Highlight selectors
+(record_row [(int_label) (identifier_label)] @property)
+
+(pattern_row [(int_label) (identifier_label)] @property)
+
+(type_row [(int_label) (identifier_label)] @property)
 
 (record_selector_expression) @function.builtin
 
@@ -88,9 +93,9 @@
 ; Operators
 ;--------------
 (
- (identifier_expression (qualified_identifier [(alphanum_identifier) (symbolic_identifier)] @operator))
- (#match? @operator
-    "^(div|mod|before|\\*|\\+|^|::|@|=|<>|>|>=|<|<=|:=|o)$")
+ (identifier_expression (qualified_identifier [(alphanum_identifier) (symbolic_identifier)] @function.builtin))
+ (#match? @function.builtin
+    "^(div|mod|before|\\*|\\+|^|::|\\@|\\=|<>|>|>=|<|<=|:=|o)$")
 )
 
 
