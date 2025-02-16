@@ -61,10 +61,13 @@
 
 (type_row [(int_label) (identifier_label)] @property)
 
-(record_selector_expression) @function.builtin
+(record_selector_expression) @property
 
 ; Types
 ;----------------
+
+(datbind (lhs [(alphanum_identifier) (symbolic_identifier)] @type))
+(tybind  (lhs [(alphanum_identifier) (symbolic_identifier)] @type))
 
 (type_identifier (alphanum_identifier) @type)
 
@@ -73,7 +76,7 @@
  (#match? @type.builtin "^(unit|int|word|real|char|string|substring|exn|array|vector|ref|bool|option|order|list)$")
 )
 
-(tyvar) @attribute
+(tyvar) @variable.parameter
 
 ; Punctuation
 ;--------------
@@ -111,7 +114,7 @@
 (
  (identifier_expression (qualified_identifier [(alphanum_identifier) (symbolic_identifier)] @function.builtin))
  (#match? @function.builtin
-    "^(div|mod|before|\\*|\\+|^|::|\\@|\\=|<>|>|>=|<|<=|:=|o)$")
+    "^(div|mod|before|\\*|\\+|^|::|\\@|\\=|\\<\\>|\\>|\\>\\=|\\<|\\<\\=|:\\=|o|!)$")
  (#set! priority 101)
 )
 
